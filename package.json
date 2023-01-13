@@ -10,7 +10,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint packages/**/src",
-    "build": "rimraf packages/*/{dist,tsconfig.tsbuildinfo} && tsc --build && node scripts/build.js",
+    "build": "tsc --build && node scripts/build.js",
     "test": "vitest",
     "install": "node scripts/tsconfig.js"
   },
@@ -26,7 +26,6 @@
     "esbuild": "^0.16.17",
     "eslint": "^8.31.0",
     "jsonc-parser": "^3.2.0",
-    "rimraf": "^4.0.4",
     "typescript": "^4.9.4",
     "vitest": "^0.27.1"
   }
