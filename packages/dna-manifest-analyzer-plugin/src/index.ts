@@ -4,7 +4,7 @@ import { memberDenyList } from './memberDenyList';
 import { propertyDecorator } from './propertyDecorator';
 import { staticProperties } from './staticProperties';
 
-export default () => [
+export const dnaPlugin = () => [
     customElementDecorator(),
     methodDenyList(),
     memberDenyList(),

@@ -1,16 +1,14 @@
-import { global } from '@storybook/global';
+import { window } from '@chialab/dna';
 import { logger } from '@storybook/client-logger';
 import { dedent } from 'ts-dedent';
 import { type Package, type CustomElement, type PropertyLike } from 'custom-elements-manifest';
 
-const { window: globalWindow } = global;
-
 export function getCustomElements() {
-    return globalWindow.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;
+    return window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;
 }
 
 export function setCustomElementsManifest(customElements: Package) {
-    globalWindow.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__ = customElements;
+    window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__ = customElements;
 }
 
 export function isValidComponent(tagName: string) {

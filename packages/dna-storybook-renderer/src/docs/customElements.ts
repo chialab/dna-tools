@@ -1,6 +1,6 @@
 import { type Package, type CustomElement, type Attribute, type ClassMember, type PropertyLike } from 'custom-elements-manifest';
 import { getCustomElements, getMetaData } from '../framework-api';
-import { type PropDef, type PropType } from '@storybook/docs-tools';
+import { type PropDef } from '@storybook/docs-tools';
 
 function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string) {
     return data.reduce((acc: { [key: string]: PropDef }, item) => {
@@ -11,26 +11,24 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             return acc;
         }
 
-        const type: PropType = category === 'properties' ? {
-            summary: (item as PropertyLike).type?.text || 'unknown',
-        } : {
-            summary: 'void',
-        };
-        acc[`${category} - ${item.name}`] = {
+        const entry: PropDef = {
             name: item.name,
             required: false,
             description: item.description,
-            type,
-            // table: {
-            //     category,
-            //     type: {
-            //         summary: item.text ?? item.type,
-            //     },
-            //     defaultValue: {
-            //         summary: item.default !== undefined ? item.default : item.defaultValue,
-            //     },
-            // },
+            type: category === 'properties' ? {
+                summary: (item as PropertyLike).type?.text || 'unknown',
+            } : {
+                summary: 'void',
+            },
         };
+        const defaultValue = (item as PropertyLike).default;
+        if (typeof defaultValue === 'string') {
+            entry.defaultValue = {
+                summary: defaultValue,
+            };
+        }
+
+        acc[`${category} - ${item.name}`] = entry;
         return acc;
     }, {} as { [key: string]: PropDef });
 }

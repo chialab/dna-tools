@@ -67,9 +67,15 @@ export function getDecorator(ts: TypeScriptModule, node: Node, name: string): De
         return null;
     }
 
-    return decorators.find((decorator) =>
-        decorator.expression?.getText() === name || decorator?.getText() === name
-    ) ?? null;
+    return decorators.find((decorator) => {
+        if (!decorator) {
+            return;
+        }
+        if (ts.isCallExpression(decorator.expression)) {
+            return decorator.expression.expression.getText() === name;
+        }
+        return decorator.expression?.getText() === name;
+    }) ?? null;
 }
 
 /**

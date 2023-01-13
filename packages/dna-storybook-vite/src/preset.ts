@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/builder-vite';
-import dnaPlugin from '@chialab/dna-manifest-analyzer-plugin';
+import { dnaPlugin } from '@chialab/dna-manifest-analyzer-plugin';
+import { mergeConfig } from 'vite';
 import customElementsManifestPlugin from './plugins/CustomElementsManifest';
 
 export const core: StorybookConfig['core'] = {
@@ -7,17 +8,23 @@ export const core: StorybookConfig['core'] = {
     renderer: '@chialab/dna-storybook-renderer',
 };
 
-
-export const viteFinal: StorybookConfig['viteFinal'] = async (config) => {
-    const { plugins = [] } = config;
-
-    // Add custom elements manifest plugin
-    plugins.push(customElementsManifestPlugin({
-        renderer: '@chialab/dna-storybook-renderer',
+export const viteFinal: StorybookConfig['viteFinal'] = async (config) => (
+    mergeConfig(config, {
+        optimizeDeps: {
+            exclude: ['@chialab/dna-storybook-renderer'],
+            include: [
+                '@storybook/docs-tools',
+                '@storybook/preview-api',
+                'ts-dedent',
+            ],
+        },
         plugins: [
-            dnaPlugin(),
+            customElementsManifestPlugin({
+                renderer: '@chialab/dna-storybook-renderer',
+                plugins: [
+                    ...dnaPlugin(),
+                ],
+            }),
         ],
-    }));
-
-    return config;
-};
+    })
+);

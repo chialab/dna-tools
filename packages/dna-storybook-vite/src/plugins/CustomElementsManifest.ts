@@ -1,9 +1,15 @@
 import type { Plugin } from 'vite';
 import type { Plugin as AnalyzerPlugin } from '@custom-elements-manifest/analyzer';
+import type { create as createFn } from '@custom-elements-manifest/analyzer/src/create';
+import type * as tsModule from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { createFilter } from '@rollup/pluginutils';
-import ts from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import { create } from '@custom-elements-manifest/analyzer/src/create';
+import { ts, create } from '@custom-elements-manifest/analyzer/index.js';
 import MagicString from 'magic-string';
+
+declare module '@custom-elements-manifest/analyzer/index.js' {
+    export const ts: typeof tsModule;
+    export const create: typeof createFn;
+}
 
 export interface CustomElementsManifestOptions {
     include?: string | RegExp | string[] | RegExp[];
@@ -21,6 +27,8 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
     return {
         name: 'vite:storybook-cem',
 
+        enforce: 'pre',
+
         transform(code: string, id: string) {
             if (!filter(id)) {
                 return;
@@ -31,8 +39,8 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
             ];
 
             const customElementsManifest = create({
-                ...options,
                 modules,
+                plugins: options.plugins,
             });
             if (!customElementsManifest.modules) {
                 return;
@@ -71,7 +79,7 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 });
 
             const output = new MagicString(code);
-            output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}');\n`);
+            output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);
             output.append(`\n;(function() {
     const { getCustomElements, setCustomElementsManifest } = __STORYBOOK_WEB_COMPONENTS__;
     if (!setCustomElementsManifest) {

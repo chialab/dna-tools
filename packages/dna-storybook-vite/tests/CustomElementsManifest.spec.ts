@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { customElementsManifestPlugin } from '@chialab/dna-storybook-vite';
-import dnaPlugin from '@chialab/dna-manifest-analyzer-plugin';
+import { dnaPlugin } from '@chialab/dna-manifest-analyzer-plugin';
 
 describe('generate custom elements manifest', () => {
     test('DNA module', async () => {
@@ -18,7 +18,7 @@ export class Test extends Component {
 `, 'Test.ts');
 
         expect(result).toBeDefined();
-        expect(result?.code).toEqual(`import * as __STORYBOOK_WEB_COMPONENTS__ from '@chialab/dna-storybook-renderer');
+        expect(result?.code).toEqual(`import * as __STORYBOOK_WEB_COMPONENTS__ from '@chialab/dna-storybook-renderer';
 import { customElement, Component } from '@chialab/dna';
 
 @customElement('dna-test')
@@ -43,6 +43,6 @@ export class Test extends Component {
             ...(CUSTOM_ELEMENT_JSON.modules || []),
         ],
     });
-}())`);
+}());`);
     });
 });
