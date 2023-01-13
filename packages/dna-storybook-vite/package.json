@@ -2,6 +2,7 @@
     "name": "@chialab/dna-storybook-vite",
     "version": "7.0.0-beta.25",
     "description": "Storybook for DNA and Vite.",
+    "type": "module",
     "keywords": [
         "storybook"
     ],
@@ -17,7 +18,6 @@
     "license": "MIT",
     "exports": {
         ".": {
-            "node": "./dist/index.js",
             "require": "./dist/index.js",
             "import": "./dist/index.mjs",
             "types": "./dist/index.d.ts"
@@ -32,6 +32,9 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "scripts": {
+        "test": "vitest"
+    },
     "files": [
         "dist/**/*",
         "template/**/*",
@@ -40,8 +43,19 @@
         "*.d.ts"
     ],
     "dependencies": {
+        "@chialab/dna-manifest-analyzer-plugin": "^3.0.0",
         "@chialab/dna-storybook-renderer": "^7.0.0-beta.25",
-        "@storybook/builder-vite": "^7.0.0-beta.25"
+        "@custom-elements-manifest/analyzer": "^0.6.8",
+        "@rollup/pluginutils": "^5.0.2",
+        "@storybook/builder-vite": "^7.0.0-beta.25",
+        "magic-string": "^0.27.0"
+    },
+    "peerDependencies": {
+        "vite": "^4.0.0"
+    },
+    "devDependencies": {
+        "vite": "^4.0.0",
+        "vitest": "^0.27.1"
     },
     "engines": {
         "node": ">=16.0.0"
