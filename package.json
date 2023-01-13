@@ -1,0 +1,15 @@
+{
+  "name": "@chialab/dna-tools",
+  "version": "3.0.0",
+  "type": "module",
+  "description": "A set of libraries for DNA integrations with other tools.",
+  "main": "index.js",
+  "repository": "https://github.com/chialab/dna-tools",
+  "author": "Chialab <dev@chialab.io> (https://www.chialab.it)",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.3.1"
+}
