@@ -1,18 +1,29 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": ".",
-        "lib": [
-            "esnext"
-        ]
-    },
-    "exclude": ["dist", "**/dist", "node_modules", "**/node_modules", "**/setup-jest.ts", "scripts"],
-    "include": [
-        "src/**/*"
-    ],
-    "references": [
-      {
-        "path": "../dna-storybook-renderer"
-      }
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "declarationDir": "./dist",
+    "lib": [
+      "esnext"
     ]
+  },
+  "exclude": [
+    "dist",
+    "**/dist",
+    "node_modules",
+    "**/node_modules",
+    "scripts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../dna-manifest-analyzer-plugin"
+    },
+    {
+      "path": "../dna-storybook-renderer"
+    }
+  ]
 }

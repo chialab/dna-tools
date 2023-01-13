@@ -32,9 +32,6 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "scripts": {
-        "test": "vitest"
-    },
     "files": [
         "dist/**/*",
         "template/**/*",
@@ -54,8 +51,7 @@
         "vite": "^4.0.0"
     },
     "devDependencies": {
-        "vite": "^4.0.0",
-        "vitest": "^0.27.1"
+        "vite": "^4.0.0"
     },
     "engines": {
         "node": ">=16.0.0"

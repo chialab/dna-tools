@@ -1,7 +1,7 @@
 import type { SyntaxKind, Modifier, Node, Decorator, ObjectLiteralExpression, GetAccessorDeclaration, PropertyDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type { ClassField, Attribute, JavaScriptModule, CustomElement } from 'custom-elements-manifest/schema';
 import type { Context } from '@custom-elements-manifest/analyzer';
-import typescript = require('@custom-elements-manifest/analyzer/node_modules/typescript');
+import type typescript from '@custom-elements-manifest/analyzer/node_modules/typescript';
 
 type TypeScriptModule = typeof typescript & Partial<{
     canHaveModifiers(node: Node): boolean;
@@ -18,13 +18,13 @@ type TypeScriptModule = typeof typescript & Partial<{
  * @returns True if the node has the keyword.
  */
 export function hasKeyword(ts: TypeScriptModule, node: Node, keyword: SyntaxKind) {
-    if (typeof ts.getModifiers !== 'function') {
+    if (typeof ts.getModifiers !== 'function' || typeof ts.canHaveModifiers !== 'function') {
         return node.modifiers?.some((mod) => mod.kind === keyword) ?? false;
     }
     if (!ts.canHaveModifiers(node)) {
         return false;
     }
-    return ts.getModifiers(node).some((mod) => mod.kind === keyword) ?? false;
+    return ts.getModifiers(node)?.some((mod) => mod.kind === keyword) ?? false;
 }
 
 /**
@@ -59,7 +59,7 @@ export function getDecoratorArguments(ts: TypeScriptModule, decorator: Decorator
  * @returns The decorator AST node.
  */
 export function getDecorator(ts: TypeScriptModule, node: Node, name: string): Decorator | null {
-    const decorators = typeof ts.getDecorators === 'function' ?
+    const decorators = (typeof ts.getDecorators === 'function' && typeof ts.canHaveDecorators === 'function') ?
         (ts.canHaveDecorators(node) && ts.getDecorators(node)) :
         node.decorators;
 

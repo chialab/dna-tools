@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite';
 import type { Plugin as AnalyzerPlugin } from '@custom-elements-manifest/analyzer';
-import type { create as createFn } from '@custom-elements-manifest/analyzer/src/create';
+import type { Package, CustomElementDeclaration } from 'custom-elements-manifest/schema';
 import type * as tsModule from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { createFilter } from '@rollup/pluginutils';
 import { ts, create } from '@custom-elements-manifest/analyzer/index.js';
@@ -8,7 +8,7 @@ import MagicString from 'magic-string';
 
 declare module '@custom-elements-manifest/analyzer/index.js' {
     export const ts: typeof tsModule;
-    export const create: typeof createFn;
+    export const create: (data: { modules: tsModule.SourceFile[]; plugins?: Plugin[] }) => Package;
 }
 
 export interface CustomElementsManifestOptions {
@@ -47,36 +47,36 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
             }
 
             const declarations = customElementsManifest.modules
-                .filter((mod) => mod.declarations)
-                .reduce((acc, mod) => {
-                    acc.push(...mod.declarations);
-                    return acc;
-                }, []);
+                .map((mod) => mod.declarations ?? [])
+                .flat()
+                .filter((decl) =>
+                    (decl as CustomElementDeclaration).customElement &&
+                    (decl as CustomElementDeclaration).attributes &&
+                    (decl as CustomElementDeclaration).members
+                ) as CustomElementDeclaration[];
 
             if (declarations.length === 0) {
                 return;
             }
 
-            declarations
-                .filter((decl) => decl.customElement && decl.attributes && decl.members)
-                .forEach((decl) => {
-                    decl.attributes.forEach(
-                        (attr) => {
-                            const member = decl.members.find(
-                                /** @param {*} m */
-                                (m) => m.name === attr.fieldName
-                            );
-                            if (!member) {
-                                return member;
-                            }
-
-                            attr.name += ' ';
-                            attr.description = `🔗 **${member.name}**`;
-                            attr.type = undefined;
-                            attr.default = undefined;
+            declarations.forEach((decl) => {
+                decl.attributes?.forEach(
+                    (attr) => {
+                        const member = decl.members?.find(
+                            /** @param {*} m */
+                            (m) => m.name === attr.fieldName
+                        );
+                        if (!member) {
+                            return member;
                         }
-                    );
-                });
+
+                        attr.name += ' ';
+                        attr.description = `🔗 **${member.name}**`;
+                        attr.type = undefined;
+                        attr.default = undefined;
+                    }
+                );
+            });
 
             const output = new MagicString(code);
             output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);

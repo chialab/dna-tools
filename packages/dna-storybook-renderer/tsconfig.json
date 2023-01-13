@@ -1,16 +1,24 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ]
-    },
-    "exclude": ["dist", "**/dist", "node_modules", "**/node_modules", "**/setup-jest.ts", "scripts"],
-    "include": [
-        "src/**/*"
-    ],
-    "references": []
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "declarationDir": "./dist",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "**/dist",
+    "node_modules",
+    "**/node_modules",
+    "scripts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "references": []
 }
