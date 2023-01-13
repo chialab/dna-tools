@@ -1,7 +1,7 @@
 {
-    "name": "@chialab/dna-storybook-renderer",
-    "version": "7.0.0-beta.25",
-    "description": "Storybook DNA renderer.",
+    "name": "@chialab/dna-manifest-analyzer-plugin",
+    "version": "3.0.0",
+    "description": "DNA components plugin for @custom-elements-manifest/analyzer.",
     "keywords": [
         "storybook"
     ],
@@ -12,19 +12,15 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/dna-storybook-renderer/"
+        "directory": "packages/dna-manifest-analyzer-plugin/"
     },
     "license": "MIT",
     "exports": {
         ".": {
+            "node": "./dist/index.js",
             "require": "./dist/index.js",
             "import": "./dist/index.mjs",
             "types": "./dist/index.d.ts"
-        },
-        "./preview": {
-            "require": "./dist/config.js",
-            "import": "./dist/config.mjs",
-            "types": "./dist/config.d.ts"
         },
         "./package.json": "./package.json"
     },
@@ -37,19 +33,8 @@
         "*.js",
         "*.d.ts"
     ],
-    "dependencies": {
-        "@storybook/docs-tools": "^7.0.0-beta.25",
-        "@storybook/preview-api": "^7.0.0-beta.25",
-        "@storybook/types": "^7.0.0-beta.25",
-        "ts-dedent": "^2.0.0"
-    },
     "devDependencies": {
-        "@chialab/dna": "^3.0.0",
-        "@chialab/eslint-config": "^3.3.1",
-        "@types/react": "^18.0.26",
+        "@custom-elements-manifest/analyzer": "^0.6.8",
         "custom-elements-manifest": "^2.0.0"
-    },
-    "peerDependencies": {
-        "@chialab/dna": "^3.0.0"
     }
 }

@@ -1,5 +1,35 @@
 import esbuild from 'esbuild';
 
+// dna-manifest-analyzer-plugin
+
+esbuild.build({
+    entryPoints: [
+        './packages/dna-manifest-analyzer-plugin/src/index.ts',
+    ],
+    target: 'node16',
+    bundle: true,
+    platform: 'node',
+    format: 'cjs',
+    outdir: './packages/dna-manifest-analyzer-plugin/dist',
+    packages: 'external',
+});
+
+esbuild.build({
+    entryPoints: [
+        './packages/dna-manifest-analyzer-plugin/src/index.ts',
+    ],
+    outExtension: {
+        '.js': '.mjs',
+    },
+    target: 'node16',
+    bundle: true,
+    platform: 'node',
+    format: 'esm',
+    outdir: './packages/dna-manifest-analyzer-plugin/dist',
+    packages: 'external',
+});
+
+
 // dna-storybook-renderer
 
 esbuild.build({
