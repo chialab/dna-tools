@@ -14,5 +14,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "include": [],
-    "references": []
+    "references": [
+      {
+        "path": "./packages/dna-storybook-renderer"
+      }
+    ]
 }

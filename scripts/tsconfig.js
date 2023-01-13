@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { Configuration, Project } from '@yarnpkg/core';
 import { modify, applyEdits } from 'jsonc-parser';
 
-const ROOT = resolve(fileURLToPath(import.meta.url), '../../../');
+const ROOT = resolve(fileURLToPath(import.meta.url), '../../');
 const config = Configuration.create(ROOT, ROOT);
 
 Project.find(config, ROOT)
