@@ -9,14 +9,23 @@
         "composite": true,
         "strict": true,
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "isolatedModules": true,
         "skipLibCheck": true,
+        "noImplicitAny": true,
+        "strictBindCallApply": true,
+        "noUnusedLocals": true,
         "forceConsistentCasingInFileNames": true
     },
     "include": [],
     "references": [
       {
         "path": "./packages/dna-storybook-renderer"
+      },
+      {
+        "path": "./packages/dna-storybook-vite"
       }
     ]
 }

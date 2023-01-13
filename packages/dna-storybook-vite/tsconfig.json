@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.json",
+    "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": ".",
         "forceConsistentCasingInFileNames": true,
@@ -15,5 +15,9 @@
     "include": [
         "src/**/*"
     ],
-    "references": []
+    "references": [
+      {
+        "path": "../dna-storybook-renderer"
+      }
+    ]
 }

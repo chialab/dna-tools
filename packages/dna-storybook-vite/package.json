@@ -1,7 +1,7 @@
 {
-    "name": "@chialab/dna-storybook-renderer",
+    "name": "@chialab/dna-storybook-vite",
     "version": "7.0.0-beta.25",
-    "description": "Storybook DNA renderer.",
+    "description": "Storybook for DNA and Vite.",
     "keywords": [
         "storybook"
     ],
@@ -12,19 +12,20 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/dna-storybook-renderer/"
+        "directory": "packages/dna-storybook-vite/"
     },
     "license": "MIT",
     "exports": {
         ".": {
+            "node": "./dist/index.js",
             "require": "./dist/index.js",
             "import": "./dist/index.mjs",
             "types": "./dist/index.d.ts"
         },
-        "./preview": {
-            "require": "./dist/config.js",
-            "import": "./dist/config.mjs",
-            "types": "./dist/config.d.ts"
+        "./preset": {
+            "require": "./dist/preset.js",
+            "import": "./dist/preset.mjs",
+            "types": "./dist/preset.d.ts"
         },
         "./package.json": "./package.json"
     },
@@ -39,18 +40,10 @@
         "*.d.ts"
     ],
     "dependencies": {
-        "@storybook/docs-tools": "^7.0.0-beta.25",
-        "@storybook/preview-api": "^7.0.0-beta.25",
-        "@storybook/types": "^7.0.0-beta.25",
-        "ts-dedent": "^2.0.0"
+        "@chialab/dna-storybook-renderer": "^7.0.0-beta.25",
+        "@storybook/builder-vite": "^7.0.0-beta.25"
     },
-    "devDependencies": {
-        "@chialab/dna": "^3.0.0",
-        "@chialab/eslint-config": "^3.3.1",
-        "@types/react": "^18.0.26",
-        "custom-elements-manifest": "^2.0.0"
-    },
-    "peerDependencies": {
-        "@chialab/dna": "^3.0.0"
+    "engines": {
+        "node": ">=16.0.0"
     }
 }
