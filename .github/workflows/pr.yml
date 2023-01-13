@@ -75,9 +75,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test
+        run: yarn test --coverage
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
-        with:
-          file: coverage/lcov.info

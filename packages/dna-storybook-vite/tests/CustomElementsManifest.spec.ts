@@ -6,10 +6,10 @@ describe('generate custom elements manifest', () => {
     test('DNA module', async () => {
         const plugin = customElementsManifestPlugin({
             renderer: '@chialab/dna-storybook-renderer',
-            plugins: [dnaPlugin()],
+            plugins: [...dnaPlugin()],
         });
 
-        const result = await plugin.transform(`import { customElement, Component } from '@chialab/dna';
+        const result = await (plugin.transform as Function)(`import { customElement, Component } from '@chialab/dna';
 
 @customElement('dna-test')
 export class Test extends Component {
@@ -33,7 +33,7 @@ export class Test extends Component {
         return;
     }
 
-    const CUSTOM_ELEMENT_JSON = {"schemaVersion":"1.0.0","readme":"","modules":[{"kind":"javascript-module","path":"Test.ts","declarations":[{"kind":"class","description":"","name":"Test","members":[{"kind":"field","name":"testProp","type":{"text":"string | undefined"}}],"superclass":{"name":"Component","package":"@chialab/dna"}}],"exports":[{"kind":"js","name":"Test","declaration":{"name":"Test","module":"Test.ts"}}]}]};
+    const CUSTOM_ELEMENT_JSON = {"schemaVersion":"1.0.0","readme":"","modules":[{"kind":"javascript-module","path":"Test.ts","declarations":[{"kind":"class","description":"","name":"Test","members":[{"kind":"field","name":"testProp","type":{"text":"string | undefined"}}],"superclass":{"name":"Component","package":"@chialab/dna"},"tagName":"dna-test","customElement":true}],"exports":[{"kind":"js","name":"Test","declaration":{"name":"Test","module":"Test.ts"}},{"kind":"custom-element-definition","name":"dna-test","declaration":{"name":"Test","module":"Test.ts"}}]}]};
     const CUSTOM_ELEMENTS_JSON = getCustomElements() || {};
     setCustomElementsManifest({
         ...CUSTOM_ELEMENTS_JSON,

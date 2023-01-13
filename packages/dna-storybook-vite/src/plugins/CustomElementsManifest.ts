@@ -42,41 +42,43 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 modules,
                 plugins: options.plugins,
             });
+
             if (!customElementsManifest.modules) {
                 return;
             }
 
             const declarations = customElementsManifest.modules
                 .map((mod) => mod.declarations ?? [])
-                .flat()
-                .filter((decl) =>
-                    (decl as CustomElementDeclaration).customElement &&
-                    (decl as CustomElementDeclaration).attributes &&
-                    (decl as CustomElementDeclaration).members
-                ) as CustomElementDeclaration[];
+                .flat();
 
             if (declarations.length === 0) {
                 return;
             }
 
-            declarations.forEach((decl) => {
-                decl.attributes?.forEach(
-                    (attr) => {
-                        const member = decl.members?.find(
-                            /** @param {*} m */
-                            (m) => m.name === attr.fieldName
-                        );
-                        if (!member) {
-                            return member;
-                        }
+            (declarations
+                .filter((decl) =>
+                    (decl as CustomElementDeclaration).customElement &&
+                    (decl as CustomElementDeclaration).attributes &&
+                    (decl as CustomElementDeclaration).members
+                ) as CustomElementDeclaration[])
+                .forEach((decl) => {
+                    decl.attributes?.forEach(
+                        (attr) => {
+                            const member = decl.members?.find(
+                                /** @param {*} m */
+                                (m) => m.name === attr.fieldName
+                            );
+                            if (!member) {
+                                return member;
+                            }
 
-                        attr.name += ' ';
-                        attr.description = `🔗 **${member.name}**`;
-                        attr.type = undefined;
-                        attr.default = undefined;
-                    }
-                );
-            });
+                            attr.name += ' ';
+                            attr.description = `🔗 **${member.name}**`;
+                            attr.type = undefined;
+                            attr.default = undefined;
+                        }
+                    );
+                });
 
             const output = new MagicString(code);
             output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);
