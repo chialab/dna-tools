@@ -83,14 +83,14 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
             const output = new MagicString(code);
             output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);
             output.append(`\n;(function() {
-    const { getCustomElements, setCustomElementsManifest } = __STORYBOOK_WEB_COMPONENTS__;
+    const { getCustomElementsManifest, setCustomElementsManifest } = __STORYBOOK_WEB_COMPONENTS__;
     if (!setCustomElementsManifest) {
         console.debug('Custom Element Manifest is not supported by this version of Storybook.');
         return;
     }
 
     const CUSTOM_ELEMENT_JSON = ${JSON.stringify(customElementsManifest)};
-    const CUSTOM_ELEMENTS_JSON = getCustomElements() || {};
+    const CUSTOM_ELEMENTS_JSON = getCustomElementsManifest() || {};
     setCustomElementsManifest({
         ...CUSTOM_ELEMENTS_JSON,
         ...CUSTOM_ELEMENT_JSON,

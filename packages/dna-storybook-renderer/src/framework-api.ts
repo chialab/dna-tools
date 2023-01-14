@@ -3,15 +3,15 @@ import { logger } from '@storybook/client-logger';
 import { dedent } from 'ts-dedent';
 import { type Package, type CustomElement, type PropertyLike } from 'custom-elements-manifest';
 
-export function getCustomElements() {
+export function getCustomElementsManifest() {
     return window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;
 }
 
-export function setCustomElementsManifest(customElements: Package) {
-    window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__ = customElements;
+export function setCustomElementsManifest(manifest: Package) {
+    window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__ = manifest;
 }
 
-export function isValidComponent(tagName: string) {
+function isValidTagName(tagName: string) {
     if (!tagName) {
         return false;
     }
@@ -21,12 +21,12 @@ export function isValidComponent(tagName: string) {
     throw new Error('Provided component needs to be a string. e.g. component: "my-element"');
 }
 
-export function isValidMetaData(customElements: Package) {
-    if (!customElements) {
+function isValidManifest(manifest: Package) {
+    if (!manifest) {
         return false;
     }
 
-    if (customElements.modules && Array.isArray(customElements.modules)) {
+    if (manifest.modules && Array.isArray(manifest.modules)) {
         return true;
     }
     throw new Error(dedent`
@@ -35,17 +35,17 @@ export function isValidMetaData(customElements: Package) {
     `);
 }
 
-export const getMetaData = (tagName: string, customElements: Package): (CustomElement & { properties?: PropertyLike[] }) | null => {
-    if (!isValidComponent(tagName) || !isValidMetaData(customElements)) {
+export const getCustomElementDeclaration = (tagName: string, manifest: Package): (CustomElement & { properties?: PropertyLike[] }) | null => {
+    if (!isValidTagName(tagName) || !isValidManifest(manifest)) {
         return null;
     }
 
-    if (!customElements || !customElements.modules) {
+    if (!manifest || !manifest.modules) {
         return null;
     }
 
     let metadata: CustomElement | null = null;
-    customElements.modules.forEach((_module) => {
+    manifest.modules.forEach((_module) => {
         if (!_module || !_module.declarations) {
             return;
         }
@@ -62,3 +62,14 @@ export const getMetaData = (tagName: string, customElements: Package): (CustomEl
 
     return metadata;
 };
+
+export function mergeCustomElementsManifests(manifest1: Package, manifest2: Package) {
+    return {
+        ...manifest1,
+        ...manifest2,
+        modules: [
+            ...(manifest1.modules || []),
+            ...(manifest2.modules || []),
+        ],
+    };
+}

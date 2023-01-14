@@ -27,22 +27,15 @@ export class Test extends Component {
 }
 
 ;(function() {
-    const { getCustomElements, setCustomElementsManifest } = __STORYBOOK_WEB_COMPONENTS__;
+    const { getCustomElementsManifest, setCustomElementsManifest, mergeCustomElementsManifests } = __STORYBOOK_WEB_COMPONENTS__;
     if (!setCustomElementsManifest) {
         console.debug('Custom Element Manifest is not supported by this version of Storybook.');
         return;
     }
 
-    const CUSTOM_ELEMENT_JSON = {"schemaVersion":"1.0.0","readme":"","modules":[{"kind":"javascript-module","path":"Test.ts","declarations":[{"kind":"class","description":"","name":"Test","members":[{"kind":"field","name":"testProp","type":{"text":"string | undefined"}}],"superclass":{"name":"Component","package":"@chialab/dna"},"tagName":"dna-test","customElement":true}],"exports":[{"kind":"js","name":"Test","declaration":{"name":"Test","module":"Test.ts"}},{"kind":"custom-element-definition","name":"dna-test","declaration":{"name":"Test","module":"Test.ts"}}]}]};
-    const CUSTOM_ELEMENTS_JSON = getCustomElements() || {};
-    setCustomElementsManifest({
-        ...CUSTOM_ELEMENTS_JSON,
-        ...CUSTOM_ELEMENT_JSON,
-        modules: [
-            ...(CUSTOM_ELEMENTS_JSON.modules || []),
-            ...(CUSTOM_ELEMENT_JSON.modules || []),
-        ],
-    });
+    const customElementManifest = {"schemaVersion":"1.0.0","readme":"","modules":[{"kind":"javascript-module","path":"Test.ts","declarations":[{"kind":"class","description":"","name":"Test","members":[{"kind":"field","name":"testProp","type":{"text":"string | undefined"}}],"superclass":{"name":"Component","package":"@chialab/dna"},"tagName":"dna-test","customElement":true}],"exports":[{"kind":"js","name":"Test","declaration":{"name":"Test","module":"Test.ts"}},{"kind":"custom-element-definition","name":"dna-test","declaration":{"name":"Test","module":"Test.ts"}}]}]};
+    const globalCustomElementsManifest = getCustomElementsManifest() || {};
+    setCustomElementsManifest(mergeCustomElementsManifests(globalCustomElementsManifest, customElementManifest));
 }());`);
     });
 });

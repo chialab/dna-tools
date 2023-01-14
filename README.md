@@ -17,4 +17,4 @@ A set of libraries for [DNA](https://chialab.io/p/dna) integrations with other t
 
 ## License
 
-DNA Tools are released under the [MIT](https://github.com/chialab/dna-tools/blob/main/LICENSE) license.
+**DNA Tools** are released under the [MIT](https://github.com/chialab/dna-tools/blob/main/LICENSE) license.

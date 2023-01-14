@@ -1,5 +1,5 @@
 import { type Package, type CustomElement, type Attribute, type ClassMember, type PropertyLike } from 'custom-elements-manifest';
-import { getCustomElements, getMetaData } from '../framework-api';
+import { getCustomElementsManifest, getCustomElementDeclaration } from '../framework-api';
 import { type PropDef } from '@storybook/docs-tools';
 
 function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string) {
@@ -34,7 +34,7 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
-    const metaData = getMetaData(tagName, customElements);
+    const metaData = getCustomElementDeclaration(tagName, customElements);
     if (!metaData) {
         return null;
     }
@@ -46,7 +46,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         );
         const decl = mod?.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name) as CustomElement;
         if (decl?.tagName) {
-            const metaData = getMetaData(decl.tagName, customElements);
+            const metaData = getCustomElementDeclaration(decl.tagName, customElements);
             if (metaData) {
                 Object.assign(
                     result,
@@ -82,7 +82,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
 };
 
 export const extractArgTypes = (tagName: string) => {
-    const customElements = getCustomElements();
+    const customElements = getCustomElementsManifest();
     if (!customElements) {
         return null;
     }
@@ -91,12 +91,12 @@ export const extractArgTypes = (tagName: string) => {
 };
 
 export const extractComponentDescription = (tagName: string) => {
-    const customElements = getCustomElements();
+    const customElements = getCustomElementsManifest();
     if (!customElements) {
         return null;
     }
 
-    const metaData = getMetaData(tagName, customElements);
+    const metaData = getCustomElementDeclaration(tagName, customElements);
     if (!metaData) {
         return null;
     }
