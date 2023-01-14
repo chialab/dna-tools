@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'vitest';
 import { customElementsManifestPlugin } from '@chialab/dna-storybook-vite';
-import { dnaPlugin } from '@chialab/dna-manifest-analyzer-plugin';
+import { dnaPlugins } from '@chialab/dna-manifest-analyzer-plugin';
 
 describe('generate custom elements manifest', () => {
     test('DNA module', async () => {
         const plugin = customElementsManifestPlugin({
             renderer: '@chialab/dna-storybook-renderer',
-            plugins: [...dnaPlugin()],
+            plugins: [...dnaPlugins()],
         });
 
         const result = await (plugin.transform as Function)(`import { customElement, Component } from '@chialab/dna';

@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/builder-vite';
-import { dnaPlugin } from '@chialab/dna-manifest-analyzer-plugin';
+import { dnaPlugins } from '@chialab/dna-manifest-analyzer-plugin';
 import { mergeConfig } from 'vite';
 import customElementsManifestPlugin from './plugins/CustomElementsManifest';
 
@@ -22,7 +22,7 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (config) => (
             customElementsManifestPlugin({
                 renderer: '@chialab/dna-storybook-renderer',
                 plugins: [
-                    ...dnaPlugin(),
+                    ...dnaPlugins(),
                 ],
             }),
         ],
