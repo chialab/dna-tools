@@ -65,14 +65,14 @@ jobs:
         with:
           cache: yarn
 
+      - name: Install project dependencies
+        run: yarn install
+
       - name: Download build artifacts
         uses: actions/cache/restore@v3
         with:
           path: ./packages
           key: ${{ runner.os }}-build
-
-      - name: Install project dependencies
-        run: yarn install
 
       - name: Run tests
         run: yarn test --coverage

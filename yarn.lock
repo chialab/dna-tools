@@ -1595,6 +1595,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chialab/hmr-dna@workspace:packages/hmr-dna":
+  version: 0.0.0-use.local
+  resolution: "@chialab/hmr-dna@workspace:packages/hmr-dna"
+  dependencies:
+    "@chialab/dna": ^3.0.0
+  languageName: unknown
+  linkType: soft
+
 "@chialab/manifest-analyzer-dna-plugin@^3.0.0, @chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin":
   version: 0.0.0-use.local
   resolution: "@chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin"
