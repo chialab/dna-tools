@@ -6,12 +6,12 @@ A set of libraries for [DNA](https://chialab.io/p/dna) integrations with other t
 
 ### Custom Elements Manifest
 
-* [CEM Analyzer Plugin](./packages/manifest-analyzer-dna-plugin/): A `@custom-elements-manifest/analyzer` plugin for DNA components.
+* [CEM Analyzer Plugin](./packages/manifest-analyzer-dna-plugin/): DNA components plugin for `@custom-elements-manifest/analyzer`.
 
 ### Storybook
 
-* [Storybook Renderer](./packages/storybook-dna/): the library used to render Storybook stories with DNA.
-* [Storybook Vite](./packages/storybook-dna-vite/): Vite preset for DNA renderer in Storybook.
+* [Storybook DNA](./packages/storybook-dna/): the library used to render Storybook stories with DNA.
+* [Storybook DNA Vite](./packages/storybook-dna-vite/): Storybook for DNA and Vite.
 
 ---
 

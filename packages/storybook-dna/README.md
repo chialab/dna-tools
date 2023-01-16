@@ -60,4 +60,4 @@ setCustomElementsManifest(
 
 ## License
 
-**DNA Storybook Renderer** are released under the [MIT](https://github.com/chialab/dna-tools/blob/main/LICENSE) license.
+**DNA Storybook** are released under the [MIT](https://github.com/chialab/dna-tools/blob/main/LICENSE) license.
