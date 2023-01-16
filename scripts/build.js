@@ -1,22 +1,22 @@
 import esbuild from 'esbuild';
 
-// dna-manifest-analyzer-plugin
+// manifest-analyzer-dna-plugin
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-manifest-analyzer-plugin/src/index.ts',
+        './packages/manifest-analyzer-dna-plugin/src/index.ts',
     ],
     target: 'node16',
     bundle: true,
     platform: 'node',
     format: 'cjs',
-    outdir: './packages/dna-manifest-analyzer-plugin/dist',
+    outdir: './packages/manifest-analyzer-dna-plugin/dist',
     packages: 'external',
 });
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-manifest-analyzer-plugin/src/index.ts',
+        './packages/manifest-analyzer-dna-plugin/src/index.ts',
     ],
     outExtension: {
         '.js': '.mjs',
@@ -26,30 +26,30 @@ esbuild.build({
     splitting: true,
     platform: 'node',
     format: 'esm',
-    outdir: './packages/dna-manifest-analyzer-plugin/dist',
+    outdir: './packages/manifest-analyzer-dna-plugin/dist',
     packages: 'external',
 });
 
 
-// dna-storybook-renderer
+// storybook-dna
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-storybook-renderer/src/index.ts',
-        './packages/dna-storybook-renderer/src/config.ts',
+        './packages/storybook-dna/src/index.ts',
+        './packages/storybook-dna/src/config.ts',
     ],
     target: 'node16',
     bundle: true,
     platform: 'node',
     format: 'cjs',
-    outdir: './packages/dna-storybook-renderer/dist',
+    outdir: './packages/storybook-dna/dist',
     packages: 'external',
 });
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-storybook-renderer/src/index.ts',
-        './packages/dna-storybook-renderer/src/config.ts',
+        './packages/storybook-dna/src/index.ts',
+        './packages/storybook-dna/src/config.ts',
     ],
     outExtension: {
         '.js': '.mjs',
@@ -59,29 +59,29 @@ esbuild.build({
     splitting: true,
     platform: 'browser',
     format: 'esm',
-    outdir: './packages/dna-storybook-renderer/dist',
+    outdir: './packages/storybook-dna/dist',
     packages: 'external',
 });
 
-// dna-storybook-vite
+// storybook-dna-vite
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-storybook-vite/src/index.ts',
-        './packages/dna-storybook-vite/src/preset.ts',
+        './packages/storybook-dna-vite/src/index.ts',
+        './packages/storybook-dna-vite/src/preset.ts',
     ],
     target: 'node16',
     bundle: true,
     platform: 'node',
     format: 'cjs',
-    outdir: './packages/dna-storybook-vite/dist',
+    outdir: './packages/storybook-dna-vite/dist',
     packages: 'external',
 });
 
 esbuild.build({
     entryPoints: [
-        './packages/dna-storybook-vite/src/index.ts',
-        './packages/dna-storybook-vite/src/preset.ts',
+        './packages/storybook-dna-vite/src/index.ts',
+        './packages/storybook-dna-vite/src/preset.ts',
     ],
     outExtension: {
         '.js': '.mjs',
@@ -91,6 +91,6 @@ esbuild.build({
     splitting: true,
     platform: 'node',
     format: 'esm',
-    outdir: './packages/dna-storybook-vite/dist',
+    outdir: './packages/storybook-dna-vite/dist',
     packages: 'external',
 });

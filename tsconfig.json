@@ -22,13 +22,13 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/dna-manifest-analyzer-plugin"
+      "path": "./packages/manifest-analyzer-dna-plugin"
     },
     {
-      "path": "./packages/dna-storybook-renderer"
+      "path": "./packages/storybook-dna"
     },
     {
-      "path": "./packages/dna-storybook-vite"
+      "path": "./packages/storybook-dna-vite"
     }
   ]
 }

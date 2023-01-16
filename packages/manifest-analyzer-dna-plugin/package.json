@@ -1,5 +1,5 @@
 {
-    "name": "@chialab/dna-manifest-analyzer-plugin",
+    "name": "@chialab/manifest-analyzer-dna-plugin",
     "version": "3.0.0",
     "description": "DNA components plugin for @custom-elements-manifest/analyzer.",
     "keywords": [
@@ -12,7 +12,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/dna-manifest-analyzer-plugin/"
+        "directory": "packages/manifest-analyzer-dna-plugin/"
     },
     "license": "MIT",
     "exports": {

@@ -17,10 +17,10 @@
   ],
   "references": [
     {
-      "path": "../dna-manifest-analyzer-plugin"
+      "path": "../manifest-analyzer-dna-plugin"
     },
     {
-      "path": "../dna-storybook-renderer"
+      "path": "../storybook-dna"
     }
   ]
 }

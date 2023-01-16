@@ -1532,48 +1532,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chialab/dna-manifest-analyzer-plugin@^3.0.0, @chialab/dna-manifest-analyzer-plugin@workspace:packages/dna-manifest-analyzer-plugin":
-  version: 0.0.0-use.local
-  resolution: "@chialab/dna-manifest-analyzer-plugin@workspace:packages/dna-manifest-analyzer-plugin"
-  dependencies:
-    "@custom-elements-manifest/analyzer": ^0.6.8
-    custom-elements-manifest: ^2.0.0
-  languageName: unknown
-  linkType: soft
-
-"@chialab/dna-storybook-renderer@^7.0.0-beta.25, @chialab/dna-storybook-renderer@workspace:packages/dna-storybook-renderer":
-  version: 0.0.0-use.local
-  resolution: "@chialab/dna-storybook-renderer@workspace:packages/dna-storybook-renderer"
-  dependencies:
-    "@chialab/dna": ^3.0.0
-    "@chialab/eslint-config": ^3.3.1
-    "@storybook/docs-tools": ^7.0.0-beta.25
-    "@storybook/preview-api": ^7.0.0-beta.25
-    "@storybook/types": ^7.0.0-beta.25
-    "@types/react": ^18.0.26
-    custom-elements-manifest: ^2.0.0
-    ts-dedent: ^2.0.0
-  peerDependencies:
-    "@chialab/dna": ^3.0.0
-  languageName: unknown
-  linkType: soft
-
-"@chialab/dna-storybook-vite@workspace:packages/dna-storybook-vite":
-  version: 0.0.0-use.local
-  resolution: "@chialab/dna-storybook-vite@workspace:packages/dna-storybook-vite"
-  dependencies:
-    "@chialab/dna-manifest-analyzer-plugin": ^3.0.0
-    "@chialab/dna-storybook-renderer": ^7.0.0-beta.25
-    "@custom-elements-manifest/analyzer": ^0.6.8
-    "@rollup/pluginutils": ^5.0.2
-    "@storybook/builder-vite": ^7.0.0-beta.25
-    magic-string: ^0.27.0
-    vite: ^4.0.0
-  peerDependencies:
-    vite: ^4.0.0
-  languageName: unknown
-  linkType: soft
-
 "@chialab/dna-tools@workspace:.":
   version: 0.0.0-use.local
   resolution: "@chialab/dna-tools@workspace:."
@@ -1636,6 +1594,48 @@ __metadata:
   checksum: aff41438819e2d94e45ea84c3d44ab4b50a39e027e5de1cf9f446d5279057c68abfee605b01452e50ce6cd8b38a40841853dd914015e863c27023f88d8f20f36
   languageName: node
   linkType: hard
+
+"@chialab/manifest-analyzer-dna-plugin@^3.0.0, @chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin":
+  version: 0.0.0-use.local
+  resolution: "@chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin"
+  dependencies:
+    "@custom-elements-manifest/analyzer": ^0.6.8
+    custom-elements-manifest: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
+"@chialab/storybook-dna-vite@workspace:packages/storybook-dna-vite":
+  version: 0.0.0-use.local
+  resolution: "@chialab/storybook-dna-vite@workspace:packages/storybook-dna-vite"
+  dependencies:
+    "@chialab/manifest-analyzer-dna-plugin": ^3.0.0
+    "@chialab/storybook-dna": ^7.0.0-beta.25
+    "@custom-elements-manifest/analyzer": ^0.6.8
+    "@rollup/pluginutils": ^5.0.2
+    "@storybook/builder-vite": ^7.0.0-beta.25
+    magic-string: ^0.27.0
+    vite: ^4.0.0
+  peerDependencies:
+    vite: ^4.0.0
+  languageName: unknown
+  linkType: soft
+
+"@chialab/storybook-dna@^7.0.0-beta.25, @chialab/storybook-dna@workspace:packages/storybook-dna":
+  version: 0.0.0-use.local
+  resolution: "@chialab/storybook-dna@workspace:packages/storybook-dna"
+  dependencies:
+    "@chialab/dna": ^3.0.0
+    "@chialab/eslint-config": ^3.3.1
+    "@storybook/docs-tools": ^7.0.0-beta.25
+    "@storybook/preview-api": ^7.0.0-beta.25
+    "@storybook/types": ^7.0.0-beta.25
+    "@types/react": ^18.0.26
+    custom-elements-manifest: ^2.0.0
+    ts-dedent: ^2.0.0
+  peerDependencies:
+    "@chialab/dna": ^3.0.0
+  languageName: unknown
+  linkType: soft
 
 "@custom-elements-manifest/analyzer@npm:^0.6.8":
   version: 0.6.8

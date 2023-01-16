@@ -1,8 +1,7 @@
 {
-    "name": "@chialab/dna-storybook-vite",
+    "name": "@chialab/storybook-dna",
     "version": "7.0.0-beta.25",
-    "description": "Storybook for DNA and Vite.",
-    "type": "module",
+    "description": "The library used to render Storybook stories with DNA.",
     "keywords": [
         "storybook"
     ],
@@ -13,7 +12,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/dna-storybook-vite/"
+        "directory": "packages/storybook-dna/"
     },
     "license": "MIT",
     "exports": {
@@ -22,10 +21,10 @@
             "import": "./dist/index.mjs",
             "types": "./dist/index.d.ts"
         },
-        "./preset": {
-            "require": "./dist/preset.js",
-            "import": "./dist/preset.mjs",
-            "types": "./dist/preset.d.ts"
+        "./preview": {
+            "require": "./dist/config.js",
+            "import": "./dist/config.mjs",
+            "types": "./dist/config.d.ts"
         },
         "./package.json": "./package.json"
     },
@@ -34,26 +33,23 @@
     "types": "dist/index.d.ts",
     "files": [
         "dist/**/*",
-        "template/**/*",
         "README.md",
         "*.js",
         "*.d.ts"
     ],
     "dependencies": {
-        "@chialab/dna-manifest-analyzer-plugin": "^3.0.0",
-        "@chialab/dna-storybook-renderer": "^7.0.0-beta.25",
-        "@custom-elements-manifest/analyzer": "^0.6.8",
-        "@rollup/pluginutils": "^5.0.2",
-        "@storybook/builder-vite": "^7.0.0-beta.25",
-        "magic-string": "^0.27.0"
-    },
-    "peerDependencies": {
-        "vite": "^4.0.0"
+        "@storybook/docs-tools": "^7.0.0-beta.25",
+        "@storybook/preview-api": "^7.0.0-beta.25",
+        "@storybook/types": "^7.0.0-beta.25",
+        "ts-dedent": "^2.0.0"
     },
     "devDependencies": {
-        "vite": "^4.0.0"
+        "@chialab/dna": "^3.0.0",
+        "@chialab/eslint-config": "^3.3.1",
+        "@types/react": "^18.0.26",
+        "custom-elements-manifest": "^2.0.0"
     },
-    "engines": {
-        "node": ">=16.0.0"
+    "peerDependencies": {
+        "@chialab/dna": "^3.0.0"
     }
 }
