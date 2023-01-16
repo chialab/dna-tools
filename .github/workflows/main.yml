@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./packages
-          key: ${{ runner.os }}-build
+          key: ${{ runner.os }}-build-${{ github.sha }}
 
   test:
     name: Test
@@ -67,14 +67,14 @@ jobs:
         with:
           cache: yarn
 
-      - name: Install project dependencies
-        run: yarn install
-
       - name: Download build artifacts
         uses: actions/cache/restore@v3
         with:
           path: ./packages
-          key: ${{ runner.os }}-build
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+      - name: Install project dependencies
+        run: yarn install
 
       - name: Run tests
         run: yarn test --coverage
