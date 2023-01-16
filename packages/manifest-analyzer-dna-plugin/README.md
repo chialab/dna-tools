@@ -9,14 +9,14 @@ Install the analyzer cli and the plugin:
 ```
 npm install -D \
     @custom-elements-manifest/analyzer \
-    @chialab/dna-manifest-analyzer-plugin
+    @chialab/manifest-analyzer-dna-plugin
 ```
 
 Create a config file that includes the DNA plugin:
 
 **custom-elements-manifest.config.js**
 ```tsx
-import { dnaPlugins } from '@chialab/dna-manifest-analyzer-plugin';
+import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 
 export default {
     plugins: [
