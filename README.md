@@ -2,6 +2,10 @@
 
 A set of libraries for [DNA](https://chialab.io/p/dna) integrations with other tools.
 
+## Development
+
+* [HMR](./packages/hmr-dna/): hot module replacement library for DNA components.
+
 ## Documentation
 
 ### Custom Elements Manifest

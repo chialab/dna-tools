@@ -1,7 +1,7 @@
 {
-    "name": "@chialab/hmr-dna",
+    "name": "@chialab/wds-plugin-hmr-dna",
     "version": "3.0.0",
-    "description": "Hot module replacement library for DNA components.",
+    "description": "Hot module replacement for DNA components and Web Dev Server.",
     "keywords": [
         "storybook"
     ],
@@ -12,7 +12,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/hmr-dna/"
+        "directory": "packages/wds-plugin-hmr-dna/"
     },
     "license": "MIT",
     "exports": {
@@ -33,6 +33,11 @@
         "*.d.ts"
     ],
     "dependencies": {
-        "@chialab/dna": "^3.0.0"
+        "@chialab/hmr-dna": "^3.0.0",
+        "@web/dev-server-hmr": "^0.1.10",
+        "magic-string": "^0.27.0"
+    },
+    "devDependencies": {
+        "@web/dev-server-core": "^0.3.19"
     }
 }

@@ -1,5 +1,35 @@
 import esbuild from 'esbuild';
 
+// hmr-dna
+
+esbuild.build({
+    entryPoints: [
+        './packages/hmr-dna/src/index.ts',
+    ],
+    target: 'chrome100',
+    bundle: true,
+    platform: 'browser',
+    format: 'cjs',
+    outdir: './packages/hmr-dna/dist',
+    packages: 'external',
+});
+
+esbuild.build({
+    entryPoints: [
+        './packages/hmr-dna/src/index.ts',
+    ],
+    outExtension: {
+        '.js': '.mjs',
+    },
+    target: 'chrome100',
+    bundle: true,
+    splitting: true,
+    platform: 'browser',
+    format: 'esm',
+    outdir: './packages/storybook-dna/dist',
+    packages: 'external',
+});
+
 // manifest-analyzer-dna-plugin
 
 esbuild.build({
@@ -30,7 +60,6 @@ esbuild.build({
     packages: 'external',
 });
 
-
 // storybook-dna
 
 esbuild.build({
@@ -38,9 +67,9 @@ esbuild.build({
         './packages/storybook-dna/src/index.ts',
         './packages/storybook-dna/src/config.ts',
     ],
-    target: 'node16',
+    target: 'chrome100',
     bundle: true,
-    platform: 'node',
+    platform: 'browser',
     format: 'cjs',
     outdir: './packages/storybook-dna/dist',
     packages: 'external',
@@ -92,5 +121,35 @@ esbuild.build({
     platform: 'node',
     format: 'esm',
     outdir: './packages/storybook-dna-vite/dist',
+    packages: 'external',
+});
+
+// wds-plugin-hmr-dna
+
+esbuild.build({
+    entryPoints: [
+        './packages/wds-plugin-hmr-dna/src/index.ts',
+    ],
+    target: 'node16',
+    bundle: true,
+    platform: 'node',
+    format: 'cjs',
+    outdir: './packages/wds-plugin-hmr-dna/dist',
+    packages: 'external',
+});
+
+esbuild.build({
+    entryPoints: [
+        './packages/wds-plugin-hmr-dna/src/index.ts',
+    ],
+    outExtension: {
+        '.js': '.mjs',
+    },
+    target: 'node16',
+    bundle: true,
+    splitting: true,
+    platform: 'node',
+    format: 'esm',
+    outdir: './packages/wds-plugin-hmr-dna/dist',
     packages: 'external',
 });

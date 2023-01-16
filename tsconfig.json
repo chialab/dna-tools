@@ -21,6 +21,9 @@
   "include": [],
   "references": [
     {
+      "path": "./packages/hmr-dna"
+    },
+    {
       "path": "./packages/manifest-analyzer-dna-plugin"
     },
     {
@@ -28,6 +31,9 @@
     },
     {
       "path": "./packages/storybook-dna-vite"
+    },
+    {
+      "path": "./packages/wds-plugin-hmr-dna"
     }
   ]
 }
