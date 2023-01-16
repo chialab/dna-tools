@@ -5,6 +5,7 @@ A set of libraries for [DNA](https://chialab.io/p/dna) integrations with other t
 ## Development
 
 * [HMR](./packages/hmr-dna/): hot module replacement library for DNA components.
+* [Web Dev Server HMR](./packages/wds-plugin-hmr-dna/): hot module replacement for DNA components and Web Dev Server.
 
 ## Documentation
 
