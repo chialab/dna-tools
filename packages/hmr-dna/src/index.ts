@@ -11,7 +11,7 @@ window.customElements.define = defineOnce;
 /**
  * Store the DNA customElements.define method.
  */
-const define = customElements.define as (name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions) => void;
+const define = customElements.define.bind(customElements) as (name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions) => void;
 
 /**
  * Define a DNA component with HMR support.
