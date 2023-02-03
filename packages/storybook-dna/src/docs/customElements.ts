@@ -1,6 +1,19 @@
-import { type Package, type CustomElement, type Attribute, type ClassMember, type PropertyLike } from 'custom-elements-manifest';
+import { type Package, type CustomElement, type Attribute, type ClassMember, type PropertyLike, type ClassField } from 'custom-elements-manifest';
 import { getCustomElementsManifest, getCustomElementDeclaration } from '../framework-api';
-import { type PropDef } from '@storybook/docs-tools';
+import { type PropDef, type PropType, type PropDefaultValue } from '@storybook/docs-tools';
+
+type StorybookPropDef = PropDef & {
+    table?: {
+        category?: string;
+        type?: PropType;
+        defaultValue?: PropDefaultValue;
+        disable?: boolean;
+    };
+
+    control?: {
+        type?: string|null;
+    };
+};
 
 function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string) {
     return data.reduce((acc: { [key: string]: PropDef }, item) => {
@@ -11,14 +24,22 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             return acc;
         }
 
-        const entry: PropDef = {
+        const isProperty = category === 'properties' || category === 'states';
+        const types = isProperty && ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
+
+        const entry: StorybookPropDef = {
             name: item.name,
-            required: false,
+            required: types ? types.every((type) => type !== 'undefined') : false,
             description: item.description,
-            type: category === 'properties' ? {
-                summary: (item as PropertyLike).type?.text || 'unknown',
-            } : {
-                summary: 'void',
+            type: (types ? {
+                name: types.filter((type) => type !== 'undefined')[0],
+                summary: types.filter((type) => type !== 'undefined')[0] || 'unknown',
+            } : {}) as unknown as PropType,
+            table: {
+                category,
+            },
+            control: isProperty ? undefined : {
+                type: null,
             },
         };
         const defaultValue = (item as PropertyLike).default;
@@ -28,7 +49,11 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             };
         }
 
-        acc[`${category} - ${item.name}`] = entry;
+        if (isProperty) {
+            acc[item.name] = entry;
+        } else {
+            acc[`${category}/${item.name}`] = entry;
+        }
         return acc;
     }, {} as { [key: string]: PropDef });
 }
@@ -51,8 +76,8 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                 Object.assign(
                     result,
                     metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static), 'properties') : {},
-                    metaData.properties ? mapData(metaData.properties, 'properties') : {},
+                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
+                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && (m as ClassField & { state?: boolean }).state), 'states') : {},
                     metaData.events ? mapData(metaData.events, 'events') : {},
                     metaData.slots ? mapData(metaData.slots, 'slots') : {},
                     metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
@@ -66,9 +91,9 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
     }
     Object.assign(
         result,
+        metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
+        metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !m.static && (m as ClassField & { state?: boolean }).state), 'states') : {},
         metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
-        metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static), 'properties') : {},
-        metaData.properties ? mapData(metaData.properties, 'properties') : {},
         metaData.events ? mapData(metaData.events, 'events') : {},
         metaData.slots ? mapData(metaData.slots, 'slots') : {},
         metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
