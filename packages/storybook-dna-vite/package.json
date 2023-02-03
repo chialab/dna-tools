@@ -1,6 +1,6 @@
 {
     "name": "@chialab/storybook-dna-vite",
-    "version": "7.0.0-beta.25",
+    "version": "7.0.0-beta.40",
     "description": "Storybook for DNA and Vite.",
     "type": "module",
     "keywords": [
@@ -41,10 +41,10 @@
     ],
     "dependencies": {
         "@chialab/manifest-analyzer-dna-plugin": "^3.0.0",
-        "@chialab/storybook-dna": "^7.0.0-beta.25",
+        "@chialab/storybook-dna": "^7.0.0-beta.40",
         "@custom-elements-manifest/analyzer": "^0.6.8",
         "@rollup/pluginutils": "^5.0.2",
-        "@storybook/builder-vite": "^7.0.0-beta.25",
+        "@storybook/builder-vite": "^7.0.0-beta.40",
         "magic-string": "^0.27.0",
         "remark-gfm": "^3.0.1"
     },

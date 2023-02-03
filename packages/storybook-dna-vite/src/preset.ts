@@ -1,10 +1,11 @@
-import type { StorybookConfig } from '@storybook/builder-vite';
+import type { PresetProperty } from '@storybook/types';
+import type { StorybookConfig } from './types';
 import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 import { mergeConfig } from 'vite';
 import remarkGfm from 'remark-gfm';
 import customElementsManifestPlugin from './plugins/CustomElementsManifest';
 
-export const core: StorybookConfig['core'] = {
+export const core: PresetProperty<'core', StorybookConfig> = {
     builder: '@storybook/builder-vite',
     renderer: '@chialab/storybook-dna',
 };

@@ -1,3 +1,3 @@
-export type { StorybookConfig } from '@storybook/builder-vite';
+export * from './types';
 
 export { default as customElementsManifestPlugin } from './plugins/CustomElementsManifest';

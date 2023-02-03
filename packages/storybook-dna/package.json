@@ -1,6 +1,6 @@
 {
     "name": "@chialab/storybook-dna",
-    "version": "7.0.0-beta.25",
+    "version": "7.0.0-beta.40",
     "description": "The library used to render Storybook stories with DNA.",
     "keywords": [
         "storybook"
@@ -38,9 +38,9 @@
         "*.d.ts"
     ],
     "dependencies": {
-        "@storybook/docs-tools": "^7.0.0-beta.25",
-        "@storybook/preview-api": "^7.0.0-beta.25",
-        "@storybook/types": "^7.0.0-beta.25",
+        "@storybook/docs-tools": "^7.0.0-beta.40",
+        "@storybook/preview-api": "^7.0.0-beta.40",
+        "@storybook/types": "^7.0.0-beta.40",
         "ts-dedent": "^2.0.0"
     },
     "devDependencies": {

@@ -15,10 +15,10 @@ npx sb@next init --type html
 Then, replace `html` preset dependencies with this package:
 
 ```diff
--"@storybook/html": "^7.0.0-beta.25",
--"@storybook/html-webpack5": "^7.0.0-beta.25",
-+"@chialab/storybook-dna": "^7.0.0-beta.25",
-+"@chialab/storybook-dna-vite": "^7.0.0-beta.25",
+-"@storybook/html": "^7.0.0-beta.40",
+-"@storybook/html-webpack5": "^7.0.0-beta.40",
++"@chialab/storybook-dna": "^7.0.0-beta.40",
++"@chialab/storybook-dna-vite": "^7.0.0-beta.40",
 ```
 
 And make sure to update your dependencies.

@@ -9,7 +9,9 @@ export const parameters = {
     docs: {
         extractArgTypes,
         extractComponentDescription,
-        inlineStories: true,
+        story: {
+            inline: true,
+        },
         prepareForInline,
         source: {
             type: SourceType.DYNAMIC,
