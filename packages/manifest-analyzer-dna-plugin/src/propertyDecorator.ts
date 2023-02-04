@@ -54,18 +54,18 @@ export function propertyDecorator(): Plugin {
                     return;
                 }
 
+                if (stateDecorator) {
+                    (field as ClassField & { state?: boolean }).state = true;
+                }
+
                 const actualDecoratorArguments = getDecoratorArguments(ts, actualDecorator);
                 const propertyOptions = actualDecoratorArguments.find((arg) => ts.isObjectLiteralExpression(arg));
                 if (!propertyOptions || !ts.isObjectLiteralExpression(propertyOptions) || !hasAttribute(ts, propertyOptions)) {
                     return;
                 }
 
-                if (!field || field.kind !== 'field') {
+                if (field.kind !== 'field') {
                     return;
-                }
-
-                if (stateDecorator) {
-                    (field as ClassField & { state?: boolean }).state = true;
                 }
 
                 const attribute = createAttributeFromField(field, getAttributeName(ts, propertyOptions) || memberName);

@@ -38,7 +38,7 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             table: {
                 category,
             },
-            control: isProperty ? undefined : {
+            control: category === 'properties' ? undefined : {
                 type: null,
             },
         };
@@ -59,36 +59,12 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
-    const metaData = getCustomElementDeclaration(tagName, customElements);
+    let metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement;
     if (!metaData) {
         return null;
     }
 
     const result = {};
-    if (metaData.superclass) {
-        const mod = customElements.modules?.find((m) =>
-            m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
-        );
-        const decl = mod?.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name) as CustomElement;
-        if (decl?.tagName) {
-            const metaData = getCustomElementDeclaration(decl.tagName, customElements);
-            if (metaData) {
-                Object.assign(
-                    result,
-                    metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && (m as ClassField & { state?: boolean }).state), 'states') : {},
-                    metaData.events ? mapData(metaData.events, 'events') : {},
-                    metaData.slots ? mapData(metaData.slots, 'slots') : {},
-                    metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
-                    metaData.cssParts ? mapData(metaData.cssParts, 'css shadow parts') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'method' && !m.static), 'methods') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && m.static), 'static properties') : {},
-                    metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'method' && m.static), 'static methods') : {}
-                );
-            }
-        }
-    }
     Object.assign(
         result,
         metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
@@ -102,6 +78,30 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && m.static), 'static properties') : {},
         metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'method' && m.static), 'static methods') : {}
     );
+
+    while (metaData.superclass) {
+        const mod = customElements.modules?.find((m) =>
+            m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
+        );
+        metaData = mod?.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name) as CustomElement;
+        if (!metaData) {
+            break;
+        }
+
+        Object.assign(
+            result,
+            metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
+            metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
+            metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && (m as ClassField & { state?: boolean }).state), 'states') : {},
+            metaData.events ? mapData(metaData.events, 'events') : {},
+            metaData.slots ? mapData(metaData.slots, 'slots') : {},
+            metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
+            metaData.cssParts ? mapData(metaData.cssParts, 'css shadow parts') : {},
+            metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'method' && !m.static), 'methods') : {},
+            metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && m.static), 'static properties') : {},
+            metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'method' && m.static), 'static methods') : {}
+        );
+    }
 
     return result;
 };
