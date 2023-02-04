@@ -1,6 +1,6 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassField } from 'custom-elements-manifest/schema';
-import { hasAttribute, getClassDeclaration, getAttributeName, getPropertiesObject, createAttributeFromField, hasKeyword } from './utils';
+import { hasAttribute, getClassDeclaration, getAttributeName, getPropertiesObject, createAttributeFromField, hasKeyword, isState } from './utils';
 
 /**
  * A plugin that collects static properties.
@@ -57,6 +57,10 @@ export function staticProperties(): Plugin {
                     if (hasAttribute(ts, initializer)) {
                         const attribute = createAttributeFromField(classMember, getAttributeName(ts, initializer) || property.name.getText());
                         currClass.attributes = [...(currClass.attributes || []), attribute];
+                    }
+
+                    if (isState(ts, initializer)) {
+                        (classMember as ClassField & { state?: boolean }).state = true;
                     }
 
                     const existingField = currClass.members?.find((field) => field.name === classMember.name);

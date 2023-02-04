@@ -110,6 +110,35 @@ export function hasAttribute(ts: TypeScriptModule, node: ObjectLiteralExpression
 }
 
 /**
+ * Check if property is a state property.
+ * @param ts Typescript module instance.
+ * @param node The property descriptor object AST node.
+ * @returns True if the property is a state property field.
+ */
+export function isState(ts: TypeScriptModule, node: ObjectLiteralExpression) {
+    const properties = node.properties;
+    if (!properties) {
+        return false;
+    }
+
+    for (let i = 0; i < properties.length; i++) {
+        const property = properties[i];
+        if (!ts.isPropertyAssignment(property)) {
+            continue;
+        }
+
+        if (property.name.getText() === 'state') {
+            if (property.initializer.kind === ts.SyntaxKind.TrueKeyword) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+    return false;
+}
+
+/**
  * Get attribute name from property decorator options.
  * @param ts Typescript module instance.
  * @param node The property descriptor object AST node.
