@@ -72,8 +72,6 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                                 return member;
                             }
 
-                            attr.name += ' ';
-                            attr.description = `🔗 **${member.name}**`;
                             attr.type = undefined;
                             attr.default = undefined;
                         }

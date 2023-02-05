@@ -1,8 +1,8 @@
 import { type Package, type CustomElement, type Attribute, type ClassMember, type PropertyLike, type ClassField } from 'custom-elements-manifest';
-import { getCustomElementsManifest, getCustomElementDeclaration } from '../framework-api';
 import { type PropDef, type PropType, type PropDefaultValue } from '@storybook/docs-tools';
+import { getCustomElementsManifest, getCustomElementDeclaration } from '../framework-api';
 
-type StorybookPropDef = PropDef & {
+export type StorybookPropDef = PropDef & {
     table?: {
         category?: string;
         type?: PropType;
@@ -24,13 +24,14 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             return acc;
         }
 
-        const isProperty = category === 'properties' || category === 'states';
-        const types = isProperty && ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
+        const isProperty = category === 'properties';
+        const isState = category === 'states';
+        const types = (isProperty || isState) && ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
 
         const entry: StorybookPropDef = {
             name: item.name,
             required: types ? types.every((type) => type !== 'undefined') : false,
-            description: item.description,
+            description: category === 'attributes' ? `🔗 **${(item as Attribute).fieldName}**` : item.description,
             type: (types ? {
                 name: types.filter((type) => type !== 'undefined')[0],
                 summary: types.filter((type) => type !== 'undefined')[0] || 'unknown',
@@ -38,7 +39,7 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             table: {
                 category,
             },
-            control: category === 'properties' ? undefined : {
+            control: isProperty ? undefined : {
                 type: null,
             },
         };
@@ -55,7 +56,7 @@ function mapData(data: (Attribute|ClassMember|PropertyLike)[], category: string)
             acc[`${category}/${item.name}`] = entry;
         }
         return acc;
-    }, {} as { [key: string]: PropDef });
+    }, {} as { [key: string]: StorybookPropDef });
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
@@ -64,7 +65,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         return null;
     }
 
-    const result = {};
+    const result = {} as { [key: string]: StorybookPropDef };
     Object.assign(
         result,
         metaData.members ? mapData(metaData.members.filter((m) => m.kind === 'field' && !m.static && !m.static && !(m as ClassField & { state?: boolean }).state), 'properties') : {},
@@ -116,12 +117,12 @@ export const extractArgTypes = (tagName: string) => {
 };
 
 export const extractComponentDescription = (tagName: string) => {
-    const customElements = getCustomElementsManifest();
-    if (!customElements) {
+    const customElementsManifest = getCustomElementsManifest();
+    if (!customElementsManifest) {
         return null;
     }
 
-    const metaData = getCustomElementDeclaration(tagName, customElements);
+    const metaData = getCustomElementDeclaration(tagName, customElementsManifest);
     if (!metaData) {
         return null;
     }

@@ -4,6 +4,7 @@ import { addons, useEffect } from '@storybook/preview-api';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { type PartialStoryFn, type StoryContext } from '@storybook/types';
 import { type DnaRenderer } from '../types';
+import { getCustomElementDeclaration, getCustomElementsManifest } from '../framework-api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isObject(value: any): value is object {
@@ -103,6 +104,9 @@ function vnodeToString(vnode: Template): string {
         delete properties.is;
     }
 
+    const customElementsManifest = getCustomElementsManifest();
+    const declaration = customElementsManifest && getCustomElementDeclaration(is, customElementsManifest);
+
     const attrs = Object.keys(properties).map((prop) => {
         if (prop === 'is' && is) {
             return `is="${is}"`;
@@ -124,10 +128,13 @@ function vnodeToString(vnode: Template): string {
         if (value == null || value === false) {
             return false;
         }
+        const attr = declaration?.attributes?.filter((attr) => attr.fieldName === prop)[0];
+        if (attr) {
+            prop = attr.name;
+        }
         if (value === true) {
             return prop;
         }
-
         return `${prop}="${escapeHtml(`${value}`)}"`;
     }).filter(Boolean).join(' ');
 
