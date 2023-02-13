@@ -33,6 +33,9 @@
       "path": "./packages/storybook-dna-vite"
     },
     {
+      "path": "./packages/vite-plugin-hmr-dna"
+    },
+    {
       "path": "./packages/wds-plugin-hmr-dna"
     }
   ]

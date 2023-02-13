@@ -1,23 +1,23 @@
-import { isComponentConstructor } from '@chialab/dna';
+import { type ComponentConstructor, type ComponentInstance, isComponentConstructor } from '@chialab/dna';
 import { connect, disconnect } from './connectedRegistry';
 
 /**
  * A map of registered custom element proxies.
  */
-const proxies = new Map<string, CustomElementConstructor>();
+const proxies = new Map<string, ComponentConstructor>();
 
 /**
  * Create a proxy class for the custom element.
  * @param name The custom element name.
  * @param constructor The custom element constructor.
  */
-export function createProxy<T extends CustomElementConstructor>(name: string, constructor: T) {
+export function createProxy<T extends ComponentInstance>(name: string, constructor: ComponentConstructor<T>) {
     if (proxies.get(name)) {
-        return proxies.get(name) as T;
+        return proxies.get(name) as ComponentConstructor<T>;
     }
 
     if (isComponentConstructor(constructor)) {
-        const proxyClass = class extends constructor {
+        const proxyClass = class extends (constructor as ComponentConstructor) {
             // we need to override the constructor in order to proxy it in the future.
             // eslint-disable-next-line no-useless-constructor
             constructor(...args: any[]) {
@@ -33,11 +33,11 @@ export function createProxy<T extends CustomElementConstructor>(name: string, co
                 disconnect(this);
                 super.disconnectedCallback();
             }
-        };
+        } as unknown as ComponentConstructor<T>;
 
         proxies.set(name, proxyClass);
 
-        return proxyClass as T;
+        return proxyClass;
     }
 
     return constructor;

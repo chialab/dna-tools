@@ -1,60 +1,61 @@
 {
-    "name": "@chialab/storybook-dna-vite",
-    "version": "7.0.0-beta.40",
-    "description": "Storybook for DNA and Vite.",
-    "type": "module",
-    "keywords": [
-        "storybook"
-    ],
-    "homepage": "https://github.com/chialab/dna-tools/",
-    "bugs": {
-        "url": "https://github.com/chialab/dna-tools/issues"
+  "name": "@chialab/storybook-dna-vite",
+  "version": "7.0.0-beta.40",
+  "description": "Storybook for DNA and Vite.",
+  "type": "module",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/chialab/dna-tools/",
+  "bugs": {
+    "url": "https://github.com/chialab/dna-tools/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chialab/dna-tools.git",
+    "directory": "packages/storybook-dna-vite/"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/storybook-dna-vite/"
+    "./preset": {
+      "require": "./dist/preset.js",
+      "import": "./dist/preset.mjs",
+      "types": "./dist/preset.d.ts"
     },
-    "license": "MIT",
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
-        },
-        "./preset": {
-            "require": "./dist/preset.js",
-            "import": "./dist/preset.mjs",
-            "types": "./dist/preset.d.ts"
-        },
-        "./package.json": "./package.json"
-    },
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/**/*",
-        "template/**/*",
-        "README.md",
-        "*.js",
-        "*.d.ts"
-    ],
-    "dependencies": {
-        "@chialab/manifest-analyzer-dna-plugin": "^3.0.0",
-        "@chialab/storybook-dna": "^7.0.0-beta.40",
-        "@custom-elements-manifest/analyzer": "^0.6.8",
-        "@rollup/pluginutils": "^5.0.2",
-        "@storybook/builder-vite": "^7.0.0-beta.40",
-        "magic-string": "^0.27.0",
-        "remark-gfm": "^3.0.1"
-    },
-    "peerDependencies": {
-        "vite": "^4.0.0"
-    },
-    "devDependencies": {
-        "vite": "^4.0.0"
-    },
-    "engines": {
-        "node": ">=16.0.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "template/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "dependencies": {
+    "@chialab/manifest-analyzer-dna-plugin": "^3.0.0",
+    "@chialab/storybook-dna": "^7.0.0-beta.40",
+    "@chialab/vite-plugin-hmr-dna": "^3.0.0",
+    "@custom-elements-manifest/analyzer": "^0.6.8",
+    "@rollup/pluginutils": "^5.0.2",
+    "@storybook/builder-vite": "^7.0.0-beta.40",
+    "magic-string": "^0.27.0",
+    "remark-gfm": "^3.0.1"
+  },
+  "peerDependencies": {
+    "vite": "^4.0.0"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }

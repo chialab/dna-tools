@@ -1,38 +1,38 @@
 {
-    "name": "@chialab/hmr-dna",
-    "version": "3.0.0",
-    "description": "Hot module replacement library for DNA components.",
-    "keywords": [
-        "storybook"
-    ],
-    "homepage": "https://github.com/chialab/dna-tools/",
-    "bugs": {
-        "url": "https://github.com/chialab/dna-tools/issues"
+  "name": "@chialab/hmr-dna",
+  "version": "3.0.0",
+  "description": "Hot module replacement library for DNA components.",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/chialab/dna-tools/",
+  "bugs": {
+    "url": "https://github.com/chialab/dna-tools/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chialab/dna-tools.git",
+    "directory": "packages/hmr-dna/"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/hmr-dna/"
-    },
-    "license": "MIT",
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
-        },
-        "./package.json": "./package.json"
-    },
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/**/*",
-        "README.md",
-        "*.js",
-        "*.d.ts"
-    ],
-    "dependencies": {
-        "@chialab/dna": "^3.0.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "dependencies": {
+    "@chialab/dna": "^3.0.0"
+  }
 }

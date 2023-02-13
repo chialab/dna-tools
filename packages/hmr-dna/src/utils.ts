@@ -5,11 +5,13 @@ import { type ComponentInstance, getProperties } from '@chialab/dna';
  * @param node The node.
  * @returns A record of properties.
  */
-export function cloneProperties(node: ComponentInstance) {
+export function cloneProperties<T extends ComponentInstance>(node: T) {
     const computedProperties = getProperties(node);
-    const actualProperties: Record<string, unknown> = {};
+    const actualProperties: Partial<{
+        [K in keyof typeof computedProperties]: T[K];
+    }> = {};
     for (const propertyKey in computedProperties) {
-        actualProperties[propertyKey] = node.getInnerPropertyValue(propertyKey as keyof typeof computedProperties);
+        actualProperties[propertyKey] = node.getInnerPropertyValue(propertyKey);
     }
 
     return actualProperties;

@@ -1,39 +1,39 @@
 {
-    "name": "@chialab/manifest-analyzer-dna-plugin",
-    "version": "3.0.0",
-    "description": "DNA components plugin for @custom-elements-manifest/analyzer.",
-    "keywords": [
-        "storybook"
-    ],
-    "homepage": "https://github.com/chialab/dna-tools/",
-    "bugs": {
-        "url": "https://github.com/chialab/dna-tools/issues"
+  "name": "@chialab/manifest-analyzer-dna-plugin",
+  "version": "3.0.0",
+  "description": "DNA components plugin for @custom-elements-manifest/analyzer.",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/chialab/dna-tools/",
+  "bugs": {
+    "url": "https://github.com/chialab/dna-tools/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chialab/dna-tools.git",
+    "directory": "packages/manifest-analyzer-dna-plugin/"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/manifest-analyzer-dna-plugin/"
-    },
-    "license": "MIT",
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
-        },
-        "./package.json": "./package.json"
-    },
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/**/*",
-        "README.md",
-        "*.js",
-        "*.d.ts"
-    ],
-    "devDependencies": {
-        "@custom-elements-manifest/analyzer": "^0.6.8",
-        "custom-elements-manifest": "^2.0.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.8",
+    "custom-elements-manifest": "^2.0.0"
+  }
 }

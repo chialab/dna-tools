@@ -1,5 +1,6 @@
 import type { PresetProperty } from '@storybook/types';
 import type { StorybookConfig } from './types';
+import { hmrPlugin } from '@chialab/vite-plugin-hmr-dna';
 import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 import { mergeConfig } from 'vite';
 import remarkGfm from 'remark-gfm';
@@ -27,6 +28,7 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (config) => (
             ],
         },
         plugins: [
+            hmrPlugin(),
             customElementsManifestPlugin({
                 renderer: '@chialab/storybook-dna',
                 plugins: [

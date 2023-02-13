@@ -1,55 +1,55 @@
 {
-    "name": "@chialab/storybook-dna",
-    "version": "7.0.0-beta.40",
-    "description": "The library used to render Storybook stories with DNA.",
-    "keywords": [
-        "storybook"
-    ],
-    "homepage": "https://github.com/chialab/dna-tools/",
-    "bugs": {
-        "url": "https://github.com/chialab/dna-tools/issues"
+  "name": "@chialab/storybook-dna",
+  "version": "7.0.0-beta.40",
+  "description": "The library used to render Storybook stories with DNA.",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/chialab/dna-tools/",
+  "bugs": {
+    "url": "https://github.com/chialab/dna-tools/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chialab/dna-tools.git",
+    "directory": "packages/storybook-dna/"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/chialab/dna-tools.git",
-        "directory": "packages/storybook-dna/"
+    "./preview": {
+      "require": "./dist/config.js",
+      "import": "./dist/config.mjs",
+      "types": "./dist/config.d.ts"
     },
-    "license": "MIT",
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
-        },
-        "./preview": {
-            "require": "./dist/config.js",
-            "import": "./dist/config.mjs",
-            "types": "./dist/config.d.ts"
-        },
-        "./package.json": "./package.json"
-    },
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/**/*",
-        "README.md",
-        "*.js",
-        "*.d.ts"
-    ],
-    "dependencies": {
-        "@storybook/docs-tools": "^7.0.0-beta.40",
-        "@storybook/preview-api": "^7.0.0-beta.40",
-        "@storybook/types": "^7.0.0-beta.40",
-        "ts-dedent": "^2.0.0"
-    },
-    "devDependencies": {
-        "@chialab/dna": "^3.0.0",
-        "@chialab/eslint-config": "^3.3.1",
-        "@types/react": "^18.0.26",
-        "custom-elements-manifest": "^2.0.0"
-    },
-    "peerDependencies": {
-        "@chialab/dna": "^3.0.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "dependencies": {
+    "@storybook/docs-tools": "^7.0.0-beta.40",
+    "@storybook/preview-api": "^7.0.0-beta.40",
+    "@storybook/types": "^7.0.0-beta.40",
+    "ts-dedent": "^2.0.0"
+  },
+  "devDependencies": {
+    "@chialab/dna": "^3.0.0",
+    "@chialab/eslint-config": "^3.3.1",
+    "@types/react": "^18.0.26",
+    "custom-elements-manifest": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@chialab/dna": "^3.0.0"
+  }
 }

@@ -1,10 +1,9 @@
 {
-  "name": "@chialab/wds-plugin-hmr-dna",
+  "name": "@chialab/vite-plugin-hmr-dna",
   "version": "3.0.0",
-  "description": "Hot module replacement for DNA components and Web Dev Server.",
+  "description": "Hot module replacement for DNA components and Vite.",
   "keywords": [
-    "wds",
-    "web-dev-server",
+    "vite",
     "hmr",
     "dna"
   ],
@@ -15,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/chialab/dna-tools.git",
-    "directory": "packages/wds-plugin-hmr-dna/"
+    "directory": "packages/vite-plugin-hmr-dna/"
   },
   "license": "MIT",
   "exports": {
@@ -37,10 +36,9 @@
   ],
   "dependencies": {
     "@chialab/hmr-dna": "^3.0.0",
-    "@web/dev-server-hmr": "^0.1.10",
     "magic-string": "^0.27.0"
   },
   "devDependencies": {
-    "@web/dev-server-core": "^0.3.19"
+    "vite": "^4.1.1"
   }
 }

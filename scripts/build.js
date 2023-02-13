@@ -7,6 +7,7 @@ esbuild.build({
         './packages/hmr-dna/src/index.ts',
     ],
     target: 'chrome100',
+    sourcemap: true,
     bundle: true,
     platform: 'browser',
     format: 'cjs',
@@ -22,11 +23,12 @@ esbuild.build({
         '.js': '.mjs',
     },
     target: 'chrome100',
+    sourcemap: true,
     bundle: true,
     splitting: true,
     platform: 'browser',
     format: 'esm',
-    outdir: './packages/storybook-dna/dist',
+    outdir: './packages/hmr-dna/dist',
     packages: 'external',
 });
 
@@ -121,6 +123,36 @@ esbuild.build({
     platform: 'node',
     format: 'esm',
     outdir: './packages/storybook-dna-vite/dist',
+    packages: 'external',
+});
+
+// vite-plugin-hmr-dna
+
+esbuild.build({
+    entryPoints: [
+        './packages/vite-plugin-hmr-dna/src/index.ts',
+    ],
+    target: 'node16',
+    bundle: true,
+    platform: 'node',
+    format: 'cjs',
+    outdir: './packages/vite-plugin-hmr-dna/dist',
+    packages: 'external',
+});
+
+esbuild.build({
+    entryPoints: [
+        './packages/vite-plugin-hmr-dna/src/index.ts',
+    ],
+    outExtension: {
+        '.js': '.mjs',
+    },
+    target: 'node16',
+    bundle: true,
+    splitting: true,
+    platform: 'node',
+    format: 'esm',
+    outdir: './packages/vite-plugin-hmr-dna/dist',
     packages: 'external',
 });
 

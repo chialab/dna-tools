@@ -29,8 +29,8 @@ export function disconnect(node: ComponentInstance) {
  * Get connected nodes for a given name.
  * @returns A live array of connected nodes.
  */
-export function getConnected(name: string): ComponentInstance[] {
-    const list = connectedNodes.get(name) || [];
+export function getConnected<T extends ComponentInstance>(name: string): T[] {
+    const list = (connectedNodes.get(name) || []) as T[];
     connectedNodes.set(name, list);
 
     return list;

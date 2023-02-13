@@ -1,4 +1,4 @@
-import { window, customElements, type ComponentInstance, getProperties } from '@chialab/dna';
+import { window, customElements, type ComponentConstructor, type ComponentInstance, getProperties, isComponentConstructor } from '@chialab/dna';
 import { getConnected } from './connectedRegistry';
 import { createProxy } from './CustomElementProxy';
 import { defineOnce } from './defineOnce';
@@ -19,16 +19,20 @@ const define = customElements.define.bind(customElements) as (name: string, cons
  * @param constructor The custom element constructor.
  * @param options Definition options.
  */
-customElements.define = function<T extends CustomElementConstructor>(name: string, constructor: T, options?: ElementDefinitionOptions) {
-    const actual = customElements.get(name);
-    const connected = getConnected(name);
+customElements.define = function <T extends ComponentInstance>(name: string, constructor: ComponentConstructor<T>|CustomElementConstructor, options?: ElementDefinitionOptions) {
+    if (!isComponentConstructor(constructor)) {
+        return define(name, constructor, options);
+    }
 
-    const connectedProperties = new Map<ComponentInstance, Record<string, unknown>>();
+    const actual = customElements.get(name);
+    const connected = getConnected<T>(name);
+
+    const connectedProperties = new Map();
     connected.forEach((node) => {
         connectedProperties.set(node, cloneProperties(node));
     });
 
-    const proxyClass = createProxy(name, constructor);
+    const proxyClass = createProxy(name, constructor) as ComponentConstructor<T>;
     overridePrototype(proxyClass, constructor);
 
     delete customElements.registry[name];
@@ -38,10 +42,10 @@ customElements.define = function<T extends CustomElementConstructor>(name: strin
         return;
     }
 
-    connected.forEach((node: any) => {
+    connected.forEach((node) => {
         const computedProperties = getProperties(node);
         const actualProperties = connectedProperties.get(node) || {};
-        let initializedProperties: InstanceType<T> | undefined;
+        let initializedProperties: T | undefined;
         for (const propertyKey in computedProperties) {
             if (propertyKey in actualProperties) {
                 node.setInnerPropertyValue(propertyKey, actualProperties[propertyKey]);
@@ -53,8 +57,8 @@ customElements.define = function<T extends CustomElementConstructor>(name: strin
                     } else if (typeof property.defaultValue !== 'undefined') {
                         node[propertyKey] = property.defaultValue;
                     } else if (!property.static) {
-                        initializedProperties = initializedProperties || (new proxyClass() as InstanceType<T>);
-                        node.setInnerPropertyValue(propertyKey, initializedProperties[propertyKey as keyof InstanceType<T>]);
+                        initializedProperties = initializedProperties || new proxyClass();
+                        node.setInnerPropertyValue(propertyKey, initializedProperties[propertyKey]);
                     }
                     node.watchedProperties.push(propertyKey);
                 }

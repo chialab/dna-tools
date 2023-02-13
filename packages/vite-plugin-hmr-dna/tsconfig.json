@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "declarationDir": "./dist",
+    "lib": [
+      "esnext"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "scripts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../hmr-dna"
+    }
+  ]
+}
