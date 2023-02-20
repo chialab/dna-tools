@@ -4,10 +4,12 @@ import { addons, useEffect } from '@storybook/preview-api';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { type PartialStoryFn, type StoryContext } from '@storybook/types';
 import { type DnaRenderer } from '../types';
-import { getCustomElementDeclaration, getCustomElementsManifest } from '../framework-api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isObject(value: any): value is object {
+    if (value === null) {
+        return false;
+    }
     if (typeof value === 'object') {
         return true;
     }
@@ -44,6 +46,11 @@ function isArray(value: any): value is any[] {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isFunction(value: any): value is Function {
+    return typeof value === 'function';
+}
+
 const voidElements = [
     'area',
     'base',
@@ -67,6 +74,39 @@ const voidElements = [
     'param',
     'source',
     'track',
+    'wbr',
+];
+
+const inlineElements = [
+    'a',
+    'abbr',
+    'acronym',
+    'b',
+    'bdi',
+    'bdo',
+    'big',
+    'br',
+    'data',
+    'del',
+    'dfn',
+    'em',
+    'i',
+    'ins',
+    'kbd',
+    'mark',
+    'q',
+    'ruby',
+    's',
+    'samp',
+    'small',
+    'span',
+    'strong',
+    'sub',
+    'sup',
+    'time',
+    'u',
+    'tt',
+    'var',
     'wbr',
 ];
 
@@ -104,9 +144,6 @@ function vnodeToString(vnode: Template): string {
         delete properties.is;
     }
 
-    const customElementsManifest = getCustomElementsManifest();
-    const declaration = customElementsManifest && getCustomElementDeclaration(is, customElementsManifest);
-
     const attrs = Object.keys(properties).map((prop) => {
         if (prop === 'is' && is) {
             return `is="${is}"`;
@@ -116,21 +153,17 @@ function vnodeToString(vnode: Template): string {
         }
 
         let value = properties[prop as keyof typeof properties];
-        if (isObject(value)) {
-            value = '{...}';
+        if (value == null || value === false) {
+            return false;
         }
         if (isArray(value)) {
             value = '[...]';
         }
-        if (typeof value === 'function') {
+        if (isObject(value)) {
+            value = '{...}';
+        }
+        if (isFunction(value)) {
             value = value.name || 'function() { ... }';
-        }
-        if (value == null || value === false) {
-            return false;
-        }
-        const attr = declaration?.attributes?.filter((attr) => attr.fieldName === prop)[0];
-        if (attr) {
-            prop = attr.name;
         }
         if (value === true) {
             return prop;
@@ -142,25 +175,21 @@ function vnodeToString(vnode: Template): string {
         return `<${hyperObject.type.name}${attrs ? ` ${attrs}` : ''} />`;
     }
 
-    if (voidElements.indexOf(tag) !== -1) {
-        return `<${tag}${attrs ? ` ${attrs}` : ''} />`;
+    const tagBlock = inlineElements.includes(tag) ? '' : '\n';
+    if (voidElements.includes(tag)) {
+        return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''} />${tagBlock}`;
     }
-
     if (!hyperObject.children || !hyperObject.children.length) {
-        return `<${tag}${attrs ? ` ${attrs}` : ''}></${tag}>`;
+        return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}></${tag}>${tagBlock}`;
     }
 
-    let hasNodes = false;
     const prefix = ''.padStart(4, ' ');
     const childContents = (hyperObject.children || [])
         .reduce((acc: (Template|string)[], child) => {
             if (typeof child !== 'object') {
                 child = vnodeToString(child);
             } else if (child instanceof window.Node) {
-                hasNodes = true;
                 child = vnodeToString(child);
-            } else {
-                hasNodes = true;
             }
 
             if (typeof child === 'string' &&
@@ -176,14 +205,7 @@ function vnodeToString(vnode: Template): string {
             vnodeToString(child).replace(/\n/g, `\n${prefix}`)
         );
 
-    let childContentsHtml = '';
-    if (childContents.length === 1 && !hasNodes) {
-        childContentsHtml = childContents[0];
-    } else if (childContents.length) {
-        childContentsHtml = `\n${prefix}${childContents.join(`\n${prefix}`)}\n`;
-    }
-
-    return `<${tag}${attrs ? ` ${attrs}` : ''}>${childContentsHtml}</${tag}>`;
+    return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}>${tagBlock ? `${tagBlock}${prefix}` : ''}${childContents.join('')}${tagBlock}</${tag}>${tagBlock}`;
 }
 
 export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: StoryContext) {
@@ -191,7 +213,7 @@ export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: S
     const story = storyFn();
     const source = (() => {
         try {
-            return vnodeToString(story);
+            return vnodeToString(story).replace(/\n\s*\n+/g, '\n');
         } catch {
             return '';
         }
