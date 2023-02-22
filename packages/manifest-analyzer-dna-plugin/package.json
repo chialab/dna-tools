@@ -14,6 +14,9 @@
     "url": "https://github.com/chialab/dna-tools.git",
     "directory": "packages/manifest-analyzer-dna-plugin/"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "exports": {
     ".": {

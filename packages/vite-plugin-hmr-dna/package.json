@@ -16,6 +16,9 @@
     "url": "https://github.com/chialab/dna-tools.git",
     "directory": "packages/vite-plugin-hmr-dna/"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "exports": {
     ".": {

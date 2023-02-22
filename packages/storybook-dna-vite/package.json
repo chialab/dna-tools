@@ -15,6 +15,9 @@
     "url": "https://github.com/chialab/dna-tools.git",
     "directory": "packages/storybook-dna-vite/"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "exports": {
     ".": {
