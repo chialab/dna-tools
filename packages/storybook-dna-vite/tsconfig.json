@@ -21,6 +21,9 @@
     },
     {
       "path": "../storybook-dna"
+    },
+    {
+      "path": "../vite-plugin-hmr-dna"
     }
   ]
 }
