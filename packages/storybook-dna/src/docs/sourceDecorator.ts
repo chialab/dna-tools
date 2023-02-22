@@ -110,6 +110,15 @@ const inlineElements = [
     'wbr',
 ];
 
+const simpleBlockElements = [
+    'button',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+];
+
 function escapeHtml(input: string) {
     return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
@@ -176,6 +185,7 @@ function vnodeToString(vnode: Template): string {
     }
 
     const tagBlock = inlineElements.includes(tag) ? '' : '\n';
+    const childrenBlock = [...inlineElements, ...simpleBlockElements].includes(tag) ? '' : '\n';
     if (voidElements.includes(tag)) {
         return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''} />${tagBlock}`;
     }
@@ -205,7 +215,7 @@ function vnodeToString(vnode: Template): string {
             vnodeToString(child).replace(/\n/g, `\n${prefix}`)
         );
 
-    return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}>${tagBlock ? `${tagBlock}${prefix}` : ''}${childContents.join('')}${tagBlock}</${tag}>${tagBlock}`;
+    return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}>${childrenBlock ? `${childrenBlock}${prefix}` : ''}${childContents.join('')}${childrenBlock}</${tag}>${tagBlock}`;
 }
 
 export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: StoryContext) {
