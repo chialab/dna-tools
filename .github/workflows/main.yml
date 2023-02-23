@@ -98,10 +98,10 @@ jobs:
           cache: yarn
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/cache/restore@v3
         with:
-          name: packages
           path: ./packages
+          key: ${{ runner.os }}-build-${{ github.sha }}
 
       - name: Install project dependencies
         run: yarn install
