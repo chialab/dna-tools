@@ -12,7 +12,7 @@ const customElementsDefine = window.customElements.define.bind(window.customElem
  * @param options Definition options.
  */
 export function defineOnce(name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions) {
-    if (!window.customElements.get(name) && isComponentConstructor(constructor)) {
+    if (!window.customElements.get(name) || !isComponentConstructor(constructor)) {
         customElementsDefine(name, constructor, options);
     }
 }
