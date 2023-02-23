@@ -19,7 +19,7 @@ const define = customElements.define.bind(customElements) as (name: string, cons
  * @param constructor The custom element constructor.
  * @param options Definition options.
  */
-customElements.define = function <T extends ComponentInstance>(name: string, constructor: ComponentConstructor<T>|CustomElementConstructor, options?: ElementDefinitionOptions) {
+customElements.define = function <T extends ComponentInstance>(name: string, constructor: ComponentConstructor<T> | CustomElementConstructor, options?: ElementDefinitionOptions) {
     if (!isComponentConstructor(constructor)) {
         return define(name, constructor, options);
     }
