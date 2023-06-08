@@ -1,14 +1,23 @@
-import type { SyntaxKind, Modifier, Node, Decorator, ObjectLiteralExpression, GetAccessorDeclaration, PropertyDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type { ClassField, Attribute, JavaScriptModule, CustomElement } from 'custom-elements-manifest/schema';
 import type { Context } from '@custom-elements-manifest/analyzer';
+import type {
+    SyntaxKind,
+    Modifier,
+    Node,
+    Decorator,
+    ObjectLiteralExpression,
+    GetAccessorDeclaration,
+    PropertyDeclaration,
+} from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type typescript from '@custom-elements-manifest/analyzer/node_modules/typescript';
+import type { ClassField, Attribute, JavaScriptModule, CustomElement } from 'custom-elements-manifest/schema';
 
-type TypeScriptModule = typeof typescript & Partial<{
-    canHaveModifiers(node: Node): boolean;
-    getModifiers(node: Node): readonly Modifier[] | undefined;
-    canHaveDecorators(node: Node): boolean;
-    getDecorators(node: Node): readonly Decorator[] | undefined;
-}>;
+type TypeScriptModule = typeof typescript &
+    Partial<{
+        canHaveModifiers(node: Node): boolean;
+        getModifiers(node: Node): readonly Modifier[] | undefined;
+        canHaveDecorators(node: Node): boolean;
+        getDecorators(node: Node): readonly Decorator[] | undefined;
+    }>;
 
 /**
  * Check if node has a specific keyword.
@@ -59,23 +68,26 @@ export function getDecoratorArguments(ts: TypeScriptModule, decorator: Decorator
  * @returns The decorator AST node.
  */
 export function getDecorator(ts: TypeScriptModule, node: Node, name: string): Decorator | null {
-    const decorators = (typeof ts.getDecorators === 'function' && typeof ts.canHaveDecorators === 'function') ?
-        (ts.canHaveDecorators(node) && ts.getDecorators(node)) :
-        node.decorators;
+    const decorators =
+        typeof ts.getDecorators === 'function' && typeof ts.canHaveDecorators === 'function'
+            ? ts.canHaveDecorators(node) && ts.getDecorators(node)
+            : node.decorators;
 
     if (!decorators) {
         return null;
     }
 
-    return decorators.find((decorator) => {
-        if (!decorator) {
-            return;
-        }
-        if (ts.isCallExpression(decorator.expression)) {
-            return decorator.expression.expression.getText() === name;
-        }
-        return decorator.expression?.getText() === name;
-    }) ?? null;
+    return (
+        decorators.find((decorator) => {
+            if (!decorator) {
+                return;
+            }
+            if (ts.isCallExpression(decorator.expression)) {
+                return decorator.expression.expression.getText() === name;
+            }
+            return decorator.expression?.getText() === name;
+        }) ?? null
+    );
 }
 
 /**
@@ -172,10 +184,13 @@ export function getAttributeName(ts: TypeScriptModule, node: ObjectLiteralExpres
  * @param node The property getter AST node.
  * @returns The property descriptor object AST node.
  */
-export function getPropertiesObject(ts: TypeScriptModule, node: GetAccessorDeclaration | PropertyDeclaration): ObjectLiteralExpression | null {
-    const exp = ts.isGetAccessor(node) ?
-        node.body?.statements?.find(ts.isReturnStatement)?.expression :
-        node.initializer;
+export function getPropertiesObject(
+    ts: TypeScriptModule,
+    node: GetAccessorDeclaration | PropertyDeclaration
+): ObjectLiteralExpression | null {
+    const exp = ts.isGetAccessor(node)
+        ? node.body?.statements?.find(ts.isReturnStatement)?.expression
+        : node.initializer;
 
     if (exp && ts.isObjectLiteralExpression(exp)) {
         return exp;
@@ -234,5 +249,5 @@ export function getClassDeclaration(moduleDoc: Partial<JavaScriptModule>, classN
     if (!moduleDoc.declarations) {
         return null;
     }
-    return moduleDoc.declarations.find((declaration) => declaration.name === className) as CustomElement ?? null;
+    return (moduleDoc.declarations.find((declaration) => declaration.name === className) as CustomElement) ?? null;
 }

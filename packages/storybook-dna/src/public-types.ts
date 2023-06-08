@@ -1,4 +1,13 @@
-import type { AnnotatedStoryFn, Args, ComponentAnnotations, StoryAnnotations, DecoratorFunction, LoaderFunction, StoryContext as GenericStoryContext, StrictArgs } from '@storybook/types';
+import type {
+    AnnotatedStoryFn,
+    Args,
+    ComponentAnnotations,
+    StoryAnnotations,
+    DecoratorFunction,
+    LoaderFunction,
+    StoryContext as GenericStoryContext,
+    StrictArgs,
+} from '@storybook/types';
 import type { DnaRenderer } from './types';
 
 export type { Args, ArgTypes, Parameters, StrictArgs } from '@storybook/types';

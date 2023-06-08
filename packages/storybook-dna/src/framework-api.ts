@@ -1,7 +1,7 @@
 import { window } from '@chialab/dna';
 import { logger } from '@storybook/client-logger';
-import { dedent } from 'ts-dedent';
 import { type Package, type CustomElement, type PropertyLike } from 'custom-elements-manifest';
+import { dedent } from 'ts-dedent';
 
 export function getCustomElementsManifest() {
     return window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;
@@ -35,7 +35,10 @@ function isValidManifest(manifest: Package) {
     `);
 }
 
-export const getCustomElementDeclaration = (tagName: string, manifest: Package): (CustomElement & { properties?: PropertyLike[] }) | null => {
+export const getCustomElementDeclaration = (
+    tagName: string,
+    manifest: Package
+): (CustomElement & { properties?: PropertyLike[] }) | null => {
     if (!isValidTagName(tagName) || !isValidManifest(manifest)) {
         return null;
     }
@@ -67,9 +70,6 @@ export function mergeCustomElementsManifests(manifest1: Package, manifest2: Pack
     return {
         ...manifest1,
         ...manifest2,
-        modules: [
-            ...(manifest1.modules || []),
-            ...(manifest2.modules || []),
-        ],
+        modules: [...(manifest1.modules || []), ...(manifest2.modules || [])],
     };
 }

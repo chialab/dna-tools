@@ -26,14 +26,17 @@ export function customElementDecorator(): Plugin {
                 return;
             }
 
-            moduleDoc.exports = [...(moduleDoc.exports || []), {
-                kind: 'custom-element-definition',
-                name: argument.text,
-                declaration: {
-                    name: node.name.getText(),
-                    ...resolveModuleOrPackageSpecifier(moduleDoc, context, node.getText()),
+            moduleDoc.exports = [
+                ...(moduleDoc.exports || []),
+                {
+                    kind: 'custom-element-definition',
+                    name: argument.text,
+                    declaration: {
+                        name: node.name.getText(),
+                        ...resolveModuleOrPackageSpecifier(moduleDoc, context, node.getText()),
+                    },
                 },
-            }];
+            ];
         },
     };
 }

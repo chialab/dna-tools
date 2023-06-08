@@ -1,6 +1,6 @@
-import { describe, expect, test } from 'vitest';
-import { customElementsManifestPlugin } from '@chialab/storybook-dna-vite';
 import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
+import { customElementsManifestPlugin } from '@chialab/storybook-dna-vite';
+import { describe, expect, test } from 'vitest';
 
 describe('generate custom elements manifest', () => {
     test('DNA module', async () => {
@@ -9,13 +9,16 @@ describe('generate custom elements manifest', () => {
             plugins: [...dnaPlugins()],
         });
 
-        const result = await (plugin.transform as Function)(`import { customElement, Component } from '@chialab/dna';
+        const result = await (plugin.transform as Function)(
+            `import { customElement, Component } from '@chialab/dna';
 
 @customElement('dna-test')
 export class Test extends Component {
     @property() testProp?: string;
 }
-`, 'Test.ts');
+`,
+            'Test.ts'
+        );
 
         expect(result).toBeDefined();
         expect(result?.code).toEqual(`import * as __STORYBOOK_WEB_COMPONENTS__ from '@chialab/storybook-dna';

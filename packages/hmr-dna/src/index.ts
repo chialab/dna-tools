@@ -1,6 +1,13 @@
-import { window, customElements, type ComponentConstructor, type ComponentInstance, getProperties, isComponentConstructor } from '@chialab/dna';
-import { getConnected } from './connectedRegistry';
+import {
+    window,
+    customElements,
+    type ComponentConstructor,
+    type ComponentInstance,
+    getProperties,
+    isComponentConstructor,
+} from '@chialab/dna';
 import { createProxy } from './CustomElementProxy';
+import { getConnected } from './connectedRegistry';
 import { defineOnce } from './defineOnce';
 import { cloneProperties, overridePrototype } from './utils';
 
@@ -11,7 +18,11 @@ window.customElements.define = defineOnce;
 /**
  * Store the DNA customElements.define method.
  */
-const define = customElements.define.bind(customElements) as (name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions) => void;
+const define = customElements.define.bind(customElements) as (
+    name: string,
+    constructor: CustomElementConstructor,
+    options?: ElementDefinitionOptions
+) => void;
 
 /**
  * Define a DNA component with HMR support.
@@ -19,7 +30,11 @@ const define = customElements.define.bind(customElements) as (name: string, cons
  * @param constructor The custom element constructor.
  * @param options Definition options.
  */
-customElements.define = function <T extends ComponentInstance>(name: string, constructor: ComponentConstructor<T> | CustomElementConstructor, options?: ElementDefinitionOptions) {
+customElements.define = function <T extends ComponentInstance>(
+    name: string,
+    constructor: ComponentConstructor<T> | CustomElementConstructor,
+    options?: ElementDefinitionOptions
+) {
     if (!isComponentConstructor(constructor)) {
         return define(name, constructor, options);
     }

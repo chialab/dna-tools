@@ -17,7 +17,7 @@ import { getCustomElementsManifest } from '@chialab/storybook-dna';
 
 const manifest = getCustomElementsManifest();
 manifest.modules.forEach(() => {
-    // 
+    //
 });
 ```
 

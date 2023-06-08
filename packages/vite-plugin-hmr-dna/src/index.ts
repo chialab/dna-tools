@@ -1,5 +1,5 @@
-import { type Plugin } from 'vite';
 import MagicString from 'magic-string';
+import { type Plugin } from 'vite';
 
 /**
  * Check if module body contains DNA component definitions.
@@ -27,7 +27,7 @@ export function hmrPlugin(): Plugin {
             }
 
             const output = new MagicString(body);
-            output.prepend('import \'@chialab/hmr-dna\';');
+            output.prepend("import '@chialab/hmr-dna';");
             output.append('if (import.meta.hot) { import.meta.hot.accept(); }');
 
             return {

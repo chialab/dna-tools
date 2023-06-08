@@ -1,6 +1,14 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassField } from 'custom-elements-manifest/schema';
-import { hasAttribute, getClassDeclaration, getAttributeName, getPropertiesObject, createAttributeFromField, hasKeyword, isState } from './utils';
+import {
+    hasAttribute,
+    getClassDeclaration,
+    getAttributeName,
+    getPropertiesObject,
+    createAttributeFromField,
+    hasKeyword,
+    isState,
+} from './utils';
 
 /**
  * A plugin that collects static properties.
@@ -26,10 +34,12 @@ export function staticProperties(): Plugin {
             }
 
             node.members.forEach((member) => {
-                if (!member.name ||
+                if (
+                    !member.name ||
                     !hasKeyword(ts, member, ts.SyntaxKind.StaticKeyword) ||
                     (!ts.isPropertyDeclaration(member) && !ts.isGetAccessor(member)) ||
-                    member.name.getText() !== 'properties') {
+                    member.name.getText() !== 'properties'
+                ) {
                     return;
                 }
 
@@ -55,7 +65,10 @@ export function staticProperties(): Plugin {
                     };
 
                     if (hasAttribute(ts, initializer)) {
-                        const attribute = createAttributeFromField(classMember, getAttributeName(ts, initializer) || property.name.getText());
+                        const attribute = createAttributeFromField(
+                            classMember,
+                            getAttributeName(ts, initializer) || property.name.getText()
+                        );
                         currClass.attributes = [...(currClass.attributes || []), attribute];
                     }
 
@@ -67,7 +80,10 @@ export function staticProperties(): Plugin {
                     if (!existingField) {
                         currClass.members = [...(currClass.members || []), classMember];
                     } else {
-                        currClass.members = currClass.members?.map((field) => (field.name === classMember.name ? ({ ...field, ...classMember }) : field)) ?? [];
+                        currClass.members =
+                            currClass.members?.map((field) =>
+                                field.name === classMember.name ? { ...field, ...classMember } : field
+                            ) ?? [];
                     }
                 });
             });

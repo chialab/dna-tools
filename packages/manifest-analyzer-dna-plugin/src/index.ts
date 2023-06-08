@@ -1,6 +1,6 @@
 import { customElementDecorator } from './customElementDecorator';
-import { methodDenyList } from './methodDenyList';
 import { memberDenyList } from './memberDenyList';
+import { methodDenyList } from './methodDenyList';
 import { propertyDecorator } from './propertyDecorator';
 import { staticProperties } from './staticProperties';
 

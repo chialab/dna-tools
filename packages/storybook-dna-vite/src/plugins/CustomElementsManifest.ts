@@ -1,10 +1,10 @@
-import type { Plugin } from 'vite';
 import type { Plugin as AnalyzerPlugin } from '@custom-elements-manifest/analyzer';
-import type { Package, CustomElementDeclaration } from 'custom-elements-manifest/schema';
+import { ts, create } from '@custom-elements-manifest/analyzer/index.js';
 import type * as tsModule from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { createFilter } from '@rollup/pluginutils';
-import { ts, create } from '@custom-elements-manifest/analyzer/index.js';
+import type { Package, CustomElementDeclaration } from 'custom-elements-manifest/schema';
 import MagicString from 'magic-string';
+import type { Plugin } from 'vite';
 
 declare module '@custom-elements-manifest/analyzer/index.js' {
     export const ts: typeof tsModule;
@@ -19,10 +19,7 @@ export interface CustomElementsManifestOptions {
 }
 
 export default function customElementsManifestPlugin(options: CustomElementsManifestOptions): Plugin {
-    const filter = createFilter(
-        options.include || /\.(m?ts|[jt]sx)$/,
-        options.exclude
-    );
+    const filter = createFilter(options.include || /\.(m?ts|[jt]sx)$/, options.exclude);
 
     return {
         name: 'vite:storybook-cem',
@@ -34,9 +31,7 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 return;
             }
 
-            const modules = [
-                ts.createSourceFile(id, code, ts.ScriptTarget.ESNext, true),
-            ];
+            const modules = [ts.createSourceFile(id, code, ts.ScriptTarget.ESNext, true)];
 
             const customElementsManifest = create({
                 modules,
@@ -47,36 +42,33 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 return;
             }
 
-            const declarations = customElementsManifest.modules
-                .map((mod) => mod.declarations ?? [])
-                .flat();
+            const declarations = customElementsManifest.modules.map((mod) => mod.declarations ?? []).flat();
 
             if (declarations.length === 0) {
                 return;
             }
 
-            (declarations
-                .filter((decl) =>
-                    (decl as CustomElementDeclaration).customElement &&
-                    (decl as CustomElementDeclaration).attributes &&
-                    (decl as CustomElementDeclaration).members
-                ) as CustomElementDeclaration[])
-                .forEach((decl) => {
-                    decl.attributes?.forEach(
-                        (attr) => {
-                            const member = decl.members?.find(
-                                /** @param {*} m */
-                                (m) => m.name === attr.fieldName
-                            );
-                            if (!member) {
-                                return member;
-                            }
-
-                            attr.type = undefined;
-                            attr.default = undefined;
-                        }
+            (
+                declarations.filter(
+                    (decl) =>
+                        (decl as CustomElementDeclaration).customElement &&
+                        (decl as CustomElementDeclaration).attributes &&
+                        (decl as CustomElementDeclaration).members
+                ) as CustomElementDeclaration[]
+            ).forEach((decl) => {
+                decl.attributes?.forEach((attr) => {
+                    const member = decl.members?.find(
+                        /** @param {*} m */
+                        (m) => m.name === attr.fieldName
                     );
+                    if (!member) {
+                        return member;
+                    }
+
+                    attr.type = undefined;
+                    attr.default = undefined;
                 });
+            });
 
             const output = new MagicString(code);
             output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);
