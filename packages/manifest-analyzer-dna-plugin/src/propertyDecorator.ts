@@ -45,7 +45,7 @@ export function propertyDecorator(): Plugin {
 
                 const parent = member.parent as ClassDeclaration;
                 const memberName = member.name.getText();
-                const accessorMembers = parent.members?.filter((m) => m.name && m.name.getText() === memberName) ?? [];
+                const accessorMembers = parent?.members?.filter((m) => m.name && m.name.getText() === memberName) ?? [];
                 const propDecorator = accessorMembers.map((m) => getDecorator(ts, m, 'property')).filter(Boolean)[0];
                 const stateDecorator = accessorMembers.map((m) => getDecorator(ts, m, 'state')).filter(Boolean)[0];
                 const actualDecorator = propDecorator || stateDecorator;

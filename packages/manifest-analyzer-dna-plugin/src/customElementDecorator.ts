@@ -16,23 +16,53 @@ export function customElementDecorator(): Plugin {
                 return;
             }
 
+            const className = node.name.getText();
+            let builtinTagName: string | undefined = undefined;
+
             const customElementDecorator = getDecorator(ts, node, 'customElement');
             if (!customElementDecorator) {
                 return;
             }
 
-            const argument = getDecoratorArguments(ts, customElementDecorator)[0];
-            if (!ts.isStringLiteral(argument)) {
+            const [nameArgument, optionsArgument] = getDecoratorArguments(ts, customElementDecorator);
+            if (!ts.isStringLiteral(nameArgument)) {
                 return;
+            }
+
+            if (ts.isObjectLiteralExpression(optionsArgument)) {
+                const extendsProp = optionsArgument.properties.find(
+                    (property) => ts.isPropertyAssignment(property) && property.name.getText() === 'extends'
+                );
+                if (extendsProp && ts.isPropertyAssignment(extendsProp)) {
+                    const initializer = extendsProp.initializer;
+                    builtinTagName = initializer.getText().replace(/['"]/g, '');
+                }
+            }
+
+            if (builtinTagName) {
+                moduleDoc.declarations = (moduleDoc.declarations || []).map((decl) => {
+                    if (decl.kind !== 'class') {
+                        return decl;
+                    }
+
+                    if (decl.name !== className) {
+                        return decl;
+                    }
+
+                    return {
+                        ...decl,
+                        builtin: builtinTagName,
+                    };
+                });
             }
 
             moduleDoc.exports = [
                 ...(moduleDoc.exports || []),
                 {
                     kind: 'custom-element-definition',
-                    name: argument.text,
+                    name: nameArgument.text,
                     declaration: {
-                        name: node.name.getText(),
+                        name: className,
                         ...resolveModuleOrPackageSpecifier(moduleDoc, context, node.getText()),
                     },
                 },

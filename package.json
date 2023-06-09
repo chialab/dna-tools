@@ -9,7 +9,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "prettier --check . && eslint packages/**/src",
+    "lint": "prettier --check . && eslint packages/*/src",
     "build": "tsc --build && node scripts/build.js",
     "test": "vitest",
     "install": "node scripts/tsconfig.js"

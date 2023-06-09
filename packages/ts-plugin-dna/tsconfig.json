@@ -8,5 +8,9 @@
   },
   "exclude": ["dist", "scripts"],
   "include": ["src/**/*"],
-  "references": []
+  "references": [
+    {
+      "path": "../manifest-analyzer-dna-plugin"
+    }
+  ]
 }

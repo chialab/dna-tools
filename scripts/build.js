@@ -106,6 +106,32 @@ esbuild.build({
     packages: 'external',
 });
 
+// ts-plugin-dna
+
+esbuild.build({
+    entryPoints: ['./packages/ts-plugin-dna/src/index.ts'],
+    target: 'node16',
+    bundle: true,
+    platform: 'node',
+    format: 'cjs',
+    outdir: './packages/ts-plugin-dna/dist',
+    external: ['typescript'],
+});
+
+esbuild.build({
+    entryPoints: ['./packages/ts-plugin-dna/src/index.ts'],
+    outExtension: {
+        '.js': '.mjs',
+    },
+    target: 'node16',
+    bundle: true,
+    splitting: true,
+    platform: 'node',
+    format: 'esm',
+    outdir: './packages/ts-plugin-dna/dist',
+    external: ['typescript'],
+});
+
 // vite-plugin-hmr-dna
 
 esbuild.build({
