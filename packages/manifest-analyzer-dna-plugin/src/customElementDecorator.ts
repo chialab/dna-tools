@@ -29,7 +29,7 @@ export function customElementDecorator(): Plugin {
                 return;
             }
 
-            if (ts.isObjectLiteralExpression(optionsArgument)) {
+            if (optionsArgument && ts.isObjectLiteralExpression(optionsArgument)) {
                 const extendsProp = optionsArgument.properties.find(
                     (property) => ts.isPropertyAssignment(property) && property.name.getText() === 'extends'
                 );
