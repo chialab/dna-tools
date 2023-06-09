@@ -1,6 +1,6 @@
+import plugin from '@chialab/ts-plugin-dna';
 import process from 'node:process';
 import ts from 'typescript';
-import plugin from '@chialab/ts-plugin-dna';
 import { describe, expect, test } from 'vitest';
 
 describe('Ttypescript plugin DNA', () => {
@@ -29,20 +29,30 @@ export class MyElement extends Component {
             getNewLine: () => ts.sys.newLine,
         };
 
-        const program = ts.createProgram(['my-element.ts'], {
-            declaration: true,
-            emitDeclarationOnly: true,
-            experimentalDecorators: true,
-            incremental: false,
-            moduleResolution: ts.ModuleResolutionKind.NodeJs,
-        }, compilerHost);
+        const program = ts.createProgram(
+            ['my-element.ts'],
+            {
+                declaration: true,
+                emitDeclarationOnly: true,
+                experimentalDecorators: true,
+                incremental: false,
+                moduleResolution: ts.ModuleResolutionKind.NodeJs,
+            },
+            compilerHost
+        );
 
         const outputs = {};
-        program.emit(undefined, (fileName, fileContents) => {
-            outputs[fileName] = fileContents;
-        }, undefined, undefined, {
-            afterDeclarations: [plugin],
-        });
+        program.emit(
+            undefined,
+            (fileName, fileContents) => {
+                outputs[fileName] = fileContents;
+            },
+            undefined,
+            undefined,
+            {
+                afterDeclarations: [plugin],
+            }
+        );
 
         expect(outputs['my-element.d.ts']).toEqual(`import { Component } from '@chialab/dna';
 export declare class MyElement extends Component {
@@ -77,7 +87,7 @@ export class MyButton extends extend(window.HTMLButtonElement) {
             },
             fileExists: () => true,
             readFile: (fileName) => ts.sys.readFile(fileName),
-            writeFile: () => { },
+            writeFile: () => {},
             getDefaultLibFileName: () => 'lib.d.ts',
             useCaseSensitiveFileNames: () => true,
             getCanonicalFileName: (fileName) => fileName,
@@ -85,20 +95,30 @@ export class MyButton extends extend(window.HTMLButtonElement) {
             getNewLine: () => ts.sys.newLine,
         };
 
-        const program = ts.createProgram(['my-button.ts'], {
-            declaration: true,
-            emitDeclarationOnly: true,
-            experimentalDecorators: true,
-            incremental: false,
-            moduleResolution: ts.ModuleResolutionKind.NodeJs,
-        }, compilerHost);
+        const program = ts.createProgram(
+            ['my-button.ts'],
+            {
+                declaration: true,
+                emitDeclarationOnly: true,
+                experimentalDecorators: true,
+                incremental: false,
+                moduleResolution: ts.ModuleResolutionKind.NodeJs,
+            },
+            compilerHost
+        );
 
         const outputs = {};
-        program.emit(undefined, (fileName, fileContents) => {
-            outputs[fileName] = fileContents;
-        }, undefined, undefined, {
-            afterDeclarations: [plugin],
-        });
+        program.emit(
+            undefined,
+            (fileName, fileContents) => {
+                outputs[fileName] = fileContents;
+            },
+            undefined,
+            undefined,
+            {
+                afterDeclarations: [plugin],
+            }
+        );
 
         expect(outputs['my-button.d.ts']).toEqual(`declare const MyButton_base: any;
 export declare class MyButton extends MyButton_base {
