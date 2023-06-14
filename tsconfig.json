@@ -33,7 +33,7 @@
       "path": "./packages/storybook-dna-vite"
     },
     {
-      "path": "./packages/ts-plugin-dna"
+      "path": "./packages/ts-dna-plugin"
     },
     {
       "path": "./packages/vite-plugin-hmr-dna"

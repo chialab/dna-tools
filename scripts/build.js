@@ -110,20 +110,20 @@ await Promise.all([
     }),
 ]);
 
-// ts-plugin-dna
+// ts-dna-plugin
 
 await Promise.all([
     esbuild.build({
-        entryPoints: ['./packages/ts-plugin-dna/src/index.ts'],
+        entryPoints: ['./packages/ts-dna-plugin/src/index.ts'],
         target: 'node16',
         bundle: true,
         platform: 'node',
         format: 'cjs',
-        outdir: './packages/ts-plugin-dna/dist',
+        outdir: './packages/ts-dna-plugin/dist',
         external: ['typescript'],
     }),
     esbuild.build({
-        entryPoints: ['./packages/ts-plugin-dna/src/index.ts'],
+        entryPoints: ['./packages/ts-dna-plugin/src/index.ts'],
         outExtension: {
             '.js': '.mjs',
         },
@@ -132,7 +132,7 @@ await Promise.all([
         splitting: true,
         platform: 'node',
         format: 'esm',
-        outdir: './packages/ts-plugin-dna/dist',
+        outdir: './packages/ts-dna-plugin/dist',
         external: ['typescript'],
     }),
 ]);

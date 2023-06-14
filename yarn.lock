@@ -1915,9 +1915,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chialab/ts-plugin-dna@workspace:packages/ts-plugin-dna":
+"@chialab/ts-dna-plugin@workspace:packages/ts-dna-plugin":
   version: 0.0.0-use.local
-  resolution: "@chialab/ts-plugin-dna@workspace:packages/ts-plugin-dna"
+  resolution: "@chialab/ts-dna-plugin@workspace:packages/ts-dna-plugin"
   dependencies:
     "@chialab/manifest-analyzer-dna-plugin": ^3.0.0
     "@custom-elements-manifest/analyzer": ^0.6.0
