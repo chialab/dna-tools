@@ -1745,14 +1745,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chialab/ts-plugin-dna@workspace:packages/ts-plugin-dna":
-  version: 0.0.0-use.local
-  resolution: "@chialab/ts-plugin-dna@workspace:packages/ts-plugin-dna"
-  dependencies:
-    typescript: ^4.0.0
-  languageName: unknown
-  linkType: soft
-
 "@chialab/vite-plugin-hmr-dna@^3.0.0, @chialab/vite-plugin-hmr-dna@workspace:packages/vite-plugin-hmr-dna":
   version: 0.0.0-use.local
   resolution: "@chialab/vite-plugin-hmr-dna@workspace:packages/vite-plugin-hmr-dna"
@@ -9880,7 +9872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.0.0, typescript@npm:^4.9.4":
+"typescript@npm:^4.9.4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -9900,7 +9892,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=ad5954"
   bin:
