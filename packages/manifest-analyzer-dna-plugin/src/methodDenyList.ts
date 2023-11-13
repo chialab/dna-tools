@@ -6,7 +6,16 @@ import type { ClassDeclaration } from 'custom-elements-manifest/schema';
  * @returns An analyzer plugin.
  */
 export function methodDenyList(): Plugin {
-    const METHOD_DENY_LIST = ['initialize', 'forceUpdate', 'stateChangedCallback', 'propertyChangedCallback', 'render'];
+    const METHOD_DENY_LIST = [
+        'initialize',
+        'forceUpdate',
+        'connectedCallback',
+        'disconnectedCallback',
+        'attributeChangedCallback',
+        'stateChangedCallback',
+        'propertyChangedCallback',
+        'render',
+    ];
 
     return {
         name: 'DNA-METHOD-DENYLIST',

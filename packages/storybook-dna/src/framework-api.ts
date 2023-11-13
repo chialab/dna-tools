@@ -1,4 +1,3 @@
-import { window } from '@chialab/dna';
 import { logger } from '@storybook/client-logger';
 import { type Package, type CustomElement, type PropertyLike } from 'custom-elements-manifest';
 import { dedent } from 'ts-dedent';

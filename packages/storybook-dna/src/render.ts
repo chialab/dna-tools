@@ -1,4 +1,4 @@
-import { h, DOM, render as dnaRender, customElements, Node } from '@chialab/dna';
+import { h, render as dnaRender } from '@chialab/dna';
 import { simulatePageLoad, simulateDOMContentLoaded } from '@storybook/preview-api';
 import type { RenderContext, ArgsStoryFn } from '@storybook/types';
 import { dedent } from 'ts-dedent';
@@ -37,7 +37,7 @@ export function renderToCanvas(
             }
 
             canvasElement.innerHTML = '';
-            DOM.appendChild(canvasElement, element);
+            canvasElement.appendChild(element);
             simulateDOMContentLoaded();
         } else {
             dnaRender(h('div', { key: name }, element), canvasElement);

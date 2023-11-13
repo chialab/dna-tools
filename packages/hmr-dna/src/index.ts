@@ -1,6 +1,4 @@
 import {
-    window,
-    customElements,
     type ComponentConstructor,
     type ComponentInstance,
     getProperties,
@@ -13,7 +11,7 @@ import { cloneProperties, overridePrototype } from './utils';
 
 // Override browser custom elements define method
 // in order to prevent a `NotSupportedError` when re-defining a component on HMR
-window.customElements.define = defineOnce;
+customElements.define = defineOnce;
 
 /**
  * Store the DNA customElements.define method.
@@ -49,8 +47,6 @@ customElements.define = function <T extends ComponentInstance>(
 
     const proxyClass = createProxy(name, constructor) as ComponentConstructor<T>;
     overridePrototype(proxyClass, constructor);
-
-    delete customElements.registry[name];
     define(name, proxyClass, options);
 
     if (!actual) {
@@ -75,7 +71,6 @@ customElements.define = function <T extends ComponentInstance>(
                         initializedProperties = initializedProperties || new proxyClass();
                         node.setInnerPropertyValue(propertyKey, initializedProperties[propertyKey]);
                     }
-                    node.watchedProperties.push(propertyKey);
                 }
             }
         }

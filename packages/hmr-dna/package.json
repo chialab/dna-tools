@@ -36,6 +36,6 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@chialab/dna": "^3.0.0"
+    "@chialab/dna": "4.0.0-alpha.1"
   }
 }

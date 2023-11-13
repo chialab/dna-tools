@@ -1,4 +1,4 @@
-import { type Template, type ComponentInstance, type VObject, window, customElements } from '@chialab/dna';
+import { type Template, type ComponentInstance, type VObject } from '@chialab/dna';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
@@ -128,10 +128,10 @@ function vnodeToString(vnode: Template): string {
     if (Array.isArray(vnode)) {
         return vnode.map(vnodeToString).join('\n');
     }
-    if (vnode instanceof window.Element) {
+    if (vnode instanceof Element) {
         return vnode.outerHTML;
     }
-    if (vnode instanceof window.Node) {
+    if (vnode instanceof Node) {
         return vnode.textContent || '';
     }
 
@@ -139,14 +139,13 @@ function vnodeToString(vnode: Template): string {
 
     const is =
         (typeof hyperObject.type === 'function' && hyperObject.type.prototype.is) ||
-        (hyperObject.type instanceof window.Node && (hyperObject.type as ComponentInstance).is) ||
+        (hyperObject.type instanceof Element && (hyperObject.type as ComponentInstance).is) ||
         undefined;
 
     const tag =
         (typeof hyperObject.type === 'string' && hyperObject.type) ||
-        (is && customElements.tagNames[is]) ||
-        (hyperObject.type instanceof window.Node && hyperObject.type.tagName) ||
-        undefined;
+        (hyperObject.type instanceof Element && hyperObject.type.tagName) ||
+        '#unknown';
 
     const properties = { is, ...hyperObject.properties };
     if (!is || !tag || is.toLowerCase() === tag.toLowerCase()) {
@@ -201,7 +200,7 @@ function vnodeToString(vnode: Template): string {
         .reduce((acc: (Template | string)[], child) => {
             if (typeof child !== 'object') {
                 child = vnodeToString(child);
-            } else if (child instanceof window.Node) {
+            } else if (child instanceof Node) {
                 child = vnodeToString(child);
             }
 
