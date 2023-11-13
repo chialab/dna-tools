@@ -1,11 +1,11 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassField } from 'custom-elements-manifest/schema';
 import {
-    hasAttribute,
-    getClassDeclaration,
-    getAttributeName,
-    getPropertiesObject,
     createAttributeFromField,
+    getAttributeName,
+    getClassDeclaration,
+    getPropertiesObject,
+    hasAttribute,
     hasKeyword,
     isState,
 } from './utils';

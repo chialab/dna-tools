@@ -1,5 +1,5 @@
 import { logger } from '@storybook/client-logger';
-import { type Package, type CustomElement, type PropertyLike } from 'custom-elements-manifest';
+import { type CustomElement, type Package, type PropertyLike } from 'custom-elements-manifest';
 import { dedent } from 'ts-dedent';
 
 export function getCustomElementsManifest() {

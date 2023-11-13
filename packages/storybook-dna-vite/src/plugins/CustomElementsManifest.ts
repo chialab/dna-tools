@@ -1,8 +1,8 @@
 import type { Plugin as AnalyzerPlugin } from '@custom-elements-manifest/analyzer';
-import { ts, create } from '@custom-elements-manifest/analyzer/index.js';
+import { create, ts } from '@custom-elements-manifest/analyzer/index.js';
 import type * as tsModule from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { createFilter } from '@rollup/pluginutils';
-import type { Package, CustomElementDeclaration } from 'custom-elements-manifest/schema';
+import type { CustomElement, Package } from 'custom-elements-manifest/schema';
 import MagicString from 'magic-string';
 import type { Plugin } from 'vite';
 
@@ -51,10 +51,10 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
             (
                 declarations.filter(
                     (decl) =>
-                        (decl as CustomElementDeclaration).customElement &&
-                        (decl as CustomElementDeclaration).attributes &&
-                        (decl as CustomElementDeclaration).members
-                ) as CustomElementDeclaration[]
+                        (decl as CustomElement).customElement &&
+                        (decl as CustomElement).attributes &&
+                        (decl as CustomElement).members
+                ) as CustomElement[]
             ).forEach((decl) => {
                 decl.attributes?.forEach((attr) => {
                     const member = decl.members?.find(

@@ -1,4 +1,4 @@
-import { type Template, type ComponentInstance, type VObject } from '@chialab/dna';
+import { type ComponentInstance, type Template, type VObject } from '@chialab/dna';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';

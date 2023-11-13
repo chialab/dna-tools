@@ -1,4 +1,4 @@
-import type { Template, ComponentInstance } from '@chialab/dna';
+import type { ComponentInstance, Template } from '@chialab/dna';
 import type { WebRenderer } from '@storybook/types';
 
 export type { RenderContext } from '@storybook/types';

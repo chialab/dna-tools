@@ -1,6 +1,6 @@
-import { h, render as dnaRender } from '@chialab/dna';
-import { simulatePageLoad, simulateDOMContentLoaded } from '@storybook/preview-api';
-import type { RenderContext, ArgsStoryFn } from '@storybook/types';
+import { render as dnaRender, h } from '@chialab/dna';
+import { simulateDOMContentLoaded, simulatePageLoad } from '@storybook/preview-api';
+import type { ArgsStoryFn, RenderContext } from '@storybook/types';
 import { dedent } from 'ts-dedent';
 import type { DnaRenderer } from './types';
 

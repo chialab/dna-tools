@@ -1,15 +1,15 @@
 import type { Context } from '@custom-elements-manifest/analyzer';
 import type {
-    SyntaxKind,
+    Decorator,
+    GetAccessorDeclaration,
     Modifier,
     Node,
-    Decorator,
     ObjectLiteralExpression,
-    GetAccessorDeclaration,
     PropertyDeclaration,
+    SyntaxKind,
 } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type typescript from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type { ClassField, Attribute, JavaScriptModule, CustomElement } from 'custom-elements-manifest/schema';
+import type { Attribute, ClassField, CustomElement, JavaScriptModule } from 'custom-elements-manifest/schema';
 
 type TypeScriptModule = typeof typescript &
     Partial<{

@@ -1,11 +1,6 @@
-import {
-    type ComponentConstructor,
-    type ComponentInstance,
-    getProperties,
-    isComponentConstructor,
-} from '@chialab/dna';
-import { createProxy } from './CustomElementProxy';
+import { getProperties, isComponentConstructor, type ComponentConstructor, type ComponentInstance } from '@chialab/dna';
 import { getConnected } from './connectedRegistry';
+import { createProxy } from './CustomElementProxy';
 import { defineOnce } from './defineOnce';
 import { cloneProperties, overridePrototype } from './utils';
 

@@ -1,5 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
-import { getDecorator, resolveModuleOrPackageSpecifier, getDecoratorArguments } from './utils';
+import { getDecorator, getDecoratorArguments, resolveModuleOrPackageSpecifier } from './utils';
 
 /**
  * A plugin that detects `customElement` decorator usage.

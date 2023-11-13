@@ -2,12 +2,12 @@ import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type { ClassField } from 'custom-elements-manifest';
 import {
-    hasAttribute,
-    getDecorator,
-    getClassDeclaration,
-    getAttributeName,
     createAttributeFromField,
+    getAttributeName,
+    getClassDeclaration,
+    getDecorator,
     getDecoratorArguments,
+    hasAttribute,
     hasKeyword,
 } from './utils';
 

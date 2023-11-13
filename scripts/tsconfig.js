@@ -1,8 +1,8 @@
-import { Configuration, Project } from '@yarnpkg/core';
-import { modify, applyEdits } from 'jsonc-parser';
 import { readFile, writeFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Configuration, Project } from '@yarnpkg/core';
+import { applyEdits, modify } from 'jsonc-parser';
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../../');
 const config = Configuration.create(ROOT, ROOT);

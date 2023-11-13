@@ -1,6 +1,6 @@
 # DNA Tools
 
-A set of libraries for [DNA](https://chialab.io/p/dna) integrations with other tools.
+A set of libraries for [DNA](https://chialab.github.io/dna) integrations with other tools.
 
 ## Development
 

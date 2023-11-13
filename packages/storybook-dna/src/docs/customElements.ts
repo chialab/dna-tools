@@ -1,13 +1,13 @@
-import { type PropDef, type PropType, type PropDefaultValue } from '@storybook/docs-tools';
+import { type PropDef, type PropDefaultValue, type PropType } from '@storybook/docs-tools';
 import {
-    type Package,
-    type CustomElement,
     type Attribute,
-    type ClassMember,
-    type PropertyLike,
     type ClassField,
+    type ClassMember,
+    type CustomElement,
+    type Package,
+    type PropertyLike,
 } from 'custom-elements-manifest';
-import { getCustomElementsManifest, getCustomElementDeclaration } from '../framework-api';
+import { getCustomElementDeclaration, getCustomElementsManifest } from '../framework-api';
 
 export type StorybookPropDef = PropDef & {
     table?: {

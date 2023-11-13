@@ -1,4 +1,4 @@
-import { SourceType, enhanceArgTypes } from '@storybook/docs-tools';
+import { enhanceArgTypes, SourceType } from '@storybook/docs-tools';
 import { extractArgTypes, extractComponentDescription } from './customElements';
 import { prepareForInline } from './prepareForInline';
 import { sourceDecorator } from './sourceDecorator';

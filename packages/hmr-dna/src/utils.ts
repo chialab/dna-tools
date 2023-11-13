@@ -1,4 +1,4 @@
-import { type ComponentInstance, getProperties } from '@chialab/dna';
+import { getProperties, type ComponentInstance } from '@chialab/dna';
 
 /**
  * Clone element property values.

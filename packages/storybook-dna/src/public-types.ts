@@ -2,10 +2,10 @@ import type {
     AnnotatedStoryFn,
     Args,
     ComponentAnnotations,
-    StoryAnnotations,
     DecoratorFunction,
-    LoaderFunction,
     StoryContext as GenericStoryContext,
+    LoaderFunction,
+    StoryAnnotations,
     StrictArgs,
 } from '@storybook/types';
 import type { DnaRenderer } from './types';

@@ -1,4 +1,4 @@
-import { type ComponentConstructor, type ComponentInstance, isComponentConstructor } from '@chialab/dna';
+import { isComponentConstructor, type ComponentConstructor, type ComponentInstance } from '@chialab/dna';
 import { connect, disconnect } from './connectedRegistry';
 
 /**
