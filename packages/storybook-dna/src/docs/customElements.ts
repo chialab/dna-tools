@@ -23,52 +23,56 @@ export type StorybookPropDef = PropDef & {
 };
 
 function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: string) {
-    return data.reduce((acc: { [key: string]: PropDef }, item) => {
-        if (!item) {
-            return acc;
-        }
-        if (!item.name) {
-            return acc;
-        }
+    return data.reduce(
+        (acc: { [key: string]: PropDef }, item) => {
+            if (!item) {
+                return acc;
+            }
+            if (!item.name) {
+                return acc;
+            }
 
-        const isProperty = category === 'properties';
-        const isState = category === 'states';
-        const types =
-            (isProperty || isState) && ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
+            const isProperty = category === 'properties';
+            const isState = category === 'states';
+            const types =
+                (isProperty || isState) &&
+                ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
 
-        const entry: StorybookPropDef = {
-            name: item.name,
-            required: types ? types.every((type) => type !== 'undefined') : false,
-            description: category === 'attributes' ? `🔗 **${(item as Attribute).fieldName}**` : item.description,
-            type: (types
-                ? {
-                      name: types.filter((type) => type !== 'undefined')[0],
-                      summary: types.filter((type) => type !== 'undefined')[0] || 'unknown',
-                  }
-                : {}) as unknown as PropType,
-            table: {
-                category,
-            },
-            control: isProperty
-                ? undefined
-                : {
-                      type: null,
-                  },
-        };
-        const defaultValue = (item as PropertyLike).default;
-        if (typeof defaultValue === 'string') {
-            entry.defaultValue = {
-                summary: defaultValue,
+            const entry: StorybookPropDef = {
+                name: item.name,
+                required: types ? types.every((type) => type !== 'undefined') : false,
+                description: category === 'attributes' ? `🔗 **${(item as Attribute).fieldName}**` : item.description,
+                type: (types
+                    ? {
+                          name: types.filter((type) => type !== 'undefined')[0],
+                          summary: types.filter((type) => type !== 'undefined')[0] || 'unknown',
+                      }
+                    : {}) as unknown as PropType,
+                table: {
+                    category,
+                },
+                control: isProperty
+                    ? undefined
+                    : {
+                          type: null,
+                      },
             };
-        }
+            const defaultValue = (item as PropertyLike).default;
+            if (typeof defaultValue === 'string') {
+                entry.defaultValue = {
+                    summary: defaultValue,
+                };
+            }
 
-        if (isProperty) {
-            acc[item.name] = entry;
-        } else {
-            acc[`${category}/${item.name}`] = entry;
-        }
-        return acc;
-    }, {} as { [key: string]: StorybookPropDef });
+            if (isProperty) {
+                acc[item.name] = entry;
+            } else {
+                acc[`${category}/${item.name}`] = entry;
+            }
+            return acc;
+        },
+        {} as { [key: string]: StorybookPropDef }
+    );
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
@@ -124,8 +128,8 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
     );
 
     while (metaData.superclass) {
-        const mod = customElements.modules?.find((m) =>
-            m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
+        const mod = customElements.modules?.find(
+            (m) => m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
         );
         metaData = mod?.declarations?.find(
             (d) => d.kind === 'class' && d.name === metaData.superclass?.name
