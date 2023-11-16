@@ -23,7 +23,7 @@ const define = customElements.define.bind(customElements) as (
  * @param constructor The custom element constructor.
  * @param options Definition options.
  */
-customElements.define = function <T extends ComponentInstance>(
+customElements.define = function hmrDefine<T extends ComponentInstance>(
     name: string,
     constructor: ComponentConstructor<T> | CustomElementConstructor,
     options?: ElementDefinitionOptions
@@ -35,12 +35,17 @@ customElements.define = function <T extends ComponentInstance>(
     const actual = customElements.get(name);
     const connected = getConnected<T>(name);
 
-    const connectedProperties = new Map();
+    const connectedProperties = new Map<
+        T,
+        {
+            [K in keyof T]: T[K];
+        }
+    >();
     connected.forEach((node) => {
         connectedProperties.set(node, cloneProperties(node));
     });
 
-    const proxyClass = createProxy(name, constructor) as ComponentConstructor<T>;
+    const proxyClass = createProxy(name, constructor as ComponentConstructor<T>);
     overridePrototype(proxyClass, constructor);
     define(name, proxyClass, options);
 
@@ -50,11 +55,16 @@ customElements.define = function <T extends ComponentInstance>(
 
     connected.forEach((node) => {
         const computedProperties = getProperties(node);
-        const actualProperties = connectedProperties.get(node) || {};
-        let initializedProperties: T | undefined;
+        const actualProperties =
+            connectedProperties.get(node) ||
+            ({} as {
+                [K in keyof T]: T[K];
+            });
+        let initializedProperties: T;
         for (const propertyKey in computedProperties) {
-            if (propertyKey in actualProperties) {
-                node.setInnerPropertyValue(propertyKey, actualProperties[propertyKey]);
+            const value = actualProperties[propertyKey];
+            if (value !== undefined) {
+                node.setInnerPropertyValue(propertyKey, value);
             } else {
                 const property = computedProperties[propertyKey];
                 if (property) {
@@ -63,7 +73,7 @@ customElements.define = function <T extends ComponentInstance>(
                     } else if (typeof property.defaultValue !== 'undefined') {
                         node[propertyKey] = property.defaultValue;
                     } else if (!property.static) {
-                        initializedProperties = initializedProperties || new proxyClass();
+                        initializedProperties ??= new proxyClass();
                         node.setInnerPropertyValue(propertyKey, initializedProperties[propertyKey]);
                     }
                 }
