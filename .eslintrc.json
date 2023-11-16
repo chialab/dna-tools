@@ -1,6 +1,4 @@
 {
-    "extends": "@chialab/eslint-config/typescript/node",
-    "parserOptions": {
-        "project": false
-    }
+  "root": true,
+  "extends": "@chialab/eslint-config"
 }

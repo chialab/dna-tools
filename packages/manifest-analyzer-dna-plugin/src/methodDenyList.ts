@@ -9,6 +9,9 @@ export function methodDenyList(): Plugin {
     const METHOD_DENY_LIST = [
         'initialize',
         'forceUpdate',
+        'connectedCallback',
+        'disconnectedCallback',
+        'attributeChangedCallback',
         'stateChangedCallback',
         'propertyChangedCallback',
         'render',
@@ -21,7 +24,9 @@ export function methodDenyList(): Plugin {
                 return;
             }
 
-            const classes = (moduleDoc.declarations.filter((declaration) => declaration.kind === 'class')) as ClassDeclaration[];
+            const classes = moduleDoc.declarations.filter(
+                (declaration) => declaration.kind === 'class'
+            ) as ClassDeclaration[];
             classes.forEach((_class) => {
                 if (!_class?.members) {
                     return;

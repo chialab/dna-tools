@@ -15,7 +15,9 @@ export function memberDenyList(): Plugin {
                 return;
             }
 
-            const classes = (moduleDoc.declarations.filter((declaration) => declaration.kind === 'class')) as ClassDeclaration[];
+            const classes = moduleDoc.declarations.filter(
+                (declaration) => declaration.kind === 'class'
+            ) as ClassDeclaration[];
             classes.forEach((_class) => {
                 if (!_class?.members) {
                     return;

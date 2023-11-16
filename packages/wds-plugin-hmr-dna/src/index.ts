@@ -29,7 +29,7 @@ export function hmrPlugin(): Plugin {
         name: 'hmr-dna',
 
         async serverStart(args) {
-            if (!args.config.plugins || args.config.plugins.find(pl => pl.name === 'hmr')) {
+            if (!args.config.plugins || args.config.plugins.find((pl) => pl.name === 'hmr')) {
                 throw new Error(
                     '[@chialab/wds-plugin-hmr-dna] Cannot include both @web/dev-server-hmr and @chialab/wds-plugin-hmr-dna plugins.'
                 );
@@ -54,7 +54,7 @@ export function hmrPlugin(): Plugin {
             const body = context.body as string;
             if (context.response.is('js') && containsComponent(body)) {
                 const output = new MagicString(body);
-                output.prepend('import \'@chialab/hmr-dna\';');
+                output.prepend("import '@chialab/hmr-dna';");
                 output.append('if (import.meta.hot) { import.meta.hot.accept(); }');
 
                 context.body = `${output.toString()}\n//# sourceMappingURL=${output.generateMap().toUrl()}`;

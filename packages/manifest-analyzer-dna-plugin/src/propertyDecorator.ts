@@ -1,7 +1,15 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type { ClassField } from 'custom-elements-manifest';
-import { hasAttribute, getDecorator, getClassDeclaration, getAttributeName, createAttributeFromField, getDecoratorArguments, hasKeyword } from './utils';
+import {
+    createAttributeFromField,
+    getAttributeName,
+    getClassDeclaration,
+    getDecorator,
+    getDecoratorArguments,
+    hasAttribute,
+    hasKeyword,
+} from './utils';
 
 /**
  * A plugin that that detects `property` decorator usage.
@@ -27,9 +35,11 @@ export function propertyDecorator(): Plugin {
             }
 
             node.members.forEach((member) => {
-                if (!member.name ||
+                if (
+                    !member.name ||
                     hasKeyword(ts, member, ts.SyntaxKind.StaticKeyword) ||
-                    (!ts.isPropertyDeclaration(member) && !ts.isGetAccessor(member))) {
+                    (!ts.isPropertyDeclaration(member) && !ts.isGetAccessor(member))
+                ) {
                     return;
                 }
 
@@ -60,7 +70,11 @@ export function propertyDecorator(): Plugin {
 
                 const actualDecoratorArguments = getDecoratorArguments(ts, actualDecorator);
                 const propertyOptions = actualDecoratorArguments.find((arg) => ts.isObjectLiteralExpression(arg));
-                if (!propertyOptions || !ts.isObjectLiteralExpression(propertyOptions) || !hasAttribute(ts, propertyOptions)) {
+                if (
+                    !propertyOptions ||
+                    !ts.isObjectLiteralExpression(propertyOptions) ||
+                    !hasAttribute(ts, propertyOptions)
+                ) {
                     return;
                 }
 
@@ -73,7 +87,9 @@ export function propertyDecorator(): Plugin {
                 if (!existingAttribute) {
                     currClass.attributes = [...(currClass.attributes || []), attribute];
                 } else {
-                    currClass.attributes = currClass.attributes?.map((attr) => (attr.name === attribute.name ? ({ ...attr, ...attribute }) : attr));
+                    currClass.attributes = currClass.attributes?.map((attr) =>
+                        attr.name === attribute.name ? { ...attr, ...attribute } : attr
+                    );
                 }
             });
         },

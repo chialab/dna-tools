@@ -13,13 +13,12 @@ npm install @chialab/wds-plugin-hmr-dna -D
 and load the plugin in your dev server config:
 
 **web-dev-server-config.js**
+
 ```ts
 import { hmrPlugin } from '@chialab/wds-plugin-hmr-dna';
 
 export default {
-    plugins: [
-        hmrPlugin(),
-    ],
+    plugins: [hmrPlugin()],
 };
 ```
 

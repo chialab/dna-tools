@@ -15,14 +15,13 @@ npm install -D \
 Create a config file that includes the DNA plugin:
 
 **custom-elements-manifest.config.js**
+
 ```tsx
 import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 
 export default {
-    plugins: [
-        ...dnaPlugins(),
-    ],
-}
+    plugins: [...dnaPlugins()],
+};
 ```
 
 Then, run the analyzer:
@@ -40,4 +39,3 @@ Read the "[Authoring Plugins](https://github.com/open-wc/custom-elements-manifes
 ## License
 
 **DNA Manifest Analyzer Plugin** are released under the [MIT](https://github.com/chialab/dna-tools/blob/main/LICENSE) license.
-

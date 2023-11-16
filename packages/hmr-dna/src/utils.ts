@@ -1,4 +1,4 @@
-import { type ComponentInstance, getProperties } from '@chialab/dna';
+import { getProperties, type ComponentInstance } from '@chialab/dna';
 
 /**
  * Clone element property values.
@@ -7,9 +7,9 @@ import { type ComponentInstance, getProperties } from '@chialab/dna';
  */
 export function cloneProperties<T extends ComponentInstance>(node: T) {
     const computedProperties = getProperties(node);
-    const actualProperties: Partial<{
-        [K in keyof typeof computedProperties]: T[K];
-    }> = {};
+    const actualProperties = {} as {
+        [K in keyof T]: T[K];
+    };
     for (const propertyKey in computedProperties) {
         actualProperties[propertyKey] = node.getInnerPropertyValue(propertyKey);
     }

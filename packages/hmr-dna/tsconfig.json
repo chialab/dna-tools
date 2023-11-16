@@ -4,16 +4,9 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "declarationDir": "./dist",
-    "lib": [
-      "esnext"
-    ]
+    "lib": ["esnext", "dom"]
   },
-  "exclude": [
-    "dist",
-    "scripts"
-  ],
-  "include": [
-    "src/**/*"
-  ],
+  "exclude": ["dist", "scripts"],
+  "include": ["src/**/*"],
   "references": []
 }

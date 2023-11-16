@@ -1,7 +1,7 @@
-import { type Template, type ComponentInstance, type VObject, window, customElements } from '@chialab/dna';
+import { type ComponentInstance, type Template, type VObject } from '@chialab/dna';
+import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
-import { STORY_PREPARED } from '@storybook/core-events';
 import { type PartialStoryFn, type StoryContext } from '@storybook/types';
 import { type DnaRenderer } from '../types';
 
@@ -110,17 +110,15 @@ const inlineElements = [
     'wbr',
 ];
 
-const simpleBlockElements = [
-    'button',
-    'h1',
-    'h2',
-    'h3',
-    'h4',
-    'h5',
-];
+const simpleBlockElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5'];
 
 function escapeHtml(input: string) {
-    return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
 function vnodeToString(vnode: Template): string {
@@ -130,55 +128,59 @@ function vnodeToString(vnode: Template): string {
     if (Array.isArray(vnode)) {
         return vnode.map(vnodeToString).join('\n');
     }
-    if (vnode instanceof window.Element) {
+    if (vnode instanceof Element) {
         return vnode.outerHTML;
     }
-    if (vnode instanceof window.Node) {
+    if (vnode instanceof Node) {
         return vnode.textContent || '';
     }
 
     const hyperObject = vnode as VObject;
 
-    const is = (typeof hyperObject.type === 'function' && hyperObject.type.prototype.is) ||
-        (hyperObject.type instanceof window.Node && (hyperObject.type as ComponentInstance).is) ||
+    const is =
+        (typeof hyperObject.type === 'function' && hyperObject.type.prototype.is) ||
+        (hyperObject.type instanceof Element && (hyperObject.type as ComponentInstance).is) ||
         undefined;
 
-    const tag = (typeof hyperObject.type === 'string' && hyperObject.type) ||
-        (is && customElements.tagNames[is]) ||
-        (hyperObject.type instanceof window.Node && hyperObject.type.tagName) ||
-        undefined;
+    const tag =
+        (typeof hyperObject.type === 'string' && hyperObject.type) ||
+        (hyperObject.type instanceof Element && hyperObject.type.tagName) ||
+        '#unknown';
 
     const properties = { is, ...hyperObject.properties };
     if (!is || !tag || is.toLowerCase() === tag.toLowerCase()) {
         delete properties.is;
     }
 
-    const attrs = Object.keys(properties).map((prop) => {
-        if (prop === 'is' && is) {
-            return `is="${is}"`;
-        }
-        if (prop === 'ref') {
-            return false;
-        }
+    const attrs = Object.keys(properties)
+        .map((prop) => {
+            if (prop === 'is' && is) {
+                return `is="${is}"`;
+            }
+            if (prop === 'ref') {
+                return false;
+            }
 
-        let value = properties[prop as keyof typeof properties];
-        if (value == null || value === false) {
-            return false;
-        }
-        if (isArray(value)) {
-            value = '[...]';
-        }
-        if (isObject(value)) {
-            value = '{...}';
-        }
-        if (isFunction(value)) {
-            value = value.name || 'function() { ... }';
-        }
-        if (value === true) {
-            return prop;
-        }
-        return `${prop}="${escapeHtml(`${value}`)}"`;
-    }).filter(Boolean).join(' ');
+            let value = properties[prop as keyof typeof properties];
+            if (value == null || value === false) {
+                return false;
+            }
+            if (isArray(value)) {
+                value = '[...]';
+            }
+            if (isObject(value)) {
+                value = '{...}';
+            }
+            if (isFunction(value)) {
+                value = value.name || 'function() { ... }';
+            }
+            if (value === true) {
+                return prop;
+            }
+            return `${prop}="${escapeHtml(`${value}`)}"`;
+        })
+        .filter(Boolean)
+        .join(' ');
 
     if (typeof hyperObject.type === 'function' && !is) {
         return `<${hyperObject.type.name}${attrs ? ` ${attrs}` : ''} />`;
@@ -195,15 +197,14 @@ function vnodeToString(vnode: Template): string {
 
     const prefix = ''.padStart(4, ' ');
     const childContents = (hyperObject.children || [])
-        .reduce((acc: (Template|string)[], child) => {
+        .reduce((acc: (Template | string)[], child) => {
             if (typeof child !== 'object') {
                 child = vnodeToString(child);
-            } else if (child instanceof window.Node) {
+            } else if (child instanceof Node) {
                 child = vnodeToString(child);
             }
 
-            if (typeof child === 'string' &&
-                typeof acc[acc.length - 1] === 'string') {
+            if (typeof child === 'string' && typeof acc[acc.length - 1] === 'string') {
                 acc[acc.length - 1] += child;
             } else {
                 acc.push(child);
@@ -211,11 +212,11 @@ function vnodeToString(vnode: Template): string {
 
             return acc;
         }, [])
-        .map((child) =>
-            vnodeToString(child).replace(/\n/g, `\n${prefix}`)
-        );
+        .map((child) => vnodeToString(child).replace(/\n/g, `\n${prefix}`));
 
-    return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}>${childrenBlock ? `${childrenBlock}${prefix}` : ''}${childContents.join('')}${childrenBlock}</${tag}>${tagBlock}`;
+    return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}>${
+        childrenBlock ? `${childrenBlock}${prefix}` : ''
+    }${childContents.join('')}${childrenBlock}</${tag}>${tagBlock}`;
 }
 
 export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: StoryContext) {
@@ -233,7 +234,7 @@ export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: S
         channel.emit(SNIPPET_RENDERED, context.id, source);
     });
 
-    const storySource = context.parameters.storySource = context.parameters.storySource || {};
+    const storySource = (context.parameters.storySource = context.parameters.storySource || {});
     const currentSource = storySource.source;
     storySource.source = source;
 
