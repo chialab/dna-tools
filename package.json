@@ -12,7 +12,8 @@
     "lint": "prettier --check . && eslint packages/*/src",
     "build": "tsc --build && node scripts/build.js",
     "test": "vitest",
-    "install": "node scripts/tsconfig.js"
+    "install": "node scripts/tsconfig.js",
+    "version": "changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install"
   },
   "workspaces": [
     "packages/*"
