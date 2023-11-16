@@ -1621,10 +1621,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chialab/dna@npm:4.0.0-alpha.3":
-  version: 4.0.0-alpha.3
-  resolution: "@chialab/dna@npm:4.0.0-alpha.3"
-  checksum: e6d219f74a4a5916712c89b4a8f633469ca01328b47cc7e67c59fc909e5eadeca4d3faa74c6e82a213de40279f1c1201367deff57cdc99f754317f9f08f940e7
+"@chialab/dna@npm:4.0.0-alpha.4":
+  version: 4.0.0-alpha.4
+  resolution: "@chialab/dna@npm:4.0.0-alpha.4"
+  checksum: f08cc9fc13c1203a3da9d1b3fd3dda462564312dba5674e5bd9b6135bd08ad8c0caeca68274da2654cd9caf46c80a8a1328ce46b0be354d39140724f1e9c15a4
   languageName: node
   linkType: hard
 
@@ -1686,7 +1686,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chialab/hmr-dna@workspace:packages/hmr-dna"
   dependencies:
-    "@chialab/dna": 4.0.0-alpha.3
+    "@chialab/dna": 4.0.0-alpha.4
   languageName: unknown
   linkType: soft
 
@@ -1732,7 +1732,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chialab/storybook-dna@workspace:packages/storybook-dna"
   dependencies:
-    "@chialab/dna": 4.0.0-alpha.3
+    "@chialab/dna": 4.0.0-alpha.4
     "@chialab/eslint-config": ^3.3.1
     "@storybook/docs-tools": ^7.0.0
     "@storybook/preview-api": ^7.0.0
@@ -1741,7 +1741,7 @@ __metadata:
     custom-elements-manifest: ^2.0.0
     ts-dedent: ^2.0.0
   peerDependencies:
-    "@chialab/dna": 4.0.0-alpha.3
+    "@chialab/dna": 4.0.0-alpha.4
   languageName: unknown
   linkType: soft
 
@@ -6257,9 +6257,9 @@ __metadata:
   linkType: hard
 
 "ignore@npm:^5.1.4, ignore@npm:^5.2.0":
-  version: 5.2.4
-  resolution: "ignore@npm:5.2.4"
-  checksum: 3d4c309c6006e2621659311783eaea7ebcd41fe4ca1d78c91c473157ad6666a57a2df790fe0d07a12300d9aac2888204d7be8d59f9aaf665b1c7fcdb432517ef
+  version: 5.3.0
+  resolution: "ignore@npm:5.3.0"
+  checksum: 2736da6621f14ced652785cb05d86301a66d70248597537176612bd0c8630893564bd5f6421f8806b09e8472e75c591ef01672ab8059c07c6eb2c09cefe04bf9
   languageName: node
   linkType: hard
 

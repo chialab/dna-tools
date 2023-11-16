@@ -17,11 +17,14 @@ export function createProxy<T extends ComponentInstance>(name: string, construct
     }
 
     if (isComponentConstructor(constructor)) {
-        const proxyClass = class extends (constructor as ComponentConstructor) {
+        const ProxyClass = class extends (constructor as ComponentConstructor) {
             // we need to override the constructor in order to proxy it in the future.
             // eslint-disable-next-line no-useless-constructor
             constructor(...args: any[]) {
                 super(...args);
+                if (new.target === ProxyClass) {
+                    this.initialize();
+                }
             }
 
             connectedCallback() {
@@ -35,9 +38,9 @@ export function createProxy<T extends ComponentInstance>(name: string, construct
             }
         } as unknown as ComponentConstructor<T>;
 
-        proxies.set(name, proxyClass);
+        proxies.set(name, ProxyClass);
 
-        return proxyClass;
+        return ProxyClass;
     }
 
     return constructor;
