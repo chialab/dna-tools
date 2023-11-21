@@ -1,5 +1,11 @@
 # @chialab/hmr-dna
 
+## 4.0.0-alpha.2
+
+### Patch Changes
+
+-   bfc24dc: Fix DNA dependency constraint.
+
 ## 4.0.0-alpha.1
 
 ### Patch Changes
