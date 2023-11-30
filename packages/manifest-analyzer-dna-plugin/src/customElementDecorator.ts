@@ -1,4 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
+import type { CustomElementExport } from 'custom-elements-manifest';
 import { getDecorator, getDecoratorArguments, resolveModuleOrPackageSpecifier } from './utils';
 
 /**
@@ -21,9 +22,30 @@ export function customElementDecorator(): Plugin {
                 return;
             }
 
-            const argument = getDecoratorArguments(ts, customElementDecorator)[0];
+            const [argument, options] = getDecoratorArguments(ts, customElementDecorator);
             if (!ts.isStringLiteral(argument)) {
                 return;
+            }
+
+            let extend = undefined;
+            if (options && ts.isObjectLiteralExpression(options)) {
+                const properties = options.properties;
+                if (properties) {
+                    for (let i = 0; i < properties.length; i++) {
+                        const property = properties[i];
+                        if (!ts.isPropertyAssignment(property)) {
+                            continue;
+                        }
+                        if (property.name.getText() !== 'extends') {
+                            continue;
+                        }
+                        if (!ts.isStringLiteral(property.initializer)) {
+                            break;
+                        }
+                        extend = property.initializer.text;
+                        break;
+                    }
+                }
             }
 
             moduleDoc.exports = [
@@ -31,11 +53,12 @@ export function customElementDecorator(): Plugin {
                 {
                     kind: 'custom-element-definition',
                     name: argument.text,
+                    extend,
                     declaration: {
                         name: node.name.getText(),
                         ...resolveModuleOrPackageSpecifier(moduleDoc, context, node.getText()),
                     },
-                },
+                } as unknown as CustomElementExport,
             ];
         },
     };

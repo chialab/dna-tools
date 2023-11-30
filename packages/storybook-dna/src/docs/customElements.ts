@@ -1,7 +1,6 @@
 import { type PropDef, type PropDefaultValue, type PropType } from '@storybook/docs-tools';
 import {
     type Attribute,
-    type ClassField,
     type ClassMember,
     type CustomElement,
     type Package,
@@ -87,8 +86,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.members
             ? mapData(
                   metaData.members.filter(
-                      (m) =>
-                          m.kind === 'field' && !m.static && !m.static && !(m as ClassField & { state?: boolean }).state
+                      (m) => m.kind === 'field' && !m.static && !m.static && (!m.privacy || m.privacy === 'public')
                   ),
                   'properties'
               )
@@ -96,8 +94,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.members
             ? mapData(
                   metaData.members.filter(
-                      (m) =>
-                          m.kind === 'field' && !m.static && !m.static && (m as ClassField & { state?: boolean }).state
+                      (m) => m.kind === 'field' && !m.static && !m.static && m.privacy === 'protected'
                   ),
                   'states'
               )
@@ -144,16 +141,14 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
             metaData.members
                 ? mapData(
                       metaData.members.filter(
-                          (m) => m.kind === 'field' && !m.static && !(m as ClassField & { state?: boolean }).state
+                          (m) => m.kind === 'field' && !m.static && (!m.privacy || m.privacy === 'public')
                       ),
                       'properties'
                   )
                 : {},
             metaData.members
                 ? mapData(
-                      metaData.members.filter(
-                          (m) => m.kind === 'field' && !m.static && (m as ClassField & { state?: boolean }).state
-                      ),
+                      metaData.members.filter((m) => m.kind === 'field' && !m.static && m.privacy === 'protected'),
                       'states'
                   )
                 : {},

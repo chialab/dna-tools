@@ -73,7 +73,7 @@ export function staticProperties(): Plugin {
                     }
 
                     if (isState(ts, initializer)) {
-                        (classMember as ClassField & { state?: boolean }).state = true;
+                        classMember.privacy = 'protected';
                     }
 
                     const existingField = currClass.members?.find((field) => field.name === classMember.name);

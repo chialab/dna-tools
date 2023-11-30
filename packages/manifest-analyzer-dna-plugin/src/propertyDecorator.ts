@@ -1,6 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { ClassDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type { ClassField } from 'custom-elements-manifest';
 import {
     createAttributeFromField,
     getAttributeName,
@@ -65,7 +64,7 @@ export function propertyDecorator(): Plugin {
                 }
 
                 if (stateDecorator) {
-                    (field as ClassField & { state?: boolean }).state = true;
+                    field.privacy = 'protected';
                 }
 
                 const actualDecoratorArguments = getDecoratorArguments(ts, actualDecorator);
