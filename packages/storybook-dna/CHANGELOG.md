@@ -1,5 +1,12 @@
 # @chialab/storybook-dna
 
+## 7.1.0-alpha.3
+
+### Patch Changes
+
+-   adae541: Change `@state` analysis for custom elements manifest.
+-   434edf6: Fix source decorator.
+
 ## 7.1.0-alpha.2
 
 ### Patch Changes
