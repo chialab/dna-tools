@@ -169,6 +169,9 @@ function vnodeToString(vnode: Template): string {
             if (isArray(value)) {
                 value = '[...]';
             }
+            if (value instanceof Date) {
+                value = value.toISOString();
+            }
             if (isObject(value)) {
                 value = '{...}';
             }
