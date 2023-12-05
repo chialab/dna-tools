@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 7.1.0-alpha.4
+
+### Patch Changes
+
+-   45b4691: Handle dates in source decorator.
+
 ## 7.1.0-alpha.3
 
 ### Patch Changes
