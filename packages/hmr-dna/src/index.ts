@@ -80,6 +80,6 @@ customElements.define = function hmrDefine<T extends ComponentInstance>(
             }
         }
         connectedProperties.delete(node);
-        node.forceUpdate();
+        node.requestUpdate();
     });
 };
