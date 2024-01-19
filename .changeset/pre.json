@@ -11,12 +11,16 @@
   },
   "changesets": [
     "breezy-pets-wait",
+    "clean-weeks-promise",
     "funny-planets-relate",
+    "fuzzy-singers-obey",
     "green-candles-watch",
     "metal-hounds-whisper",
+    "perfect-gorillas-act",
     "rich-toes-grab",
     "sharp-llamas-bake",
     "short-walls-jog",
+    "silly-lizards-invite",
     "young-dots-crash"
   ]
 }
