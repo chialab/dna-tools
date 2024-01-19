@@ -16,27 +16,27 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "include": [],
   "references": [
     {
-      "path": "./packages/hmr-dna"
+      "path": "./packages/hmr-dna",
     },
     {
-      "path": "./packages/manifest-analyzer-dna-plugin"
+      "path": "./packages/manifest-analyzer-dna-plugin",
     },
     {
-      "path": "./packages/storybook-dna"
+      "path": "./packages/storybook-dna",
     },
     {
-      "path": "./packages/storybook-dna-vite"
+      "path": "./packages/storybook-dna-vite",
     },
     {
-      "path": "./packages/vite-plugin-hmr-dna"
+      "path": "./packages/vite-plugin-hmr-dna",
     },
     {
-      "path": "./packages/wds-plugin-hmr-dna"
-    }
-  ]
+      "path": "./packages/wds-plugin-hmr-dna",
+    },
+  ],
 }

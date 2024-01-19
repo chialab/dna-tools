@@ -147,8 +147,8 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
     );
 
     while (metaData.superclass) {
-        const mod = customElements.modules?.find(
-            (m) => m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
+        const mod = customElements.modules?.find((m) =>
+            m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
         );
         metaData = mod?.declarations?.find(
             (d) => d.kind === 'class' && d.name === metaData.superclass?.name

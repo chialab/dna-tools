@@ -4,13 +4,13 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "declarationDir": "./dist",
-    "lib": ["esnext"]
+    "lib": ["esnext"],
   },
   "exclude": ["dist", "scripts"],
   "include": ["src/**/*"],
   "references": [
     {
-      "path": "../hmr-dna"
-    }
-  ]
+      "path": "../hmr-dna",
+    },
+  ],
 }

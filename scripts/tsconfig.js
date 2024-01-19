@@ -3,6 +3,7 @@ import { relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Configuration, Project } from '@yarnpkg/core';
 import { applyEdits, modify } from 'jsonc-parser';
+import prettier from 'prettier';
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../../');
 const config = Configuration.create(ROOT, ROOT);
@@ -10,6 +11,7 @@ const config = Configuration.create(ROOT, ROOT);
 Project.find(config, ROOT).then(async ({ project }) => {
     const packages = project.topLevelWorkspace.getRecursiveWorkspaceChildren();
     const tsconfig = resolve(ROOT, 'tsconfig.json');
+    const formatConfig = await prettier.resolveConfig(tsconfig);
     const content = await readFile(tsconfig, 'utf-8');
     const references = packages.map((pkg) => ({
         path: `./${relative(ROOT, pkg.cwd)}`,
@@ -22,7 +24,7 @@ Project.find(config, ROOT).then(async ({ project }) => {
         },
     });
 
-    await writeFile(tsconfig, applyEdits(content, edits));
+    await writeFile(tsconfig, await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'jsonc' }));
 
     await Promise.all(
         packages.map(async (pkg) => {
@@ -55,7 +57,10 @@ Project.find(config, ROOT).then(async ({ project }) => {
                     },
                 });
 
-                await writeFile(tsconfig, applyEdits(content, edits));
+                await writeFile(
+                    tsconfig,
+                    await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'jsonc' })
+                );
             } catch (err) {
                 // eslint-disable-next-line
                 console.error(err, pkg.location, content);
