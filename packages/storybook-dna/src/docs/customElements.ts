@@ -75,7 +75,12 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
-    let metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement;
+    let metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement & {
+        locale?: {
+            value: string;
+            description: string;
+        }[];
+    };
     if (!metaData) {
         return null;
     }
@@ -120,6 +125,23 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
             ? mapData(
                   metaData.members.filter((m) => m.kind === 'method' && m.static),
                   'static methods'
+              )
+            : {},
+        metaData.locale
+            ? metaData.locale.reduce(
+                  (acc, locale) => ({
+                      ...acc,
+                      [`locale/${locale.value}`]: {
+                          name: `\`${locale.value}\``,
+                          description: locale.description,
+                          type: {},
+                          table: {
+                              category: 'locale',
+                          },
+                          control: undefined,
+                      },
+                  }),
+                  {}
               )
             : {}
     );
@@ -172,6 +194,23 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                 ? mapData(
                       metaData.members.filter((m) => m.kind === 'method' && m.static),
                       'static methods'
+                  )
+                : {},
+            metaData.locale
+                ? metaData.locale.reduce(
+                      (acc, locale) => ({
+                          ...acc,
+                          [`locale/${locale.value}`]: {
+                              name: `\`${locale.value}\``,
+                              description: locale.description,
+                              type: {},
+                              table: {
+                                  category: 'locale',
+                              },
+                              control: undefined,
+                          },
+                      }),
+                      {}
                   )
                 : {}
         );
