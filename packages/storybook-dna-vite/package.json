@@ -21,14 +21,14 @@
   "license": "MIT",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     },
     "./preset": {
-      "require": "./dist/preset.js",
-      "import": "./dist/preset.mjs",
-      "types": "./dist/preset.d.ts"
+      "types": "./dist/preset.d.ts",
+      "require": "./dist/preset.js"
     },
     "./package.json": "./package.json"
   },
@@ -48,15 +48,15 @@
     "@chialab/vite-plugin-hmr-dna": "^4.0.0-alpha.0",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@rollup/pluginutils": "^5.0.2",
-    "@storybook/builder-vite": "^7.0.0",
+    "@storybook/builder-vite": "next",
     "magic-string": "^0.27.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^4.0.0"
   },
   "peerDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^5.0.0"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^5.0.0"
   },
   "engines": {
     "node": ">=16.0.0"

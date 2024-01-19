@@ -1,16 +1,18 @@
 import type { ComponentInstance, Template } from '@chialab/dna';
-import type { WebRenderer } from '@storybook/types';
+import type { StoryContext as StoryContextBase, WebRenderer } from '@storybook/types';
 
 export type { RenderContext } from '@storybook/types';
 
 export type StoryFnDnaReturnType = Template;
 
-export interface ShowErrorArgs {
-    title: string;
-    description: string;
-}
+export type StoryContext = StoryContextBase<DnaRenderer>;
 
 export interface DnaRenderer extends WebRenderer {
     component: ComponentInstance;
     storyResult: StoryFnDnaReturnType;
+}
+
+export interface ShowErrorArgs {
+    title: string;
+    description: string;
 }

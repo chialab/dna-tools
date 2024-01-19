@@ -1,4 +1,4 @@
-import { type ComponentConstructor, type ComponentInstance, type Template, type VObject } from '@chialab/dna';
+import { type ComponentInstance, type Template, type VObject } from '@chialab/dna';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
@@ -145,7 +145,6 @@ function vnodeToString(vnode: Template): string {
     const tag =
         (typeof hyperObject.type === 'string' && hyperObject.type) ||
         (hyperObject.type instanceof Element && hyperObject.type.tagName) ||
-        (typeof hyperObject.type === 'function' && (hyperObject.type as ComponentConstructor).tagName) ||
         '#unknown';
 
     const properties = { is, ...hyperObject.properties };
@@ -223,7 +222,10 @@ function vnodeToString(vnode: Template): string {
     }${childContents.join('')}${childrenBlock}</${tag}>${tagBlock}`;
 }
 
-export function sourceDecorator(storyFn: PartialStoryFn<DnaRenderer>, context: StoryContext) {
+export function sourceDecorator(
+    storyFn: PartialStoryFn<DnaRenderer>,
+    context: StoryContext<DnaRenderer>
+): DnaRenderer['storyResult'] {
     const channel = addons.getChannel();
     const story = storyFn();
     const source = (() => {

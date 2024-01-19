@@ -20,15 +20,14 @@
   "license": "MIT",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     },
-    "./preview": {
-      "require": "./dist/config.js",
-      "import": "./dist/config.mjs",
-      "types": "./dist/config.d.ts"
-    },
+    "./preset": "./preset.js",
+    "./dist/entry-preview.mjs": "./dist/entry-preview.mjs",
+    "./dist/entry-preview-docs.mjs": "./dist/entry-preview-docs.mjs",
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
@@ -41,9 +40,10 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@storybook/docs-tools": "^7.0.0",
-    "@storybook/preview-api": "^7.0.0",
-    "@storybook/types": "^7.0.0",
+    "@storybook/core-events": "next",
+    "@storybook/docs-tools": "next",
+    "@storybook/preview-api": "next",
+    "@storybook/types": "next",
     "ts-dedent": "^2.0.0"
   },
   "devDependencies": {

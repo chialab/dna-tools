@@ -23,13 +23,13 @@
     "@changesets/cli": "^2.26.0",
     "@chialab/eslint-config": "^4.0.0",
     "@chialab/prettier-config": "^1.2.0",
-    "@vitest/coverage-c8": "^0.27.1",
+    "@vitest/coverage-v8": "^1.0.0",
     "@yarnpkg/core": "^4.0.0-rc.35",
     "esbuild": "^0.17.1",
     "eslint": "^8.31.0",
     "jsonc-parser": "^3.2.0",
     "prettier": "^3.0.0",
     "typescript": "^5.0.0",
-    "vitest": "^0.27.1"
+    "vitest": "^1.0.0"
   }
 }

@@ -57,7 +57,12 @@ esbuild.build({
 // storybook-dna
 
 esbuild.build({
-    entryPoints: ['./packages/storybook-dna/src/index.ts', './packages/storybook-dna/src/config.ts'],
+    entryPoints: [
+        './packages/storybook-dna/src/index.ts',
+        './packages/storybook-dna/src/preset.ts',
+        './packages/storybook-dna/src/entry-preview-docs.ts',
+        './packages/storybook-dna/src/entry-preview.ts',
+    ],
     target: 'chrome100',
     bundle: true,
     platform: 'browser',
@@ -67,7 +72,12 @@ esbuild.build({
 });
 
 esbuild.build({
-    entryPoints: ['./packages/storybook-dna/src/index.ts', './packages/storybook-dna/src/config.ts'],
+    entryPoints: [
+        './packages/storybook-dna/src/index.ts',
+        './packages/storybook-dna/src/preset.ts',
+        './packages/storybook-dna/src/entry-preview-docs.ts',
+        './packages/storybook-dna/src/entry-preview.ts',
+    ],
     outExtension: {
         '.js': '.mjs',
     },
