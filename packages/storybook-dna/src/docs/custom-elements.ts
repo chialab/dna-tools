@@ -27,10 +27,8 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
             if (!item) {
                 return acc;
             }
-            if (!item.name) {
-                return acc;
-            }
 
+            const name = item.name || '-';
             const isProperty = category === 'properties';
             const isState = category === 'states';
             const types =
@@ -38,7 +36,7 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
                 ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
 
             const entry: StorybookPropDef = {
-                name: item.name,
+                name,
                 required: types ? types.every((type) => type !== 'undefined') : false,
                 description: category === 'attributes' ? `🔗 **${(item as Attribute).fieldName}**` : item.description,
                 type: (types
@@ -64,9 +62,9 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
             }
 
             if (isProperty) {
-                acc[item.name] = entry;
+                acc[name] = entry;
             } else {
-                acc[`${category}/${item.name}`] = entry;
+                acc[`${category}/${name}`] = entry;
             }
             return acc;
         },
