@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.0-alpha.6
+
+### Patch Changes
+
+- f2e6fa2: Handle unnamed slots documentation.
+
 ## 8.0.0-alpha.5
 
 ### Major Changes
