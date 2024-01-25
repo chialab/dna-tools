@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.0-alpha.7
+
+### Minor Changes
+
+- 4002a62: Support `@icon` jsdoc tag.
+
 ## 8.0.0-alpha.6
 
 ### Patch Changes
