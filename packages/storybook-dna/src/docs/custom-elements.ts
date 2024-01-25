@@ -220,7 +220,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                       (acc, locale) => ({
                           ...acc,
                           [`locale/${locale.value}`]: {
-                              name: `\`${locale.value}\``,
+                              name: locale.value,
                               description: locale.description,
                               type: {},
                               table: {
