@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.1.0-alpha.3
+
+### Minor Changes
+
+- 4002a62: Support `@icon` jsdoc tag.
+
 ## 3.1.0-alpha.2
 
 ### Minor Changes

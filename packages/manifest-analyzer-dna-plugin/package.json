@@ -1,6 +1,6 @@
 {
   "name": "@chialab/manifest-analyzer-dna-plugin",
-  "version": "3.1.0-alpha.2",
+  "version": "3.1.0-alpha.3",
   "description": "DNA components plugin for @custom-elements-manifest/analyzer.",
   "keywords": [
     "storybook"
