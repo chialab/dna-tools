@@ -78,6 +78,10 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
             value: string;
             description: string;
         }[];
+        icons?: {
+            name: string;
+            description: string;
+        }[];
     };
     if (!metaData) {
         return null;
@@ -130,11 +134,28 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                   (acc, locale) => ({
                       ...acc,
                       [`locale/${locale.value}`]: {
-                          name: `\`${locale.value}\``,
+                          name: locale.value,
                           description: locale.description,
                           type: {},
                           table: {
                               category: 'locale',
+                          },
+                          control: undefined,
+                      },
+                  }),
+                  {}
+              )
+            : {},
+        metaData.icons
+            ? metaData.icons.reduce(
+                  (acc, icon) => ({
+                      ...acc,
+                      [`icons/${icon.name}`]: {
+                          name: icon.name,
+                          description: icon.description,
+                          type: {},
+                          table: {
+                              category: 'icons',
                           },
                           control: undefined,
                       },
@@ -204,6 +225,23 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                               type: {},
                               table: {
                                   category: 'locale',
+                              },
+                              control: undefined,
+                          },
+                      }),
+                      {}
+                  )
+                : {},
+            metaData.icons
+                ? metaData.icons.reduce(
+                      (acc, icon) => ({
+                          ...acc,
+                          [`icons/${icon.name}`]: {
+                              name: icon.name,
+                              description: icon.description,
+                              type: {},
+                              table: {
+                                  category: 'icons',
                               },
                               control: undefined,
                           },

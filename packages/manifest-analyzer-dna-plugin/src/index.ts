@@ -1,4 +1,5 @@
 import { customElementDecorator } from './customElementDecorator';
+import { iconJSDocTags } from './iconJSDocTags';
 import { localeJSDocTags } from './localeJSDocTags';
 import { memberDenyList } from './memberDenyList';
 import { methodDenyList } from './methodDenyList';
@@ -8,6 +9,7 @@ import { staticProperties } from './staticProperties';
 export const dnaPlugins = () => [
     customElementDecorator(),
     localeJSDocTags(),
+    iconJSDocTags(),
     methodDenyList(),
     memberDenyList(),
     propertyDecorator(),
