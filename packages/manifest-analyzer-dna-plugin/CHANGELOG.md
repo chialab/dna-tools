@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.1.0-alpha.4
+
+### Minor Changes
+
+- 1834dca: Collect manifest data from superClass manifest.
+
 ## 3.1.0-alpha.3
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.0-alpha.8
+
+### Minor Changes
+
+- 1834dca: Collect manifest data from superClass manifest.
+
 ## 8.0.0-alpha.7
 
 ### Minor Changes
