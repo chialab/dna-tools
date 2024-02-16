@@ -1,3 +1,5 @@
+import { createRequire } from 'node:module';
+import { join } from 'node:path';
 import type { Context } from '@custom-elements-manifest/analyzer';
 import type {
     Decorator,
@@ -9,7 +11,14 @@ import type {
     SyntaxKind,
 } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import type typescript from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type { Attribute, ClassField, CustomElement, JavaScriptModule } from 'custom-elements-manifest/schema';
+import type {
+    Attribute,
+    ClassField,
+    CustomElement,
+    Declaration,
+    JavaScriptModule,
+    Package,
+} from 'custom-elements-manifest/schema';
 
 type TypeScriptModule = typeof typescript &
     Partial<{
@@ -250,4 +259,28 @@ export function getClassDeclaration(moduleDoc: Partial<JavaScriptModule>, classN
         return null;
     }
     return (moduleDoc.declarations.find((declaration) => declaration.name === className) as CustomElement) ?? null;
+}
+
+/**
+ * Check if declaration is a custom element.
+ * @param declaration The declaration.
+ * @returns True if the declaration is a custom element.
+ */
+export function isCustomElementDeclaration(
+    declaration: Declaration | CustomElement
+): declaration is CustomElement & { locale?: { name: string }[]; icons?: { name: string }[] } {
+    return !!(declaration as CustomElement)?.tagName;
+}
+
+export function getPackageCustomElement(cwd: string, packageName: string) {
+    try {
+        const require = createRequire(cwd);
+        const packageJsonContents = require(`${packageName}/package.json`);
+        if (packageJsonContents.customElements) {
+            return (require(join(packageName, packageJsonContents.customElements)) as Package) || null;
+        }
+    } catch (e) {
+        //
+    }
+    return null;
 }

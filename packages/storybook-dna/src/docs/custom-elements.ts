@@ -73,7 +73,7 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
 }
 
 export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
-    let metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement & {
+    const metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement & {
         locale?: {
             value: string;
             description: string;
@@ -87,9 +87,8 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         return null;
     }
 
-    const result = {} as { [key: string]: StorybookPropDef };
-    Object.assign(
-        result,
+    return Object.assign(
+        {} as { [key: string]: StorybookPropDef },
         metaData.members
             ? mapData(
                   metaData.members.filter(
@@ -164,95 +163,6 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
               )
             : {}
     );
-
-    while (metaData.superclass) {
-        const mod = customElements.modules?.find((m) =>
-            m.declarations?.find((d) => d.kind === 'class' && d.name === metaData.superclass?.name)
-        );
-        metaData = mod?.declarations?.find(
-            (d) => d.kind === 'class' && d.name === metaData.superclass?.name
-        ) as CustomElement;
-        if (!metaData) {
-            break;
-        }
-
-        Object.assign(
-            result,
-            metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
-            metaData.members
-                ? mapData(
-                      metaData.members.filter(
-                          (m) => m.kind === 'field' && !m.static && (!m.privacy || m.privacy === 'public')
-                      ),
-                      'properties'
-                  )
-                : {},
-            metaData.members
-                ? mapData(
-                      metaData.members.filter((m) => m.kind === 'field' && !m.static && m.privacy === 'protected'),
-                      'states'
-                  )
-                : {},
-            metaData.events ? mapData(metaData.events, 'events') : {},
-            metaData.slots ? mapData(metaData.slots, 'slots') : {},
-            metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
-            metaData.cssParts ? mapData(metaData.cssParts, 'css shadow parts') : {},
-            metaData.members
-                ? mapData(
-                      metaData.members.filter((m) => m.kind === 'method' && !m.static),
-                      'methods'
-                  )
-                : {},
-            metaData.members
-                ? mapData(
-                      metaData.members.filter((m) => m.kind === 'field' && m.static),
-                      'static properties'
-                  )
-                : {},
-            metaData.members
-                ? mapData(
-                      metaData.members.filter((m) => m.kind === 'method' && m.static),
-                      'static methods'
-                  )
-                : {},
-            metaData.locale
-                ? metaData.locale.reduce(
-                      (acc, locale) => ({
-                          ...acc,
-                          [`locale/${locale.value}`]: {
-                              name: locale.value,
-                              description: locale.description,
-                              type: {},
-                              table: {
-                                  category: 'locale',
-                              },
-                              control: undefined,
-                          },
-                      }),
-                      {}
-                  )
-                : {},
-            metaData.icons
-                ? metaData.icons.reduce(
-                      (acc, icon) => ({
-                          ...acc,
-                          [`icons/${icon.name}`]: {
-                              name: icon.name,
-                              description: icon.description,
-                              type: {},
-                              table: {
-                                  category: 'icons',
-                              },
-                              control: undefined,
-                          },
-                      }),
-                      {}
-                  )
-                : {}
-        );
-    }
-
-    return result;
 };
 
 export const extractArgTypes = (tagName: string) => {
