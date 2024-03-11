@@ -39,19 +39,19 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@storybook/core-events": "next",
-    "@storybook/docs-tools": "next",
-    "@storybook/preview-api": "next",
-    "@storybook/types": "next",
+    "@storybook/core-events": "^8.0.0",
+    "@storybook/docs-tools": "^8.0.0",
+    "@storybook/preview-api": "^8.0.0",
+    "@storybook/types": "^8.0.0",
     "ts-dedent": "^2.0.0"
   },
   "devDependencies": {
-    "@chialab/dna": "^4.0.0-alpha.6",
+    "@chialab/dna": "^4.0.0",
     "@chialab/eslint-config": "^3.3.1",
     "@types/react": "^18.0.26",
     "custom-elements-manifest": "^2.0.0"
   },
   "peerDependencies": {
-    "@chialab/dna": "^4.0.0-alpha.6"
+    "@chialab/dna": "^4.0.0"
   }
 }

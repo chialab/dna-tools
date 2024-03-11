@@ -47,7 +47,7 @@
     "@chialab/vite-plugin-hmr-dna": "^4.0.0-alpha.1",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@rollup/pluginutils": "^5.0.2",
-    "@storybook/builder-vite": "next",
+    "@storybook/builder-vite": "^8.0.0",
     "magic-string": "^0.27.0",
     "remark-gfm": "^4.0.0"
   },
