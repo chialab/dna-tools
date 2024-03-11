@@ -4,9 +4,9 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "declarationDir": "./dist",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "exclude": ["dist", "scripts"],
   "include": ["src/**/*"],
-  "references": [],
+  "references": []
 }

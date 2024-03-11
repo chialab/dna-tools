@@ -4,19 +4,19 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "declarationDir": "./dist",
-    "lib": ["esnext"],
+    "lib": ["esnext"]
   },
   "exclude": ["dist", "scripts"],
   "include": ["src/**/*"],
   "references": [
     {
-      "path": "../manifest-analyzer-dna-plugin",
+      "path": "../manifest-analyzer-dna-plugin"
     },
     {
-      "path": "../storybook-dna",
+      "path": "../storybook-dna"
     },
     {
-      "path": "../vite-plugin-hmr-dna",
-    },
-  ],
+      "path": "../vite-plugin-hmr-dna"
+    }
+  ]
 }
