@@ -1,5 +1,18 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.1.0
+
+### Minor Changes
+
+- abc0081: Support `@locale` jsdoc tag.
+- 4002a62: Support `@icon` jsdoc tag.
+- 1834dca: Collect manifest data from superClass manifest.
+
+### Patch Changes
+
+- c2edf74: Update analyzer dependency.
+- adae541: Change `@state` analysis for custom elements manifest.
+
 ## 3.1.0-alpha.4
 
 ### Minor Changes

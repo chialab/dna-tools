@@ -1,6 +1,6 @@
 {
   "name": "@chialab/storybook-dna-vite",
-  "version": "8.0.0-alpha.1",
+  "version": "8.0.0",
   "description": "Storybook for DNA and Vite.",
   "type": "module",
   "keywords": [
@@ -42,9 +42,9 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@chialab/manifest-analyzer-dna-plugin": "^3.1.0-alpha.2",
-    "@chialab/storybook-dna": "^8.0.0-alpha.5",
-    "@chialab/vite-plugin-hmr-dna": "^4.0.0-alpha.1",
+    "@chialab/manifest-analyzer-dna-plugin": "^3.1.0",
+    "@chialab/storybook-dna": "^8.0.0",
+    "@chialab/vite-plugin-hmr-dna": "^4.0.0",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@rollup/pluginutils": "^5.0.2",
     "@storybook/builder-vite": "^8.0.0",

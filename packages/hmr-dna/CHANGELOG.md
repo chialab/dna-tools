@@ -1,5 +1,17 @@
 # @chialab/hmr-dna
 
+## 4.0.0
+
+### Major Changes
+
+- c2edf74: Uodate to DNA v4.
+
+### Patch Changes
+
+- bfc24dc: Fix DNA dependency constraint.
+- 9aa3a0d: Replace `forceUpdate` with `requestUpdate`.
+- b5ccc10: Update DNA dependency.
+
 ## 4.0.0-alpha.3
 
 ### Patch Changes

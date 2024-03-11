@@ -1,6 +1,6 @@
 {
   "name": "@chialab/vite-plugin-hmr-dna",
-  "version": "4.0.0-alpha.1",
+  "version": "4.0.0",
   "description": "Hot module replacement for DNA components and Vite.",
   "keywords": [
     "vite",
@@ -38,7 +38,7 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@chialab/hmr-dna": "^4.0.0-alpha.3",
+    "@chialab/hmr-dna": "^4.0.0",
     "magic-string": "^0.27.0"
   },
   "devDependencies": {
