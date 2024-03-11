@@ -24,7 +24,7 @@ Project.find(config, ROOT).then(async ({ project }) => {
         },
     });
 
-    await writeFile(tsconfig, await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'jsonc' }));
+    await writeFile(tsconfig, await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'json' }));
 
     await Promise.all(
         packages.map(async (pkg) => {
@@ -59,7 +59,7 @@ Project.find(config, ROOT).then(async ({ project }) => {
 
                 await writeFile(
                     tsconfig,
-                    await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'jsonc' })
+                    await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'json' })
                 );
             } catch (err) {
                 // eslint-disable-next-line

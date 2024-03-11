@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@chialab/dna": "^4.0.0",
-    "@chialab/eslint-config": "^3.3.1",
     "@types/react": "^18.0.26",
     "custom-elements-manifest": "^2.0.0"
   },
