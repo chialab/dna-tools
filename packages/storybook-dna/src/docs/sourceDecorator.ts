@@ -1,9 +1,9 @@
-import { type ComponentInstance, type Template, type VObject } from '@chialab/dna';
+import type { Template, VObject } from '@chialab/dna';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
-import { type PartialStoryFn, type StoryContext } from '@storybook/types';
-import { type DnaRenderer } from '../types';
+import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import type { DnaRenderer } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isObject(value: any): value is object {
@@ -136,28 +136,25 @@ function vnodeToString(vnode: Template): string {
     }
 
     const hyperObject = vnode as VObject;
+    const children = hyperObject.children
+        ? Array.isArray(hyperObject.children)
+            ? hyperObject.children
+            : [hyperObject.children]
+        : [];
 
-    const is =
-        (typeof hyperObject.type === 'function' && hyperObject.type.prototype.is) ||
-        (hyperObject.type instanceof Element && (hyperObject.type as ComponentInstance).is) ||
-        undefined;
+    if (typeof hyperObject.type === 'symbol') {
+        return children.map(vnodeToString).join('\n');
+    }
 
     const tag =
         (typeof hyperObject.type === 'string' && hyperObject.type) ||
         (hyperObject.type instanceof Element && hyperObject.type.tagName) ||
         '#unknown';
 
-    const properties = { is, ...hyperObject.properties };
-    if (!is || !tag || is.toLowerCase() === tag.toLowerCase()) {
-        delete properties.is;
-    }
-
+    const properties = { ...hyperObject.properties };
     const attrs = Object.keys(properties)
         .map((prop) => {
-            if (prop === 'is' && is) {
-                return `is="${is}"`;
-            }
-            if (prop === 'ref') {
+            if (prop === 'ref' || prop === 'children') {
                 return false;
             }
 
@@ -185,7 +182,7 @@ function vnodeToString(vnode: Template): string {
         .filter(Boolean)
         .join(' ');
 
-    if (typeof hyperObject.type === 'function' && !is) {
+    if (typeof hyperObject.type === 'function') {
         return `<${hyperObject.type.name}${attrs ? ` ${attrs}` : ''} />`;
     }
 
@@ -194,12 +191,12 @@ function vnodeToString(vnode: Template): string {
     if (voidElements.includes(tag)) {
         return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''} />${tagBlock}`;
     }
-    if (!hyperObject.children || !hyperObject.children.length) {
+    if (!children.length) {
         return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''}></${tag}>${tagBlock}`;
     }
 
     const prefix = ''.padStart(4, ' ');
-    const childContents = (hyperObject.children || [])
+    const childContents = children
         .reduce((acc: (Template | string)[], child) => {
             if (typeof child !== 'object') {
                 child = vnodeToString(child);
