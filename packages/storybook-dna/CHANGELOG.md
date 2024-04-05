@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.2
+
+### Patch Changes
+
+- 69c4c50: Add JSX source decorator support.
+
 ## 8.0.1
 
 ### Patch Changes
