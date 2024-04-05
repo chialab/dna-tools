@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.1
+
+### Patch Changes
+
+- e3f47a0: Story component should be the tag name.
+
 ## 8.0.0
 
 ### Major Changes
