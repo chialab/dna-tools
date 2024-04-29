@@ -16,9 +16,11 @@ export type StorybookPropDef = PropDef & {
         disable?: boolean;
     };
 
-    control?: {
-        type?: string | null;
-    };
+    control?:
+        | {
+              type?: string;
+          }
+        | false;
 };
 
 function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: string) {
@@ -48,11 +50,7 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
                 table: {
                     category,
                 },
-                control: isProperty
-                    ? undefined
-                    : {
-                          type: null,
-                      },
+                control: isProperty ? undefined : false,
             };
             const defaultValue = (item as PropertyLike).default;
             if (typeof defaultValue === 'string') {
@@ -139,7 +137,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                           table: {
                               category: 'locale',
                           },
-                          control: undefined,
+                          control: false,
                       },
                   }),
                   {}
@@ -156,7 +154,7 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                           table: {
                               category: 'icons',
                           },
-                          control: undefined,
+                          control: false,
                       },
                   }),
                   {}

@@ -39,6 +39,7 @@
     "*.d.ts"
   ],
   "dependencies": {
+    "@storybook/client-logger": "^8.0.0",
     "@storybook/core-events": "^8.0.0",
     "@storybook/docs-tools": "^8.0.0",
     "@storybook/preview-api": "^8.0.0",

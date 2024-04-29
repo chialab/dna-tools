@@ -1,4 +1,5 @@
 import { getProperties, isComponentConstructor, type Template, type VObject } from '@chialab/dna';
+import { logger } from '@storybook/client-logger';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
@@ -122,6 +123,9 @@ function escapeHtml(input: string) {
 }
 
 function vnodeToString(vnode: Template): string {
+    if (vnode == null) {
+        return '';
+    }
     if (typeof vnode !== 'object') {
         return vnode ? (vnode as string).toString() : '';
     }
@@ -248,7 +252,8 @@ export function sourceDecorator(
     const source = (() => {
         try {
             return vnodeToString(story).replace(/\n\s*\n+/g, '\n');
-        } catch {
+        } catch (err) {
+            logger.error(err);
             return '';
         }
     })();
