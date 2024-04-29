@@ -1,4 +1,4 @@
-import type { Template, VObject } from '@chialab/dna';
+import { getProperties, isComponentConstructor, type Template, type VObject } from '@chialab/dna';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
 import { addons, useEffect } from '@storybook/preview-api';
@@ -152,13 +152,33 @@ function vnodeToString(vnode: Template): string {
         '#unknown';
 
     const properties = { ...hyperObject.properties };
+    const constructor = customElements.get(properties.is || tag);
+    const definedProperties =
+        constructor && isComponentConstructor(constructor) ? getProperties(constructor.prototype) : null;
+
     const attrs = Object.keys(properties)
         .map((prop) => {
-            if (prop === 'ref' || prop === 'children') {
+            if (prop === 'ref' || prop === 'children' || prop === 'class' || prop === 'style') {
                 return false;
             }
 
+            if (prop === 'is') {
+                return `is="${properties[prop as keyof typeof properties]}"`;
+            }
+
             let value = properties[prop as keyof typeof properties];
+            if (value == null) {
+                return false;
+            }
+
+            const definedProperty = definedProperties?.[prop as keyof typeof definedProperties];
+            if (definedProperty?.defaultValue === value) {
+                return false;
+            }
+
+            value = (definedProperty?.toAttribute as any)?.(value) ?? value;
+            prop = definedProperty?.attribute ?? prop;
+
             if (value == null || value === false) {
                 return false;
             }
@@ -172,9 +192,9 @@ function vnodeToString(vnode: Template): string {
                 value = '{...}';
             }
             if (isFunction(value)) {
-                value = value.name || 'function() { ... }';
+                return `${prop}="..."`;
             }
-            if (value === true) {
+            if (value === true || value === '') {
                 return prop;
             }
             return `${prop}="${escapeHtml(`${value}`)}"`;
