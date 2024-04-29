@@ -1,14 +1,13 @@
 import type { Plugin as AnalyzerPlugin } from '@custom-elements-manifest/analyzer';
-import { create, ts } from '@custom-elements-manifest/analyzer/index.js';
-import type * as tsModule from '@custom-elements-manifest/analyzer/node_modules/typescript';
+import { create } from '@custom-elements-manifest/analyzer/index.js';
 import { createFilter } from '@rollup/pluginutils';
 import type { CustomElement, Package } from 'custom-elements-manifest/schema';
 import MagicString from 'magic-string';
+import * as ts from 'typescript';
 import type { Plugin } from 'vite';
 
 declare module '@custom-elements-manifest/analyzer/index.js' {
-    export const ts: typeof tsModule;
-    export const create: (data: { modules: tsModule.SourceFile[]; plugins?: Plugin[] }) => Package;
+    export const create: (data: { modules: ts.SourceFile[]; plugins?: Plugin[] }) => Package;
 }
 
 export interface CustomElementsManifestOptions {

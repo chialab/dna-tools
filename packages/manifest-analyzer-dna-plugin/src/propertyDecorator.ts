@@ -1,5 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
-import type { ClassDeclaration } from '@custom-elements-manifest/analyzer/node_modules/typescript';
+import type { ClassDeclaration } from 'typescript';
 import {
     createAttributeFromField,
     getAttributeName,

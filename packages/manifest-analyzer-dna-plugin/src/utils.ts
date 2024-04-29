@@ -2,16 +2,6 @@ import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import type { Context } from '@custom-elements-manifest/analyzer';
 import type {
-    Decorator,
-    GetAccessorDeclaration,
-    Modifier,
-    Node,
-    ObjectLiteralExpression,
-    PropertyDeclaration,
-    SyntaxKind,
-} from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type typescript from '@custom-elements-manifest/analyzer/node_modules/typescript';
-import type {
     Attribute,
     ClassField,
     CustomElement,
@@ -19,6 +9,18 @@ import type {
     JavaScriptModule,
     Package,
 } from 'custom-elements-manifest/schema';
+import type {
+    Decorator,
+    GetAccessorDeclaration,
+    Modifier,
+    ModifierLike,
+    Node,
+    NodeArray,
+    ObjectLiteralExpression,
+    PropertyDeclaration,
+    SyntaxKind,
+} from 'typescript';
+import type typescript from 'typescript';
 
 type TypeScriptModule = typeof typescript &
     Partial<{
@@ -35,7 +37,11 @@ type TypeScriptModule = typeof typescript &
  * @param keyword The keyword code to check for.
  * @returns True if the node has the keyword.
  */
-export function hasKeyword(ts: TypeScriptModule, node: Node, keyword: SyntaxKind) {
+export function hasKeyword(
+    ts: TypeScriptModule,
+    node: Node & { modifiers?: NodeArray<ModifierLike> },
+    keyword: SyntaxKind
+) {
     if (typeof ts.getModifiers !== 'function' || typeof ts.canHaveModifiers !== 'function') {
         return node.modifiers?.some((mod) => mod.kind === keyword) ?? false;
     }
@@ -76,7 +82,11 @@ export function getDecoratorArguments(ts: TypeScriptModule, decorator: Decorator
  * @param name The decorator name.
  * @returns The decorator AST node.
  */
-export function getDecorator(ts: TypeScriptModule, node: Node, name: string): Decorator | null {
+export function getDecorator(
+    ts: TypeScriptModule,
+    node: Node & { decorators?: Decorator[] },
+    name: string
+): Decorator | null {
     const decorators =
         typeof ts.getDecorators === 'function' && typeof ts.canHaveDecorators === 'function'
             ? ts.canHaveDecorators(node) && ts.getDecorators(node)
