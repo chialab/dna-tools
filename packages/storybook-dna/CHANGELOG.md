@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.3
+
+### Patch Changes
+
+- 3fad3de: Improve source decorator.
+
 ## 8.0.2
 
 ### Patch Changes
