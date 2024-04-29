@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.4
+
+### Patch Changes
+
+- 72107ff: Fix source decorator with `null` nodes.
+
 ## 8.0.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.1.1
+
+### Patch Changes
+
+- 8f3ee48: Use typescript module as dependency.
+
 ## 3.1.0
 
 ### Minor Changes

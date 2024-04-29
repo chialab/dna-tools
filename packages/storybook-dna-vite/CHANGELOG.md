@@ -1,5 +1,15 @@
 # @chialab/storybook-dna-vite
 
+## 8.0.1
+
+### Patch Changes
+
+- 8f3ee48: Use typescript module as dependency.
+- Updated dependencies [72107ff]
+- Updated dependencies [8f3ee48]
+  - @chialab/storybook-dna@8.0.4
+  - @chialab/manifest-analyzer-dna-plugin@3.1.1
+
 ## 8.0.0
 
 ### Major Changes
