@@ -2,7 +2,6 @@ import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 import { hmrPlugin } from '@chialab/vite-plugin-hmr-dna';
 import type { PresetProperty } from '@storybook/types';
 import remarkGfm from 'remark-gfm';
-import { mergeConfig } from 'vite';
 import customElementsManifestPlugin from './plugins/CustomElementsManifest';
 import type { StorybookConfig } from './types';
 
@@ -17,8 +16,10 @@ export const mdxLoaderOptions = {
     },
 };
 
-export const viteFinal: StorybookConfig['viteFinal'] = async (config) =>
-    mergeConfig(config, {
+export const viteFinal: StorybookConfig['viteFinal'] = async (config) => {
+    const { mergeConfig } = await import('vite');
+
+    return mergeConfig(config, {
         optimizeDeps: {
             exclude: ['@chialab/storybook-dna'],
             include: ['@storybook/docs-tools', '@storybook/preview-api', 'ts-dedent'],
@@ -31,3 +32,4 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (config) =>
             }),
         ],
     });
+};
