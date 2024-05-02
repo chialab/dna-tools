@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 8.0.2
+
+### Patch Changes
+
+- 2153609: Ensure esm module loader is used to import vite.
+
 ## 8.0.1
 
 ### Patch Changes
