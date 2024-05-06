@@ -49,4 +49,8 @@ export function renderToCanvas(
             description: dedent((err as Error).message),
         });
     }
+
+    return () => {
+        canvasElement.innerHTML = '';
+    };
 }
