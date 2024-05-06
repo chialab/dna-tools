@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.5
+
+### Patch Changes
+
+- 4c32d89: Correctly teardown canvas stories.
+
 ## 8.0.4
 
 ### Patch Changes
