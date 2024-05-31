@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.6
+
+### Patch Changes
+
+- 55da216: Cleanup canvas render state.
+
 ## 8.0.5
 
 ### Patch Changes
