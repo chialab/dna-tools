@@ -51,6 +51,7 @@ export function renderToCanvas(
     }
 
     return () => {
+        dnaRender(null, canvasElement);
         canvasElement.innerHTML = '';
     };
 }
