@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.7
+
+### Patch Changes
+
+- aa9d45f: Pass prototype to `toAttribute` method.
+
 ## 8.0.6
 
 ### Patch Changes
