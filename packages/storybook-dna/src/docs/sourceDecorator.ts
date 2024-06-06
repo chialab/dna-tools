@@ -180,7 +180,11 @@ function vnodeToString(vnode: Template): string {
                 return false;
             }
 
-            value = (definedProperty?.toAttribute as any)?.(value) ?? value;
+            value =
+                (definedProperty?.toAttribute as any)?.call(
+                    (constructor as CustomElementConstructor).prototype,
+                    value
+                ) ?? value;
             prop = definedProperty?.attribute ?? prop;
 
             if (value == null || value === false) {
