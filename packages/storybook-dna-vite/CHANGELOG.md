@@ -1,5 +1,18 @@
 # @chialab/storybook-dna-vite
 
+## 8.1.0
+
+### Minor Changes
+
+- 0b86d80: Update `vite` constraint.
+
+### Patch Changes
+
+- Updated dependencies [0b86d80]
+- Updated dependencies [3096ac4]
+  - @chialab/vite-plugin-hmr-dna@4.1.0
+  - @chialab/manifest-analyzer-dna-plugin@3.2.0
+
 ## 8.0.2
 
 ### Patch Changes

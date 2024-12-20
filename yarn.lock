@@ -433,7 +433,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chialab/manifest-analyzer-dna-plugin@^3.1.1, @chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin":
+"@chialab/manifest-analyzer-dna-plugin@^3.2.0, @chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin":
   version: 0.0.0-use.local
   resolution: "@chialab/manifest-analyzer-dna-plugin@workspace:packages/manifest-analyzer-dna-plugin"
   dependencies:
@@ -455,9 +455,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chialab/storybook-dna-vite@workspace:packages/storybook-dna-vite"
   dependencies:
-    "@chialab/manifest-analyzer-dna-plugin": ^3.1.1
+    "@chialab/manifest-analyzer-dna-plugin": ^3.2.0
     "@chialab/storybook-dna": ^8.0.4
-    "@chialab/vite-plugin-hmr-dna": ^4.0.0
+    "@chialab/vite-plugin-hmr-dna": ^4.1.0
     "@custom-elements-manifest/analyzer": ^0.9.0
     "@rollup/pluginutils": ^5.0.2
     "@storybook/builder-vite": ^8.0.0
@@ -492,7 +492,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chialab/vite-plugin-hmr-dna@^4.0.0, @chialab/vite-plugin-hmr-dna@workspace:packages/vite-plugin-hmr-dna":
+"@chialab/vite-plugin-hmr-dna@^4.1.0, @chialab/vite-plugin-hmr-dna@workspace:packages/vite-plugin-hmr-dna":
   version: 0.0.0-use.local
   resolution: "@chialab/vite-plugin-hmr-dna@workspace:packages/vite-plugin-hmr-dna"
   dependencies:

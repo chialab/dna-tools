@@ -1,6 +1,6 @@
 {
   "name": "@chialab/vite-plugin-hmr-dna",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Hot module replacement for DNA components and Vite.",
   "keywords": [
     "vite",

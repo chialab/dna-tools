@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.2.0
+
+### Minor Changes
+
+- 3096ac4: Update custom elements manifest analyzer.
+
 ## 3.1.1
 
 ### Patch Changes
