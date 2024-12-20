@@ -26,8 +26,14 @@ export function propertyDecorator(): Plugin {
                 return;
             }
 
-            const hasDefaultModifier = hasKeyword(ts, node, ts.SyntaxKind.DefaultKeyword);
-            const className = hasDefaultModifier ? 'default' : node.name.getText();
+            const hasDefaultModifier = hasKeyword(
+                ts,
+                node,
+                ts.SyntaxKind.DefaultKeyword
+            );
+            const className = hasDefaultModifier
+                ? 'default'
+                : node.name.getText();
             const currClass = getClassDeclaration(moduleDoc, className);
             if (!currClass) {
                 return;
@@ -37,18 +43,28 @@ export function propertyDecorator(): Plugin {
                 if (
                     !member.name ||
                     hasKeyword(ts, member, ts.SyntaxKind.StaticKeyword) ||
-                    (!ts.isPropertyDeclaration(member) && !ts.isGetAccessor(member))
+                    (!ts.isPropertyDeclaration(member) &&
+                        !ts.isGetAccessor(member))
                 ) {
                     return;
                 }
 
                 const parent = member.parent as ClassDeclaration;
                 const memberName = member.name.getText();
-                const accessorMembers = parent.members?.filter((m) => m.name && m.name.getText() === memberName) ?? [];
-                const propDecorator = accessorMembers.map((m) => getDecorator(ts, m, 'property')).filter(Boolean)[0];
-                const stateDecorator = accessorMembers.map((m) => getDecorator(ts, m, 'state')).filter(Boolean)[0];
+                const accessorMembers =
+                    parent.members?.filter(
+                        (m) => m.name && m.name.getText() === memberName
+                    ) ?? [];
+                const propDecorator = accessorMembers
+                    .map((m) => getDecorator(ts, m, 'property'))
+                    .filter(Boolean)[0];
+                const stateDecorator = accessorMembers
+                    .map((m) => getDecorator(ts, m, 'state'))
+                    .filter(Boolean)[0];
                 const actualDecorator = propDecorator || stateDecorator;
-                const field = currClass.members?.find((classMember) => classMember.name === memberName);
+                const field = currClass.members?.find(
+                    (classMember) => classMember.name === memberName
+                );
                 if (!field) {
                     return;
                 }
@@ -67,8 +83,13 @@ export function propertyDecorator(): Plugin {
                     field.privacy = 'protected';
                 }
 
-                const actualDecoratorArguments = getDecoratorArguments(ts, actualDecorator);
-                const propertyOptions = actualDecoratorArguments.find((arg) => ts.isObjectLiteralExpression(arg));
+                const actualDecoratorArguments = getDecoratorArguments(
+                    ts,
+                    actualDecorator
+                );
+                const propertyOptions = actualDecoratorArguments.find((arg) =>
+                    ts.isObjectLiteralExpression(arg)
+                );
                 if (
                     !propertyOptions ||
                     !ts.isObjectLiteralExpression(propertyOptions) ||
@@ -81,13 +102,23 @@ export function propertyDecorator(): Plugin {
                     return;
                 }
 
-                const attribute = createAttributeFromField(field, getAttributeName(ts, propertyOptions) || memberName);
-                const existingAttribute = currClass.attributes?.find((attr) => attr.name === attribute.name);
+                const attribute = createAttributeFromField(
+                    field,
+                    getAttributeName(ts, propertyOptions) || memberName
+                );
+                const existingAttribute = currClass.attributes?.find(
+                    (attr) => attr.name === attribute.name
+                );
                 if (!existingAttribute) {
-                    currClass.attributes = [...(currClass.attributes || []), attribute];
+                    currClass.attributes = [
+                        ...(currClass.attributes || []),
+                        attribute,
+                    ];
                 } else {
                     currClass.attributes = currClass.attributes?.map((attr) =>
-                        attr.name === attribute.name ? { ...attr, ...attribute } : attr
+                        attr.name === attribute.name
+                            ? { ...attr, ...attribute }
+                            : attr
                     );
                 }
             });

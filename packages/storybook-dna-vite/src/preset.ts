@@ -22,7 +22,11 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (config) => {
     return mergeConfig(config, {
         optimizeDeps: {
             exclude: ['@chialab/storybook-dna'],
-            include: ['@storybook/docs-tools', '@storybook/preview-api', 'ts-dedent'],
+            include: [
+                '@storybook/docs-tools',
+                '@storybook/preview-api',
+                'ts-dedent',
+            ],
         },
         plugins: [
             hmrPlugin(),

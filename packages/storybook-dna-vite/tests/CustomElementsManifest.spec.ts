@@ -9,7 +9,14 @@ describe('generate custom elements manifest', () => {
             plugins: [...dnaPlugins()],
         });
 
-        const result = await (plugin.transform as Function)(
+        const result = await (
+            plugin.transform as (
+                code: string,
+                id: string
+            ) => Promise<{
+                code: string;
+            }>
+        )?.(
             `import { customElement, Component } from '@chialab/dna';
 
 @customElement('dna-test')
@@ -21,7 +28,9 @@ export class Test extends Component {
         );
 
         expect(result).toBeDefined();
-        expect(result?.code).toEqual(`import * as __STORYBOOK_WEB_COMPONENTS__ from '@chialab/storybook-dna';
+        expect(
+            result?.code
+        ).toEqual(`import * as __STORYBOOK_WEB_COMPONENTS__ from '@chialab/storybook-dna';
 import { customElement, Component } from '@chialab/dna';
 
 @customElement('dna-test')

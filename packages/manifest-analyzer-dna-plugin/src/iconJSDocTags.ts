@@ -21,7 +21,9 @@ export function iconJSDocTags(): Plugin {
                     return;
                 }
 
-                (node as unknown as ClassDeclaration & { jsDoc?: JSDoc[] }).jsDoc?.forEach((jsDoc) => {
+                (
+                    node as unknown as ClassDeclaration & { jsDoc?: JSDoc[] }
+                ).jsDoc?.forEach((jsDoc) => {
                     const parsed = parse(jsDoc.getFullText());
                     parsed.forEach((parsedDoc) => {
                         parsedDoc.tags.forEach((tag) => {
@@ -29,7 +31,10 @@ export function iconJSDocTags(): Plugin {
                                 classDoc.icons = classDoc.icons || [];
                                 classDoc.icons.push({
                                     name: tag.name,
-                                    description: tag.description.replace(/^\s*-\s+/, ''),
+                                    description: tag.description.replace(
+                                        /^\s*-\s+/,
+                                        ''
+                                    ),
                                 });
                             }
                         });

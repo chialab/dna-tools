@@ -1,4 +1,4 @@
-import { getProperties, type ComponentInstance } from '@chialab/dna';
+import { type ComponentInstance, getProperties } from '@chialab/dna';
 
 /**
  * Clone element property values.
@@ -22,19 +22,24 @@ export function cloneProperties<T extends ComponentInstance>(node: T) {
  * @param targetClass Target class.
  * @param sourceClass Soure class.
  */
-export function overridePrototype(targetClass: CustomElementConstructor, sourceClass: CustomElementConstructor) {
+export function overridePrototype(
+    targetClass: CustomElementConstructor,
+    sourceClass: CustomElementConstructor
+) {
     const prototype = sourceClass.prototype;
     const superConstructor = Object.getPrototypeOf(sourceClass);
-    const constructor = class extends superConstructor {
-        constructor(...args: any[]) {
+    const Ctr = class extends superConstructor {
+        constructor(...args: unknown[]) {
             if (new.target === sourceClass) {
+                // biome-ignore lint/correctness/noConstructorReturn: We need to return a new target constructor instance instead of the source constructor instance.
                 return new targetClass(...args);
             }
+            // biome-ignore lint/correctness/noUnreachableSuper: We need to override the source constructor with the target constructor.
             super(...args);
         }
     };
-    Object.setPrototypeOf(sourceClass, constructor);
-    Object.setPrototypeOf(sourceClass.prototype, constructor.prototype);
+    Object.setPrototypeOf(sourceClass, Ctr);
+    Object.setPrototypeOf(sourceClass.prototype, Ctr.prototype);
     Object.setPrototypeOf(targetClass, sourceClass);
     Object.setPrototypeOf(targetClass.prototype, prototype);
 }

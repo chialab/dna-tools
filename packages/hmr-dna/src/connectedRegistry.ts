@@ -1,4 +1,4 @@
-import { type ComponentInstance } from '@chialab/dna';
+import type { ComponentInstance } from '@chialab/dna';
 
 /**
  * Collect connected nodes.

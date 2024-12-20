@@ -23,8 +23,16 @@ export function memberDenyList(): Plugin {
                     return;
                 }
                 _class.members = _class.members
-                    .filter((member) => !member.static || !STATIC_MEMBER_DENY_LIST.includes(member.name))
-                    .filter((member) => member.privacy !== 'private' && member.privacy !== 'protected');
+                    .filter(
+                        (member) =>
+                            !member.static ||
+                            !STATIC_MEMBER_DENY_LIST.includes(member.name)
+                    )
+                    .filter(
+                        (member) =>
+                            member.privacy !== 'private' &&
+                            member.privacy !== 'protected'
+                    );
             });
         },
     };

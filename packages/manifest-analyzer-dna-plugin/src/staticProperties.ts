@@ -26,8 +26,14 @@ export function staticProperties(): Plugin {
                 return;
             }
 
-            const hasDefaultModifier = hasKeyword(ts, node, ts.SyntaxKind.DefaultKeyword);
-            const className = hasDefaultModifier ? 'default' : node.name.getText();
+            const hasDefaultModifier = hasKeyword(
+                ts,
+                node,
+                ts.SyntaxKind.DefaultKeyword
+            );
+            const className = hasDefaultModifier
+                ? 'default'
+                : node.name.getText();
             const currClass = getClassDeclaration(moduleDoc, className);
             if (!currClass) {
                 return;
@@ -37,7 +43,8 @@ export function staticProperties(): Plugin {
                 if (
                     !member.name ||
                     !hasKeyword(ts, member, ts.SyntaxKind.StaticKeyword) ||
-                    (!ts.isPropertyDeclaration(member) && !ts.isGetAccessor(member)) ||
+                    (!ts.isPropertyDeclaration(member) &&
+                        !ts.isGetAccessor(member)) ||
                     member.name.getText() !== 'properties'
                 ) {
                     return;
@@ -54,7 +61,10 @@ export function staticProperties(): Plugin {
                     }
 
                     const initializer = property.initializer;
-                    if (!initializer || !ts.isObjectLiteralExpression(initializer)) {
+                    if (
+                        !initializer ||
+                        !ts.isObjectLiteralExpression(initializer)
+                    ) {
                         return;
                     }
 
@@ -67,22 +77,33 @@ export function staticProperties(): Plugin {
                     if (hasAttribute(ts, initializer)) {
                         const attribute = createAttributeFromField(
                             classMember,
-                            getAttributeName(ts, initializer) || property.name.getText()
+                            getAttributeName(ts, initializer) ||
+                                property.name.getText()
                         );
-                        currClass.attributes = [...(currClass.attributes || []), attribute];
+                        currClass.attributes = [
+                            ...(currClass.attributes || []),
+                            attribute,
+                        ];
                     }
 
                     if (isState(ts, initializer)) {
                         classMember.privacy = 'protected';
                     }
 
-                    const existingField = currClass.members?.find((field) => field.name === classMember.name);
+                    const existingField = currClass.members?.find(
+                        (field) => field.name === classMember.name
+                    );
                     if (!existingField) {
-                        currClass.members = [...(currClass.members || []), classMember];
+                        currClass.members = [
+                            ...(currClass.members || []),
+                            classMember,
+                        ];
                     } else {
                         currClass.members =
                             currClass.members?.map((field) =>
-                                field.name === classMember.name ? { ...field, ...classMember } : field
+                                field.name === classMember.name
+                                    ? { ...field, ...classMember }
+                                    : field
                             ) ?? [];
                     }
                 });

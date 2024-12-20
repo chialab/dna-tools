@@ -12,7 +12,6 @@ import type {
 import type {
     Decorator,
     GetAccessorDeclaration,
-    Modifier,
     ModifierLike,
     Node,
     NodeArray,
@@ -22,14 +21,6 @@ import type {
 } from 'typescript';
 import type typescript from 'typescript';
 
-type TypeScriptModule = typeof typescript &
-    Partial<{
-        canHaveModifiers(node: Node): boolean;
-        getModifiers(node: Node): readonly Modifier[] | undefined;
-        canHaveDecorators(node: Node): boolean;
-        getDecorators(node: Node): readonly Decorator[] | undefined;
-    }>;
-
 /**
  * Check if node has a specific keyword.
  * @param ts Typescript module instance.
@@ -38,11 +29,14 @@ type TypeScriptModule = typeof typescript &
  * @returns True if the node has the keyword.
  */
 export function hasKeyword(
-    ts: TypeScriptModule,
+    ts: typeof typescript,
     node: Node & { modifiers?: NodeArray<ModifierLike> },
     keyword: SyntaxKind
 ) {
-    if (typeof ts.getModifiers !== 'function' || typeof ts.canHaveModifiers !== 'function') {
+    if (
+        typeof ts.getModifiers !== 'function' ||
+        typeof ts.canHaveModifiers !== 'function'
+    ) {
         return node.modifiers?.some((mod) => mod.kind === keyword) ?? false;
     }
     if (!ts.canHaveModifiers(node)) {
@@ -66,7 +60,10 @@ export function getDecoratorExpression(decorator: Decorator) {
  * @param decorator The decorator AST node.
  * @returns The decorator call expression arguments.
  */
-export function getDecoratorArguments(ts: TypeScriptModule, decorator: Decorator) {
+export function getDecoratorArguments(
+    ts: typeof typescript,
+    decorator: Decorator
+) {
     const expression = decorator.expression;
     if (!ts.isCallExpression(expression)) {
         return [];
@@ -83,12 +80,13 @@ export function getDecoratorArguments(ts: TypeScriptModule, decorator: Decorator
  * @returns The decorator AST node.
  */
 export function getDecorator(
-    ts: TypeScriptModule,
+    ts: typeof typescript,
     node: Node & { decorators?: Decorator[] },
     name: string
 ): Decorator | null {
     const decorators =
-        typeof ts.getDecorators === 'function' && typeof ts.canHaveDecorators === 'function'
+        typeof ts.getDecorators === 'function' &&
+        typeof ts.canHaveDecorators === 'function'
             ? ts.canHaveDecorators(node) && ts.getDecorators(node)
             : node.decorators;
 
@@ -115,7 +113,10 @@ export function getDecorator(
  * @param node The property descriptor object AST node.
  * @returns True if the property has an attribute field.
  */
-export function hasAttribute(ts: TypeScriptModule, node: ObjectLiteralExpression) {
+export function hasAttribute(
+    ts: typeof typescript,
+    node: ObjectLiteralExpression
+) {
     const properties = node.properties;
     if (!properties) {
         return false;
@@ -130,7 +131,8 @@ export function hasAttribute(ts: TypeScriptModule, node: ObjectLiteralExpression
         if (property.name.getText() === 'attribute') {
             if (property.initializer.kind === ts.SyntaxKind.StringLiteral) {
                 return true;
-            } else if (property.initializer.kind === ts.SyntaxKind.TrueKeyword) {
+            }
+            if (property.initializer.kind === ts.SyntaxKind.TrueKeyword) {
                 return true;
             }
 
@@ -146,7 +148,7 @@ export function hasAttribute(ts: TypeScriptModule, node: ObjectLiteralExpression
  * @param node The property descriptor object AST node.
  * @returns True if the property is a state property field.
  */
-export function isState(ts: TypeScriptModule, node: ObjectLiteralExpression) {
+export function isState(ts: typeof typescript, node: ObjectLiteralExpression) {
     const properties = node.properties;
     if (!properties) {
         return false;
@@ -175,7 +177,10 @@ export function isState(ts: TypeScriptModule, node: ObjectLiteralExpression) {
  * @param node The property descriptor object AST node.
  * @returns The attribute name.
  */
-export function getAttributeName(ts: TypeScriptModule, node: ObjectLiteralExpression): string | null {
+export function getAttributeName(
+    ts: typeof typescript,
+    node: ObjectLiteralExpression
+): string | null {
     const properties = node.properties;
     if (!properties) {
         return null;
@@ -204,7 +209,7 @@ export function getAttributeName(ts: TypeScriptModule, node: ObjectLiteralExpres
  * @returns The property descriptor object AST node.
  */
 export function getPropertiesObject(
-    ts: TypeScriptModule,
+    ts: typeof typescript,
     node: GetAccessorDeclaration | PropertyDeclaration
 ): ObjectLiteralExpression | null {
     const exp = ts.isGetAccessor(node)
@@ -224,7 +229,10 @@ export function getPropertiesObject(
  * @param attrName The attribute name.
  * @returns The manifest attribute.
  */
-export function createAttributeFromField(field: ClassField, attrName: string): Attribute {
+export function createAttributeFromField(
+    field: ClassField,
+    attrName: string
+): Attribute {
     return {
         name: attrName,
         fieldName: field.name,
@@ -242,7 +250,11 @@ export function createAttributeFromField(field: ClassField, attrName: string): A
  * @param name The module name.
  * @returns Module info.
  */
-export function resolveModuleOrPackageSpecifier(moduleDoc: Partial<JavaScriptModule>, context: Context, name: string) {
+export function resolveModuleOrPackageSpecifier(
+    moduleDoc: Partial<JavaScriptModule>,
+    context: Context,
+    name: string
+) {
     const imports = (context?.imports ?? []) as {
         name: string;
         isBareModuleSpecifier: boolean;
@@ -253,7 +265,10 @@ export function resolveModuleOrPackageSpecifier(moduleDoc: Partial<JavaScriptMod
         if (foundImport.isBareModuleSpecifier) {
             return { package: foundImport.importPath };
         }
-        return { module: new URL(foundImport.importPath, `file:///${moduleDoc.path}`).pathname };
+        return {
+            module: new URL(foundImport.importPath, `file:///${moduleDoc.path}`)
+                .pathname,
+        };
     }
     return { module: moduleDoc.path };
 }
@@ -264,11 +279,18 @@ export function resolveModuleOrPackageSpecifier(moduleDoc: Partial<JavaScriptMod
  * @param className The class name.
  * @returns The custom element definition.
  */
-export function getClassDeclaration(moduleDoc: Partial<JavaScriptModule>, className: string): CustomElement | null {
+export function getClassDeclaration(
+    moduleDoc: Partial<JavaScriptModule>,
+    className: string
+): CustomElement | null {
     if (!moduleDoc.declarations) {
         return null;
     }
-    return (moduleDoc.declarations.find((declaration) => declaration.name === className) as CustomElement) ?? null;
+    return (
+        (moduleDoc.declarations.find(
+            (declaration) => declaration.name === className
+        ) as CustomElement) ?? null
+    );
 }
 
 /**
@@ -278,7 +300,10 @@ export function getClassDeclaration(moduleDoc: Partial<JavaScriptModule>, classN
  */
 export function isCustomElementDeclaration(
     declaration: Declaration | CustomElement
-): declaration is CustomElement & { locale?: { name: string }[]; icons?: { name: string }[] } {
+): declaration is CustomElement & {
+    locale?: { name: string }[];
+    icons?: { name: string }[];
+} {
     return !!(declaration as CustomElement)?.tagName;
 }
 
@@ -287,7 +312,11 @@ export function getPackageCustomElement(cwd: string, packageName: string) {
         const require = createRequire(cwd);
         const packageJsonContents = require(`${packageName}/package.json`);
         if (packageJsonContents.customElements) {
-            return (require(join(packageName, packageJsonContents.customElements)) as Package) || null;
+            return (
+                (require(
+                    join(packageName, packageJsonContents.customElements)
+                ) as Package) || null
+            );
         }
     } catch (e) {
         //

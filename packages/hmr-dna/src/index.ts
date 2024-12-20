@@ -1,6 +1,11 @@
-import { getProperties, isComponentConstructor, type ComponentConstructor, type ComponentInstance } from '@chialab/dna';
-import { getConnected } from './connectedRegistry';
+import {
+    type ComponentConstructor,
+    type ComponentInstance,
+    getProperties,
+    isComponentConstructor,
+} from '@chialab/dna';
 import { createProxy } from './CustomElementProxy';
+import { getConnected } from './connectedRegistry';
 import { defineOnce } from './defineOnce';
 import { cloneProperties, overridePrototype } from './utils';
 
@@ -13,23 +18,23 @@ customElements.define = defineOnce;
  */
 const define = customElements.define.bind(customElements) as (
     name: string,
-    constructor: CustomElementConstructor,
+    ctr: CustomElementConstructor,
     options?: ElementDefinitionOptions
 ) => void;
 
 /**
  * Define a DNA component with HMR support.
  * @param name The custom element name.
- * @param constructor The custom element constructor.
+ * @param ctr The custom element constructor.
  * @param options Definition options.
  */
 customElements.define = function hmrDefine<T extends ComponentInstance>(
     name: string,
-    constructor: ComponentConstructor<T> | CustomElementConstructor,
+    ctr: ComponentConstructor<T> | CustomElementConstructor,
     options?: ElementDefinitionOptions
 ) {
-    if (!isComponentConstructor(constructor)) {
-        return define(name, constructor, options);
+    if (!isComponentConstructor(ctr)) {
+        return define(name, ctr, options);
     }
 
     const actual = customElements.get(name);
@@ -45,8 +50,8 @@ customElements.define = function hmrDefine<T extends ComponentInstance>(
         connectedProperties.set(node, cloneProperties(node));
     });
 
-    const proxyClass = createProxy(name, constructor as ComponentConstructor<T>);
-    overridePrototype(proxyClass, constructor);
+    const proxyClass = createProxy(name, ctr as ComponentConstructor<T>);
+    overridePrototype(proxyClass, ctr);
     define(name, proxyClass, options);
 
     if (!actual) {
@@ -74,7 +79,10 @@ customElements.define = function hmrDefine<T extends ComponentInstance>(
                         node[propertyKey] = property.defaultValue;
                     } else if (!property.static) {
                         initializedProperties ??= new proxyClass();
-                        node.setInnerPropertyValue(propertyKey, initializedProperties[propertyKey]);
+                        node.setInnerPropertyValue(
+                            propertyKey,
+                            initializedProperties[propertyKey]
+                        );
                     }
                 }
             }

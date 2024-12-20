@@ -1,5 +1,5 @@
 import MagicString from 'magic-string';
-import { type Plugin } from 'vite';
+import type { Plugin } from 'vite';
 
 /**
  * Check if module body contains DNA component definitions.

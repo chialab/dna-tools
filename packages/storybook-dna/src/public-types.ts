@@ -35,7 +35,13 @@ export type StoryFn<TArgs = Args> = AnnotatedStoryFn<DnaRenderer, TArgs>;
  */
 export type StoryObj<TArgs = Args> = StoryAnnotations<DnaRenderer, TArgs>;
 
-export type Decorator<TArgs = StrictArgs> = DecoratorFunction<DnaRenderer, TArgs>;
+export type Decorator<TArgs = StrictArgs> = DecoratorFunction<
+    DnaRenderer,
+    TArgs
+>;
 export type Loader<TArgs = StrictArgs> = LoaderFunction<DnaRenderer, TArgs>;
-export type StoryContext<TArgs = StrictArgs> = GenericStoryContext<DnaRenderer, TArgs>;
+export type StoryContext<TArgs = StrictArgs> = GenericStoryContext<
+    DnaRenderer,
+    TArgs
+>;
 export type Preview = ProjectAnnotations<DnaRenderer>;

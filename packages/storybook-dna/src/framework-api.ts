@@ -1,5 +1,9 @@
 import { logger } from '@storybook/client-logger';
-import { type CustomElement, type Package, type PropertyLike } from 'custom-elements-manifest';
+import type {
+    CustomElement,
+    Package,
+    PropertyLike,
+} from 'custom-elements-manifest';
 import { dedent } from 'ts-dedent';
 
 export function getCustomElementsManifest() {
@@ -17,7 +21,9 @@ function isValidTagName(tagName: string) {
     if (typeof tagName === 'string') {
         return true;
     }
-    throw new Error('Provided component needs to be a string. e.g. component: "my-element"');
+    throw new Error(
+        'Provided component needs to be a string. e.g. component: "my-element"'
+    );
 }
 
 function isValidManifest(manifest: Package) {
@@ -65,7 +71,10 @@ export const getCustomElementDeclaration = (
     return metadata;
 };
 
-export function mergeCustomElementsManifests(manifest1: Package, manifest2: Package) {
+export function mergeCustomElementsManifests(
+    manifest1: Package,
+    manifest2: Package
+) {
     return {
         ...manifest1,
         ...manifest2,

@@ -7,7 +7,10 @@ import * as ts from 'typescript';
 import type { Plugin } from 'vite';
 
 declare module '@custom-elements-manifest/analyzer/index.js' {
-    export const create: (data: { modules: ts.SourceFile[]; plugins?: Plugin[] }) => Package;
+    export const create: (data: {
+        modules: ts.SourceFile[];
+        plugins?: Plugin[];
+    }) => Package;
 }
 
 export interface CustomElementsManifestOptions {
@@ -17,8 +20,13 @@ export interface CustomElementsManifestOptions {
     plugins?: AnalyzerPlugin[];
 }
 
-export default function customElementsManifestPlugin(options: CustomElementsManifestOptions): Plugin {
-    const filter = createFilter(options.include || /\.(m?ts|[jt]sx)$/, options.exclude);
+export default function customElementsManifestPlugin(
+    options: CustomElementsManifestOptions
+): Plugin {
+    const filter = createFilter(
+        options.include || /\.(m?ts|[jt]sx)$/,
+        options.exclude
+    );
 
     return {
         name: 'vite:storybook-cem',
@@ -30,7 +38,9 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 return;
             }
 
-            const modules = [ts.createSourceFile(id, code, ts.ScriptTarget.ESNext, true)];
+            const modules = [
+                ts.createSourceFile(id, code, ts.ScriptTarget.ESNext, true),
+            ];
 
             const customElementsManifest = create({
                 modules,
@@ -41,7 +51,9 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
                 return;
             }
 
-            const declarations = customElementsManifest.modules.map((mod) => mod.declarations ?? []).flat();
+            const declarations = customElementsManifest.modules.flatMap(
+                (mod) => mod.declarations ?? []
+            );
 
             if (declarations.length === 0) {
                 return;
@@ -70,7 +82,9 @@ export default function customElementsManifestPlugin(options: CustomElementsMani
             });
 
             const output = new MagicString(code);
-            output.prepend(`import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`);
+            output.prepend(
+                `import * as __STORYBOOK_WEB_COMPONENTS__ from '${options.renderer}';\n`
+            );
             output.append(`\n;(function() {
     const { getCustomElementsManifest, setCustomElementsManifest, mergeCustomElementsManifests } = __STORYBOOK_WEB_COMPONENTS__;
     if (!setCustomElementsManifest) {

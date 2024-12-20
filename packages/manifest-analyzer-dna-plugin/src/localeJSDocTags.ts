@@ -21,16 +21,21 @@ export function localeJSDocTags(): Plugin {
                     return;
                 }
 
-                (node as unknown as ClassDeclaration & { jsDoc?: JSDoc[] }).jsDoc?.forEach((jsDoc) => {
+                (
+                    node as unknown as ClassDeclaration & { jsDoc?: JSDoc[] }
+                ).jsDoc?.forEach((jsDoc) => {
                     const parsed = parse(jsDoc.getFullText());
                     parsed.forEach((parsedDoc) => {
                         parsedDoc.tags.forEach((tag) => {
                             if (tag.tag === 'locale') {
                                 classDoc.locale = classDoc.locale || [];
                                 const fullText = `${tag.name} ${tag.description}`;
-                                const [name, description] = fullText.split(/\s*-\s+/);
+                                const [name, description] =
+                                    fullText.split(/\s*-\s+/);
                                 classDoc.locale.push({
-                                    value: name.replace(/^["']/, '').replace(/["']$/, ''),
+                                    value: name
+                                        .replace(/^["']/, '')
+                                        .replace(/["']$/, ''),
                                     description,
                                 });
                             }

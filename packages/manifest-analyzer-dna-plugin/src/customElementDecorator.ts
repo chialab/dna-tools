@@ -1,6 +1,10 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
 import type { CustomElementExport } from 'custom-elements-manifest';
-import { getDecorator, getDecoratorArguments, resolveModuleOrPackageSpecifier } from './utils';
+import {
+    getDecorator,
+    getDecoratorArguments,
+    resolveModuleOrPackageSpecifier,
+} from './utils';
 
 /**
  * A plugin that detects `customElement` decorator usage.
@@ -17,12 +21,19 @@ export function customElementDecorator(): Plugin {
                 return;
             }
 
-            const customElementDecorator = getDecorator(ts, node, 'customElement');
+            const customElementDecorator = getDecorator(
+                ts,
+                node,
+                'customElement'
+            );
             if (!customElementDecorator) {
                 return;
             }
 
-            const [argument, options] = getDecoratorArguments(ts, customElementDecorator);
+            const [argument, options] = getDecoratorArguments(
+                ts,
+                customElementDecorator
+            );
             if (!ts.isStringLiteral(argument)) {
                 return;
             }
@@ -56,7 +67,11 @@ export function customElementDecorator(): Plugin {
                     extend,
                     declaration: {
                         name: node.name.getText(),
-                        ...resolveModuleOrPackageSpecifier(moduleDoc, context, node.getText()),
+                        ...resolveModuleOrPackageSpecifier(
+                            moduleDoc,
+                            context,
+                            node.getText()
+                        ),
                     },
                 } as unknown as CustomElementExport,
             ];

@@ -23,7 +23,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "default": "./dist/index.mjs"
     },
     "./preset": {
       "types": "./dist/preset.d.ts",
@@ -53,9 +53,11 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
+    "storybook": "^8.0.0",
     "vite": "^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
+    "storybook": "^8.0.0",
     "vite": "^6.0.0"
   },
   "engines": {

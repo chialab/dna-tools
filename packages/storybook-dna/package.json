@@ -22,7 +22,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "default": "./dist/index.mjs"
     },
     "./preset": "./preset.js",
     "./dist/entry-preview.mjs": "./dist/entry-preview.mjs",
@@ -49,9 +49,11 @@
   "devDependencies": {
     "@chialab/dna": "^4.0.0",
     "@types/react": "^18.0.26",
-    "custom-elements-manifest": "^2.0.0"
+    "custom-elements-manifest": "^2.0.0",
+    "storybook": "^8.0.0"
   },
   "peerDependencies": {
-    "@chialab/dna": "^4.0.0"
+    "@chialab/dna": "^4.0.0",
+    "storybook": "^8.0.0"
   }
 }

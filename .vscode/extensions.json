@@ -1,9 +1,7 @@
 {
   "recommendations": [
     "EditorConfig.EditorConfig",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "stylelint.vscode-stylelint",
+    "biomejs.biome",
     "unifiedjs.vscode-mdx"
   ]
 }

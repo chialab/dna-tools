@@ -93,7 +93,10 @@ esbuild.build({
 // storybook-dna-vite
 
 esbuild.build({
-    entryPoints: ['./packages/storybook-dna-vite/src/index.ts', './packages/storybook-dna-vite/src/preset.ts'],
+    entryPoints: [
+        './packages/storybook-dna-vite/src/index.ts',
+        './packages/storybook-dna-vite/src/preset.ts',
+    ],
     target: 'node16',
     bundle: true,
     platform: 'node',
@@ -103,7 +106,10 @@ esbuild.build({
 });
 
 esbuild.build({
-    entryPoints: ['./packages/storybook-dna-vite/src/index.ts', './packages/storybook-dna-vite/src/preset.ts'],
+    entryPoints: [
+        './packages/storybook-dna-vite/src/index.ts',
+        './packages/storybook-dna-vite/src/preset.ts',
+    ],
     outExtension: {
         '.js': '.mjs',
     },

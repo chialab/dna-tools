@@ -1,12 +1,19 @@
-import { type PropDef, type PropDefaultValue, type PropType } from '@storybook/docs-tools';
-import {
-    type Attribute,
-    type ClassMember,
-    type CustomElement,
-    type Package,
-    type PropertyLike,
+import type {
+    PropDef,
+    PropDefaultValue,
+    PropType,
+} from '@storybook/docs-tools';
+import type {
+    Attribute,
+    ClassMember,
+    CustomElement,
+    Package,
+    PropertyLike,
 } from 'custom-elements-manifest';
-import { getCustomElementDeclaration, getCustomElementsManifest } from '../framework-api';
+import {
+    getCustomElementDeclaration,
+    getCustomElementsManifest,
+} from '../framework-api';
 
 export type StorybookPropDef = PropDef & {
     table?: {
@@ -23,7 +30,10 @@ export type StorybookPropDef = PropDef & {
         | false;
 };
 
-function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: string) {
+function mapData(
+    data: (Attribute | ClassMember | PropertyLike)[],
+    category: string
+) {
     return data.reduce(
         (acc: { [key: string]: PropDef }, item) => {
             if (!item) {
@@ -35,16 +45,25 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
             const isState = category === 'states';
             const types =
                 (isProperty || isState) &&
-                ((item as PropertyLike).type?.text ?? '').split('|').map((item) => item.trim());
+                ((item as PropertyLike).type?.text ?? '')
+                    .split('|')
+                    .map((item) => item.trim());
 
             const entry: StorybookPropDef = {
                 name,
-                required: types ? types.every((type) => type !== 'undefined') : false,
-                description: category === 'attributes' ? `🔗 **${(item as Attribute).fieldName}**` : item.description,
+                required: types
+                    ? types.every((type) => type !== 'undefined')
+                    : false,
+                description:
+                    category === 'attributes'
+                        ? `🔗 **${(item as Attribute).fieldName}**`
+                        : item.description,
                 type: (types
                     ? {
                           name: types.filter((type) => type !== 'undefined')[0],
-                          summary: types.filter((type) => type !== 'undefined')[0] || 'unknown',
+                          summary:
+                              types.filter((type) => type !== 'undefined')[0] ||
+                              'unknown',
                       }
                     : {}) as unknown as PropType,
                 table: {
@@ -70,8 +89,14 @@ function mapData(data: (Attribute | ClassMember | PropertyLike)[], category: str
     );
 }
 
-export const extractArgTypesFromElements = (tagName: string, customElements: Package) => {
-    const metaData = getCustomElementDeclaration(tagName, customElements) as CustomElement & {
+export const extractArgTypesFromElements = (
+    tagName: string,
+    customElements: Package
+) => {
+    const metaData = getCustomElementDeclaration(
+        tagName,
+        customElements
+    ) as CustomElement & {
         locale?: {
             value: string;
             description: string;
@@ -90,7 +115,11 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.members
             ? mapData(
                   metaData.members.filter(
-                      (m) => m.kind === 'field' && !m.static && !m.static && (!m.privacy || m.privacy === 'public')
+                      (m) =>
+                          m.kind === 'field' &&
+                          !m.static &&
+                          !m.static &&
+                          (!m.privacy || m.privacy === 'public')
                   ),
                   'properties'
               )
@@ -98,7 +127,11 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.members
             ? mapData(
                   metaData.members.filter(
-                      (m) => m.kind === 'field' && !m.static && !m.static && m.privacy === 'protected'
+                      (m) =>
+                          m.kind === 'field' &&
+                          !m.static &&
+                          !m.static &&
+                          m.privacy === 'protected'
                   ),
                   'states'
               )
@@ -106,31 +139,38 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
         metaData.attributes ? mapData(metaData.attributes, 'attributes') : {},
         metaData.events ? mapData(metaData.events, 'events') : {},
         metaData.slots ? mapData(metaData.slots, 'slots') : {},
-        metaData.cssProperties ? mapData(metaData.cssProperties, 'css custom properties') : {},
+        metaData.cssProperties
+            ? mapData(metaData.cssProperties, 'css custom properties')
+            : {},
         metaData.cssParts ? mapData(metaData.cssParts, 'css shadow parts') : {},
         metaData.members
             ? mapData(
-                  metaData.members.filter((m) => m.kind === 'method' && !m.static),
+                  metaData.members.filter(
+                      (m) => m.kind === 'method' && !m.static
+                  ),
                   'methods'
               )
             : {},
         metaData.members
             ? mapData(
-                  metaData.members.filter((m) => m.kind === 'field' && m.static),
+                  metaData.members.filter(
+                      (m) => m.kind === 'field' && m.static
+                  ),
                   'static properties'
               )
             : {},
         metaData.members
             ? mapData(
-                  metaData.members.filter((m) => m.kind === 'method' && m.static),
+                  metaData.members.filter(
+                      (m) => m.kind === 'method' && m.static
+                  ),
                   'static methods'
               )
             : {},
         metaData.locale
             ? metaData.locale.reduce(
-                  (acc, locale) => ({
-                      ...acc,
-                      [`locale/${locale.value}`]: {
+                  (acc, locale) => {
+                      acc[`locale/${locale.value}`] = {
                           name: locale.value,
                           description: locale.description,
                           type: {},
@@ -138,16 +178,18 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                               category: 'locale',
                           },
                           control: false,
-                      },
-                  }),
-                  {}
+                          required: false,
+                      };
+
+                      return acc;
+                  },
+                  {} as Record<string, StorybookPropDef>
               )
             : {},
         metaData.icons
             ? metaData.icons.reduce(
-                  (acc, icon) => ({
-                      ...acc,
-                      [`icons/${icon.name}`]: {
+                  (acc, icon) => {
+                      acc[`icons/${icon.name}`] = {
                           name: icon.name,
                           description: icon.description,
                           type: {},
@@ -155,9 +197,12 @@ export const extractArgTypesFromElements = (tagName: string, customElements: Pac
                               category: 'icons',
                           },
                           control: false,
-                      },
-                  }),
-                  {}
+                          required: false,
+                      };
+
+                      return acc;
+                  },
+                  {} as Record<string, StorybookPropDef>
               )
             : {}
     );
@@ -178,7 +223,10 @@ export const extractComponentDescription = (tagName: string) => {
         return null;
     }
 
-    const metaData = getCustomElementDeclaration(tagName, customElementsManifest);
+    const metaData = getCustomElementDeclaration(
+        tagName,
+        customElementsManifest
+    );
     if (!metaData) {
         return null;
     }

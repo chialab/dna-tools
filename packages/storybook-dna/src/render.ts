@@ -1,5 +1,8 @@
-import { render as dnaRender, h, type HTMLTagNameMap } from '@chialab/dna';
-import { simulateDOMContentLoaded, simulatePageLoad } from '@storybook/preview-api';
+import { type HTMLTagNameMap, render as dnaRender, h } from '@chialab/dna';
+import {
+    simulateDOMContentLoaded,
+    simulatePageLoad,
+} from '@storybook/preview-api';
 import type { ArgsStoryFn, RenderContext } from '@storybook/types';
 import { dedent } from 'ts-dedent';
 import type { DnaRenderer } from './types';
@@ -7,14 +10,23 @@ import type { DnaRenderer } from './types';
 export const render: ArgsStoryFn<DnaRenderer> = (args, context) => {
     const { id, component } = context;
     if (!component) {
-        throw new Error(`Unable to render story ${id} as the component annotation is missing from the default export`);
+        throw new Error(
+            `Unable to render story ${id} as the component annotation is missing from the default export`
+        );
     }
 
     return h(component as keyof HTMLTagNameMap, args);
 };
 
 export function renderToCanvas(
-    { storyFn, title, name, showMain, showError, forceRemount }: RenderContext<DnaRenderer>,
+    {
+        storyFn,
+        title,
+        name,
+        showMain,
+        showError,
+        forceRemount,
+    }: RenderContext<DnaRenderer>,
     canvasElement: DnaRenderer['canvasElement']
 ) {
     if (forceRemount) {

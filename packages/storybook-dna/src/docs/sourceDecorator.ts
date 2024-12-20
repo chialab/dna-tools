@@ -1,4 +1,9 @@
-import { getProperties, isComponentConstructor, type Template, type VObject } from '@chialab/dna';
+import {
+    type Template,
+    type VObject,
+    getProperties,
+    isComponentConstructor,
+} from '@chialab/dna';
 import { logger } from '@storybook/client-logger';
 import { STORY_PREPARED } from '@storybook/core-events';
 import { SNIPPET_RENDERED } from '@storybook/docs-tools';
@@ -6,8 +11,7 @@ import { addons, useEffect } from '@storybook/preview-api';
 import type { PartialStoryFn, StoryContext } from '@storybook/types';
 import type { DnaRenderer } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isObject(value: any): value is object {
+function isObject(value: unknown): value is object {
     if (value === null) {
         return false;
     }
@@ -17,38 +21,36 @@ function isObject(value: any): value is object {
     if (typeof value !== 'string') {
         return false;
     }
-    value = value.trim();
-    if (value[0] !== '{' && value[0] !== '[') {
+    const trimmedValue = value.trim();
+    if (trimmedValue[0] !== '{' && trimmedValue[0] !== '[') {
         return false;
     }
     try {
-        return typeof JSON.parse(value) === 'object';
+        return typeof JSON.parse(trimmedValue) === 'object';
     } catch {
         return false;
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isArray(value: any): value is any[] {
+function isArray(value: unknown): value is unknown[] {
     if (Array.isArray(value)) {
         return true;
     }
     if (typeof value !== 'string') {
         return false;
     }
-    value = value.trim();
-    if (value[0] !== '[') {
+    const trimmedValue = value.trim();
+    if (trimmedValue[0] !== '[') {
         return false;
     }
     try {
-        return Array.isArray(JSON.parse(value));
+        return Array.isArray(JSON.parse(trimmedValue));
     } catch {
         return false;
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isFunction(value: any): value is Function {
+function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
     return typeof value === 'function';
 }
 
@@ -156,13 +158,20 @@ function vnodeToString(vnode: Template): string {
         '#unknown';
 
     const properties = { ...hyperObject.properties };
-    const constructor = customElements.get(properties.is || tag);
+    const ctr = customElements.get(properties.is || tag);
     const definedProperties =
-        constructor && isComponentConstructor(constructor) ? getProperties(constructor.prototype) : null;
+        ctr && isComponentConstructor(ctr)
+            ? getProperties(ctr.prototype)
+            : null;
 
     const attrs = Object.keys(properties)
         .map((prop) => {
-            if (prop === 'ref' || prop === 'children' || prop === 'class' || prop === 'style') {
+            if (
+                prop === 'ref' ||
+                prop === 'children' ||
+                prop === 'class' ||
+                prop === 'style'
+            ) {
                 return false;
             }
 
@@ -175,17 +184,20 @@ function vnodeToString(vnode: Template): string {
                 return false;
             }
 
-            const definedProperty = definedProperties?.[prop as keyof typeof definedProperties];
+            const definedProperty =
+                definedProperties?.[prop as keyof typeof definedProperties];
             if (definedProperty?.defaultValue === value) {
                 return false;
             }
 
             value =
-                (definedProperty?.toAttribute as any)?.call(
-                    (constructor as CustomElementConstructor).prototype,
-                    value
-                ) ?? value;
-            prop = definedProperty?.attribute ?? prop;
+                (
+                    definedProperty?.toAttribute as (
+                        value: unknown
+                    ) => string | null
+                )?.call((ctr as CustomElementConstructor).prototype, value) ??
+                value;
+            const normalizedProp = definedProperty?.attribute ?? prop;
 
             if (value == null || value === false) {
                 return false;
@@ -200,12 +212,12 @@ function vnodeToString(vnode: Template): string {
                 value = '{...}';
             }
             if (isFunction(value)) {
-                return `${prop}="..."`;
+                return `${normalizedProp}="..."`;
             }
             if (value === true || value === '') {
-                return prop;
+                return normalizedProp;
             }
-            return `${prop}="${escapeHtml(`${value}`)}"`;
+            return `${normalizedProp}="${escapeHtml(`${value}`)}"`;
         })
         .filter(Boolean)
         .join(' ');
@@ -215,7 +227,11 @@ function vnodeToString(vnode: Template): string {
     }
 
     const tagBlock = inlineElements.includes(tag) ? '' : '\n';
-    const childrenBlock = [...inlineElements, ...simpleBlockElements].includes(tag) ? '' : '\n';
+    const childrenBlock = [...inlineElements, ...simpleBlockElements].includes(
+        tag
+    )
+        ? ''
+        : '\n';
     if (voidElements.includes(tag)) {
         return `${tagBlock}<${tag}${attrs ? ` ${attrs}` : ''} />${tagBlock}`;
     }
@@ -226,16 +242,20 @@ function vnodeToString(vnode: Template): string {
     const prefix = ''.padStart(4, ' ');
     const childContents = children
         .reduce((acc: (Template | string)[], child) => {
+            let convertedChild = child;
             if (typeof child !== 'object') {
-                child = vnodeToString(child);
+                convertedChild = vnodeToString(child);
             } else if (child instanceof Node) {
-                child = vnodeToString(child);
+                convertedChild = vnodeToString(child);
             }
 
-            if (typeof child === 'string' && typeof acc[acc.length - 1] === 'string') {
-                acc[acc.length - 1] += child;
+            if (
+                typeof convertedChild === 'string' &&
+                typeof acc[acc.length - 1] === 'string'
+            ) {
+                acc[acc.length - 1] += convertedChild;
             } else {
-                acc.push(child);
+                acc.push(convertedChild);
             }
 
             return acc;
@@ -266,9 +286,9 @@ export function sourceDecorator(
         channel.emit(SNIPPET_RENDERED, context.id, source);
     });
 
-    const storySource = (context.parameters.storySource = context.parameters.storySource || {});
-    const currentSource = storySource.source;
-    storySource.source = source;
+    context.parameters.storySource = context.parameters.storySource || {};
+    const currentSource = context.parameters.storySource.source;
+    context.parameters.storySource.source = source;
 
     if (currentSource !== source) {
         channel.emit(STORY_PREPARED, {

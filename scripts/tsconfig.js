@@ -24,7 +24,13 @@ Project.find(config, ROOT).then(async ({ project }) => {
         },
     });
 
-    await writeFile(tsconfig, await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'json' }));
+    await writeFile(
+        tsconfig,
+        await prettier.format(applyEdits(content, edits), {
+            ...formatConfig,
+            parser: 'json',
+        })
+    );
 
     await Promise.all(
         packages.map(async (pkg) => {
@@ -41,7 +47,9 @@ Project.find(config, ROOT).then(async ({ project }) => {
                     .concat(Array.from(devDependencies.values()))
                     .map((dep) =>
                         packages.find(
-                            ({ manifest }) => manifest.name.scope === dep.scope && manifest.name.name === dep.name
+                            ({ manifest }) =>
+                                manifest.name.scope === dep.scope &&
+                                manifest.name.name === dep.name
                         )
                     )
                     .filter((pkg) => !!pkg)
@@ -59,10 +67,12 @@ Project.find(config, ROOT).then(async ({ project }) => {
 
                 await writeFile(
                     tsconfig,
-                    await prettier.format(applyEdits(content, edits), { ...formatConfig, parser: 'json' })
+                    await prettier.format(applyEdits(content, edits), {
+                        ...formatConfig,
+                        parser: 'json',
+                    })
                 );
             } catch (err) {
-                // eslint-disable-next-line
                 console.error(err, pkg.location, content);
             }
         })
