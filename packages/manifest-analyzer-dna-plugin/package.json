@@ -39,7 +39,7 @@
     "comment-parser": "^1.4.1"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.9.0",
+    "@custom-elements-manifest/analyzer": "^0.10.0",
     "custom-elements-manifest": "^2.0.0",
     "typescript": "^5.0.0"
   }
