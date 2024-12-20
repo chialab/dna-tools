@@ -1,5 +1,11 @@
 # @chialab/vite-plugin-hmr-dna
 
+## 4.1.0
+
+### Minor Changes
+
+- 0b86d80: Update `vite` constraint.
+
 ## 4.0.0
 
 ### Major Changes
