@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 8.1.1
+
+### Patch Changes
+
+- 3e2e94f: Update custom elements manifest analyzer version.
+
 ## 8.1.0
 
 ### Minor Changes

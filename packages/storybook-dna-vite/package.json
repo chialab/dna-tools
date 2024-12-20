@@ -1,6 +1,6 @@
 {
   "name": "@chialab/storybook-dna-vite",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Storybook for DNA and Vite.",
   "type": "module",
   "keywords": [
