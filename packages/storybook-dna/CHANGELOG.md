@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.8
+
+### Patch Changes
+
+- 162333c: Fix `Fragment` in source decorator.
+
 ## 8.0.7
 
 ### Patch Changes
