@@ -1,4 +1,5 @@
 import {
+    Fragment,
     type Template,
     type VObject,
     getProperties,
@@ -148,7 +149,7 @@ function vnodeToString(vnode: Template): string {
             : [hyperObject.children]
         : [];
 
-    if (typeof hyperObject.type === 'symbol') {
+    if (hyperObject.type === Fragment) {
         return children.map(vnodeToString).join('\n');
     }
 
