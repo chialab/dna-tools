@@ -1,5 +1,11 @@
 # @chialab/wds-plugin-hmr-dna
 
+## 4.0.1
+
+### Patch Changes
+
+- 487859c: Update magic string
+
 ## 4.0.0
 
 ### Major Changes
