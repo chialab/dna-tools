@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.0.9
+
+### Patch Changes
+
+- 7461316: Exclude `style` elements from source decorator.
+
 ## 8.0.8
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @chialab/storybook-dna-vite
 
+## 8.1.2
+
+### Patch Changes
+
+- 8530775: Fix package type.
+- 487859c: Update magic string
+- 0b616fe: Update dependencies
+- Updated dependencies [7461316]
+- Updated dependencies [487859c]
+  - @chialab/storybook-dna@8.0.9
+  - @chialab/vite-plugin-hmr-dna@4.1.1
+
 ## 8.1.1
 
 ### Patch Changes
