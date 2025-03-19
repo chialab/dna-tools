@@ -158,6 +158,10 @@ function vnodeToString(vnode: Template): string {
         (hyperObject.type instanceof Element && hyperObject.type.tagName) ||
         '#unknown';
 
+    if (tag === 'style') {
+        return '';
+    }
+
     const properties = { ...hyperObject.properties };
     const ctr = customElements.get(properties.is || tag);
     const definedProperties =
