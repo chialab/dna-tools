@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 8.1.0
+
+### Minor Changes
+
+- 8f0e5df: Prepare for Storybook 9.
+
 ## 8.0.9
 
 ### Patch Changes
