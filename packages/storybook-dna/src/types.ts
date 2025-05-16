@@ -2,9 +2,9 @@ import type { Template } from '@chialab/dna';
 import type {
     StoryContext as StoryContextBase,
     WebRenderer,
-} from '@storybook/types';
+} from 'storybook/internal/types';
 
-export type { RenderContext } from '@storybook/types';
+export type { RenderContext } from 'storybook/internal/types';
 
 export type StoryFnDnaReturnType = Template;
 

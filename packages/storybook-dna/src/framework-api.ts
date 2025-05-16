@@ -1,9 +1,9 @@
-import { logger } from '@storybook/client-logger';
 import type {
     CustomElement,
     Package,
     PropertyLike,
 } from 'custom-elements-manifest';
+import { logger } from 'storybook/internal/client-logger';
 import { dedent } from 'ts-dedent';
 
 export function getCustomElementsManifest() {

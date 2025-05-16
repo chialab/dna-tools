@@ -5,11 +5,11 @@ import {
     getProperties,
     isComponentConstructor,
 } from '@chialab/dna';
-import { logger } from '@storybook/client-logger';
-import { STORY_PREPARED } from '@storybook/core-events';
-import { SNIPPET_RENDERED } from '@storybook/docs-tools';
-import { addons, useEffect } from '@storybook/preview-api';
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import { logger } from 'storybook/internal/client-logger';
+import { STORY_PREPARED } from 'storybook/internal/core-events';
+import { SNIPPET_RENDERED } from 'storybook/internal/docs-tools';
+import { addons, useEffect } from 'storybook/internal/preview-api';
+import type { PartialStoryFn, StoryContext } from 'storybook/internal/types';
 import type { DnaRenderer } from '../types';
 
 function isObject(value: unknown): value is object {

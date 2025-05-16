@@ -2,7 +2,7 @@ import type {
     BuilderOptions,
     StorybookConfigVite,
 } from '@storybook/builder-vite';
-import type { StorybookConfig as StorybookConfigBase } from '@storybook/types';
+import type { StorybookConfig as StorybookConfigBase } from 'storybook/internal/types';
 
 type FrameworkName = '@chialab/storybook-dna-vite';
 type BuilderName = '@storybook/builder-vite';

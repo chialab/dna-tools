@@ -1,7 +1,7 @@
 import { dnaPlugins } from '@chialab/manifest-analyzer-dna-plugin';
 import { hmrPlugin } from '@chialab/vite-plugin-hmr-dna';
-import type { PresetProperty } from '@storybook/types';
 import remarkGfm from 'remark-gfm';
+import type { PresetProperty } from 'storybook/internal/types';
 import customElementsManifestPlugin from './plugins/CustomElementsManifest';
 import type { StorybookConfig } from './types';
 

@@ -1,15 +1,15 @@
 import type {
-    PropDef,
-    PropDefaultValue,
-    PropType,
-} from '@storybook/docs-tools';
-import type {
     Attribute,
     ClassMember,
     CustomElement,
     Package,
     PropertyLike,
 } from 'custom-elements-manifest';
+import type {
+    PropDef,
+    PropDefaultValue,
+    PropType,
+} from 'storybook/internal/docs-tools';
 import {
     getCustomElementDeclaration,
     getCustomElementsManifest,

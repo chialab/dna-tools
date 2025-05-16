@@ -2,8 +2,8 @@ import { type HTMLTagNameMap, render as dnaRender, h } from '@chialab/dna';
 import {
     simulateDOMContentLoaded,
     simulatePageLoad,
-} from '@storybook/preview-api';
-import type { ArgsStoryFn, RenderContext } from '@storybook/types';
+} from 'storybook/internal/preview-api';
+import type { ArgsStoryFn, RenderContext } from 'storybook/internal/types';
 import { dedent } from 'ts-dedent';
 import type { DnaRenderer } from './types';
 
