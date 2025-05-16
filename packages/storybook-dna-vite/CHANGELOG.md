@@ -1,5 +1,16 @@
 # @chialab/storybook-dna-vite
 
+## 8.2.0
+
+### Minor Changes
+
+- 8f0e5df: Prepare for Storybook 9.
+
+### Patch Changes
+
+- Updated dependencies [8f0e5df]
+  - @chialab/storybook-dna@8.1.0
+
 ## 8.1.2
 
 ### Patch Changes
