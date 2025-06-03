@@ -1,6 +1,6 @@
 {
   "name": "@chialab/storybook-dna",
-  "version": "8.1.0",
+  "version": "9.0.0",
   "description": "The library used to render Storybook stories with DNA.",
   "keywords": [
     "storybook"
