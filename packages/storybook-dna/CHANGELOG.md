@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 9.0.0
+
+### Major Changes
+
+- 9ebe839: Add support for Storybook 9.
+
 ## 8.1.0
 
 ### Minor Changes
