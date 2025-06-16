@@ -1,5 +1,3 @@
-import { global } from '@storybook/global';
-
-const { window: globalWindow } = global;
-
-globalWindow.STORYBOOK_ENV = 'dna';
+if (typeof window !== 'undefined') {
+    window.STORYBOOK_ENV = 'dna';
+}
