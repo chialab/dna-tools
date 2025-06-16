@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 9.0.2
+
+### Patch Changes
+
+- 9b6b211: Remove deprecated packages from `optimizeDeps`.
+
 ## 9.0.1
 
 ### Patch Changes
