@@ -9,6 +9,7 @@ import type {
     StoryAnnotations,
     StrictArgs,
 } from 'storybook/internal/types';
+
 import type { DnaRenderer } from './types';
 
 export type {
@@ -22,21 +23,21 @@ export type { DnaRenderer };
 /**
  * Metadata to configure the stories for a component.
  *
- * @see [Default export](https://storybook.js.org/docs/formats/component-story-format/#default-export)
+ * @see [Default export](https://storybook.js.org/docs/api/csf#default-export)
  */
 export type Meta<TArgs = Args> = ComponentAnnotations<DnaRenderer, TArgs>;
 
 /**
  * Story function that represents a CSFv2 component example.
  *
- * @see [Named Story exports](https://storybook.js.org/docs/formats/component-story-format/#named-story-exports)
+ * @see [Named Story exports](https://storybook.js.org/docs/api/csf#named-story-exports)
  */
 export type StoryFn<TArgs = Args> = AnnotatedStoryFn<DnaRenderer, TArgs>;
 
 /**
  * Story object that represents a CSFv3 component example.
  *
- * @see [Named Story exports](https://storybook.js.org/docs/formats/component-story-format/#named-story-exports)
+ * @see [Named Story exports](https://storybook.js.org/docs/api/csf#named-story-exports)
  */
 export type StoryObj<TArgs = Args> = StoryAnnotations<DnaRenderer, TArgs>;
 
