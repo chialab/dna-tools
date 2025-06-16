@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 9.0.1
+
+### Patch Changes
+
+- fcc787b: Add portable stories.
+
 ## 9.0.0
 
 ### Major Changes
