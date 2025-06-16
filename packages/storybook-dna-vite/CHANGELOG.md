@@ -1,5 +1,13 @@
 # @chialab/storybook-dna-vite
 
+## 9.0.1
+
+### Patch Changes
+
+- fcc787b: Add portable stories.
+- Updated dependencies [fcc787b]
+  - @chialab/storybook-dna@9.0.1
+
 ## 9.0.0
 
 ### Major Changes
