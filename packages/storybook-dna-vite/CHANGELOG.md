@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 9.0.3
+
+### Patch Changes
+
+- f2e59a0: Change vite constraint to include 7.x
+
 ## 9.0.2
 
 ### Patch Changes
