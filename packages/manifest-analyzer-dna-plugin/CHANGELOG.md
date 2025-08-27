@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.3.0
+
+### Minor Changes
+
+- aa83d3a: Add support for `@fires` decorator.
+
 ## 3.2.0
 
 ### Minor Changes
