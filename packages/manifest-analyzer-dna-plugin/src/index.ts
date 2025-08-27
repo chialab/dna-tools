@@ -1,4 +1,5 @@
 import { customElementDecorator } from './customElementDecorator';
+import { firesDecorator } from './firesDecorator';
 import { iconJSDocTags } from './iconJSDocTags';
 import { inheritance } from './inheritance';
 import { localeJSDocTags } from './localeJSDocTags';
@@ -15,5 +16,6 @@ export const dnaPlugins = () => [
     memberDenyList(),
     propertyDecorator(),
     staticProperties(),
+    firesDecorator(),
     inheritance(),
 ];

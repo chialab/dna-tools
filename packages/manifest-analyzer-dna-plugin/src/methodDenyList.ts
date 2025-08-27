@@ -8,13 +8,26 @@ import type { ClassDeclaration } from 'custom-elements-manifest/schema';
 export function methodDenyList(): Plugin {
     const METHOD_DENY_LIST = [
         'initialize',
+        'assign',
         'forceUpdate',
         'connectedCallback',
         'disconnectedCallback',
         'attributeChangedCallback',
         'stateChangedCallback',
         'propertyChangedCallback',
+        'updatedCallback',
+        'childListChangedCallback',
+        'requestUpdate',
+        'shouldUpdate',
+        'observe',
+        'unobserve',
         'render',
+        'collectUpdatesStart',
+        'collectUpdatesEnd',
+        'dispatchEvent',
+        'dispatchAsyncEvent',
+        'delegateEventListener',
+        'undelegateEventListener',
     ];
 
     return {
