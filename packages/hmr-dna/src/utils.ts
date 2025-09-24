@@ -38,6 +38,18 @@ export function overridePrototype(
             super(...args);
         }
     };
+    // Move Symbol.metadata to the new constructor.
+    if (
+        Symbol.metadata &&
+        Object.prototype.hasOwnProperty.call(sourceClass, Symbol.metadata)
+    ) {
+        Object.defineProperty(Ctr, Symbol.metadata, {
+            writable: false,
+            configurable: true,
+            value: sourceClass[Symbol.metadata],
+        });
+        sourceClass[Symbol.metadata] = null;
+    }
     Object.setPrototypeOf(sourceClass, Ctr);
     Object.setPrototypeOf(sourceClass.prototype, Ctr.prototype);
     Object.setPrototypeOf(targetClass, sourceClass);
