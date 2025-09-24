@@ -1,5 +1,11 @@
 # @chialab/hmr-dna
 
+## 4.0.1
+
+### Patch Changes
+
+- ba091fd: Move `Symbol.metadata` to the proxy constructor.
+
 ## 4.0.0
 
 ### Major Changes
