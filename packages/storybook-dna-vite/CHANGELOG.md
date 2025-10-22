@@ -1,5 +1,16 @@
 # @chialab/storybook-dna-vite
 
+## 10.0.0
+
+### Major Changes
+
+- 06c9bc9: Add support for Storybook 10
+
+### Patch Changes
+
+- Updated dependencies [06c9bc9]
+  - @chialab/storybook-dna@10.0.0
+
 ## 9.0.3
 
 ### Patch Changes
