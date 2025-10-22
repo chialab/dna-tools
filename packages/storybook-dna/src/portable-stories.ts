@@ -30,13 +30,15 @@ import type { DnaRenderer } from './types';
  *
  * @param projectAnnotations - E.g. (import projectAnnotations from '../.storybook/preview')
  */
-export function setProjectAnnotations(
+export function setProjectAnnotations<
+    TRenderer extends DnaRenderer = DnaRenderer,
+>(
     projectAnnotations:
-        | NamedOrDefaultProjectAnnotations<any>
-        | NamedOrDefaultProjectAnnotations<any>[]
+        | NamedOrDefaultProjectAnnotations<TRenderer>
+        | NamedOrDefaultProjectAnnotations<TRenderer>[]
 ): NormalizedProjectAnnotations<DnaRenderer> {
     setDefaultProjectAnnotations(dnaAnnotations);
     return originalSetProjectAnnotations(
         projectAnnotations
-    ) as NormalizedProjectAnnotations<DnaRenderer>;
+    ) as unknown as NormalizedProjectAnnotations<DnaRenderer>;
 }

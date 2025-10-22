@@ -46,18 +46,18 @@
     "@chialab/vite-plugin-hmr-dna": "^4.1.1",
     "@custom-elements-manifest/analyzer": "^0.10.0",
     "@rollup/pluginutils": "^5.0.2",
-    "@storybook/builder-vite": "^9.0.0",
+    "@storybook/builder-vite": "^10.0.0-rc.0",
     "magic-string": "^0.30.0",
     "remark-gfm": "^4.0.0",
     "ts-dedent": "^2.0.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "storybook": "^9.0.0",
+    "storybook": "^10.0.0-rc.0",
     "vite": "^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "devDependencies": {
-    "storybook": "^9.0.0",
+    "storybook": "^10.0.0-rc.0",
     "vite": "^7.0.0"
   },
   "engines": {
