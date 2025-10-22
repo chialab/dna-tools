@@ -85,6 +85,10 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC
+      contents: write # Required to create the release
+      pull-requests: write # Required to create the release PR
     timeout-minutes: 10
     needs:
       - test
@@ -106,12 +110,15 @@ jobs:
       - name: Install project dependencies
         run: yarn install
 
+      - name: Update NPM to latest version
+        run: npm install -g npm@latest
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          version: yarn version
+          version: yarn run version
           publish: yarn changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: "" # Workaround to avoid Changeset attempting to authenticate with NPM using credentials other than OIDC
