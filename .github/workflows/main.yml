@@ -15,10 +15,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
 
@@ -34,10 +34,10 @@ jobs:
     needs: lint
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
 
@@ -48,7 +48,7 @@ jobs:
         run: yarn build
 
       - name: Upload build artifacts
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./packages
           key: ${{ runner.os }}-build-${{ github.sha }}
@@ -60,15 +60,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
 
       - name: Download build artifacts
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: ./packages
           key: ${{ runner.os }}-build-${{ github.sha }}
@@ -94,15 +94,15 @@ jobs:
       - test
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
 
       - name: Download build artifacts
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: ./packages
           key: ${{ runner.os }}-build-${{ github.sha }}
