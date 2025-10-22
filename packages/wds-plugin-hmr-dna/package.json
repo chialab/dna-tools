@@ -1,6 +1,6 @@
 {
   "name": "@chialab/wds-plugin-hmr-dna",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Hot module replacement for DNA components and Web Dev Server.",
   "keywords": [
     "wds",

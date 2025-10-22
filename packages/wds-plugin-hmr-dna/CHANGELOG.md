@@ -1,5 +1,11 @@
 # @chialab/wds-plugin-hmr-dna
 
+## 5.0.0
+
+### Major Changes
+
+- efbfa52: Update wds hmr module.
+
 ## 4.0.1
 
 ### Patch Changes
