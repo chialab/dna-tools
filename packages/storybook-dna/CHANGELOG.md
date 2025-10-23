@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.0
+
+### Minor Changes
+
+- a9a9ceb: Add support for portable stories.
+
 ## 10.0.0
 
 ### Major Changes
