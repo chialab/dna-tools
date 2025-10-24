@@ -113,3 +113,37 @@ export function composeStories<
         keyof Store_CSFExports
     >;
 }
+
+/**
+ * Prepares and renders a story into a given root element.
+ *
+ * This is useful for testing or embedding stories outside of Storybook.
+ *
+ * @param story
+ * @param rootElement - The root element where to render the story.
+ * @param args - Optional args to pass to the story.
+ * @param componentAnnotations - E.g. (import Meta from './Button.stories')
+ * @param [projectAnnotations] - E.g. (import * as projectAnnotations from '../.storybook/preview')
+ *   this can be applied automatically if you use `setProjectAnnotations` in your setup files.
+ * @param [exportsName] - In case your story does not contain a name and you want it to have a name.
+ */
+export async function renderStory<TArgs extends Args = Args>(
+    story: StoryAnnotationsOrFn<DnaRenderer, TArgs>,
+    rootElement: HTMLElement,
+    args?: Partial<TArgs>,
+    componentAnnotations?: Meta<TArgs | any>,
+    projectAnnotations?: ProjectAnnotations<DnaRenderer>,
+    exportsName?: string
+) {
+    const composedStory = composeStory(
+        story,
+        componentAnnotations || {},
+        projectAnnotations,
+        exportsName
+    );
+
+    await composedStory.run({
+        canvasElement: rootElement,
+        args,
+    });
+}
