@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.2
+
+### Patch Changes
+
+- 4f87164: Pass default arguments to `renderStory`.
+
 ## 10.1.1
 
 ### Patch Changes
