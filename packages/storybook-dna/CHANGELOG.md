@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.1
+
+### Patch Changes
+
+- b485947: Expose a `renderStory` utility method for portable stories.
+
 ## 10.1.0
 
 ### Minor Changes
