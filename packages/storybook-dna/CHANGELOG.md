@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.3
+
+### Patch Changes
+
+- bcd61ee: Add `display: contents` to wrapper div.
+
 ## 10.1.2
 
 ### Patch Changes
