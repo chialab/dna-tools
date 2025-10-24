@@ -1,4 +1,9 @@
-import { type HTMLTagNameMap, render as dnaRender, h } from '@chialab/dna';
+import {
+    $parse,
+    type HTMLTagNameMap,
+    render as dnaRender,
+    h,
+} from '@chialab/dna';
 import {
     simulateDOMContentLoaded,
     simulatePageLoad,
@@ -38,8 +43,14 @@ export function renderToCanvas(
     showMain();
 
     try {
+        const containerAttrs = {
+            key: name,
+            style: { display: 'contents' },
+            'data-story-name': name,
+        };
         if (typeof element === 'string') {
             canvasElement.innerHTML = element;
+            dnaRender(h('div', containerAttrs, $parse(element)), canvasElement);
             customElements.upgrade(canvasElement);
             simulatePageLoad(canvasElement);
         } else if (element instanceof Node) {
@@ -49,10 +60,10 @@ export function renderToCanvas(
             }
 
             canvasElement.innerHTML = '';
-            canvasElement.appendChild(element);
+            dnaRender(h('div', containerAttrs, element), canvasElement);
             simulateDOMContentLoaded();
         } else {
-            dnaRender(h('div', { key: name }, element), canvasElement);
+            dnaRender(h('div', containerAttrs, element), canvasElement);
             simulatePageLoad(canvasElement);
         }
     } catch (err) {
