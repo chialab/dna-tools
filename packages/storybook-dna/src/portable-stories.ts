@@ -144,6 +144,9 @@ export async function renderStory<TArgs extends Args = Args>(
 
     await composedStory.run({
         canvasElement: rootElement,
-        args,
+        args: {
+            ...(composedStory.args || {}),
+            ...(args || {}),
+        },
     });
 }
