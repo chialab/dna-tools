@@ -21,6 +21,10 @@ export const viteFinal: StorybookConfig['viteFinal'] = async (config) => {
 
     return mergeConfig(config, {
         optimizeDeps: {
+            include: [
+                '@chialab/dna/jsx-runtime',
+                '@chialab/dna/jsx-dev-runtime',
+            ],
             exclude: ['@chialab/storybook-dna'],
         },
         plugins: [
