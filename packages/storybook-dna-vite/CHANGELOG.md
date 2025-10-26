@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 10.0.1
+
+### Patch Changes
+
+- 1f2f83b: Optimize DNA jsx runtimes.
+
 ## 10.0.0
 
 ### Major Changes
