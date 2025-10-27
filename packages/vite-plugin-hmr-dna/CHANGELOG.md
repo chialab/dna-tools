@@ -1,5 +1,11 @@
 # @chialab/vite-plugin-hmr-dna
 
+## 4.1.2
+
+### Patch Changes
+
+- 5fa1b2f: Add `@chialab/hmr-dna` to optimize deps.
+
 ## 4.1.1
 
 ### Patch Changes
