@@ -1,5 +1,5 @@
 import MagicString from 'magic-string';
-import type { Plugin } from 'vite';
+import { type Plugin, mergeConfig } from 'vite';
 
 /**
  * Check if module body contains DNA component definitions.
@@ -20,6 +20,14 @@ function containsComponent(body: string) {
 export function hmrPlugin(): Plugin {
     return {
         name: 'hmr-dna',
+
+        config(config) {
+            return mergeConfig(config, {
+                optimizeDeps: {
+                    include: ['@chialab/hmr-dna'],
+                },
+            });
+        },
 
         transform(body, id) {
             if (!containsComponent(body) || id.includes('/node_modules/')) {
