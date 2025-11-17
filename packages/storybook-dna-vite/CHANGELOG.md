@@ -1,5 +1,11 @@
 # @chialab/storybook-dna-vite
 
+## 10.0.2
+
+### Patch Changes
+
+- e88fa86: Support web components analyzer v0.11.0.
+
 ## 10.0.1
 
 ### Patch Changes
