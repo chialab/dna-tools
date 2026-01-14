@@ -1,5 +1,11 @@
 # @chialab/manifest-analyzer-dna-plugin
 
+## 3.3.1
+
+### Patch Changes
+
+- 5adeb06: Add `globalStyles` to member deny list.
+
 ## 3.3.0
 
 ### Minor Changes
