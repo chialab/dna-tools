@@ -6,7 +6,7 @@ import type { ClassDeclaration } from 'custom-elements-manifest/schema';
  * @returns An analyzer plugin.
  */
 export function memberDenyList(): Plugin {
-    const STATIC_MEMBER_DENY_LIST = ['properties', 'listeners'];
+    const STATIC_MEMBER_DENY_LIST = ['globalStyles', 'properties', 'listeners'];
 
     return {
         name: 'DNA-MEMBER-DENYLIST',
