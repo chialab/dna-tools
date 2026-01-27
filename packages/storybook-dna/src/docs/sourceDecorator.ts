@@ -287,13 +287,14 @@ export function sourceDecorator(
         }
     })();
 
-    useEffect(() => {
-        channel.emit(SNIPPET_RENDERED, context.id, source);
-    });
-
+    const currentSource =
+        context.parameters.source?.code ??
+        context.parameters.storySource?.source ??
+        '';
     context.parameters.storySource = context.parameters.storySource || {};
-    const currentSource = context.parameters.storySource.source;
     context.parameters.storySource.source = source;
+    context.parameters.source = context.parameters.source || {};
+    context.parameters.source.code = source;
 
     if (currentSource !== source) {
         channel.emit(STORY_PREPARED, {
@@ -302,6 +303,13 @@ export function sourceDecorator(
             args: context.args,
             initialArgs: context.initialArgs,
             parameters: context.parameters,
+        });
+        useEffect(() => {
+            channel.emit(SNIPPET_RENDERED, {
+                id: context.id,
+                args: context.args,
+                source,
+            });
         });
     }
 
