@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.5
+
+### Patch Changes
+
+- 5a32715: Use `emitTransformCode` in story source decorator.
+
 ## 10.1.4
 
 ### Patch Changes
