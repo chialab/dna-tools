@@ -6,9 +6,8 @@ import {
     isComponentConstructor,
 } from '@chialab/dna';
 import { logger } from 'storybook/internal/client-logger';
-import { STORY_PREPARED } from 'storybook/internal/core-events';
-import { SNIPPET_RENDERED } from 'storybook/internal/docs-tools';
-import { addons, useEffect } from 'storybook/internal/preview-api';
+import { SourceType } from 'storybook/internal/docs-tools';
+import { emitTransformCode, useEffect } from 'storybook/internal/preview-api';
 import type { PartialStoryFn, StoryContext } from 'storybook/internal/types';
 import type { DnaRenderer } from '../types';
 
@@ -272,11 +271,25 @@ function vnodeToString(vnode: Template): string {
     }${childContents.join('')}${childrenBlock}</${tag}>${tagBlock}`;
 }
 
+function shouldSkipSourceCodeGeneration(context: StoryContext): boolean {
+    const sourceParams = context?.parameters.docs?.source;
+    if (sourceParams?.type === SourceType.DYNAMIC) {
+        return false;
+    }
+
+    const isArgsStory = context?.parameters.__isArgsStory;
+
+    return (
+        !isArgsStory ||
+        sourceParams?.code ||
+        sourceParams?.type === SourceType.CODE
+    );
+}
+
 export function sourceDecorator(
     storyFn: PartialStoryFn<DnaRenderer>,
     context: StoryContext<DnaRenderer>
 ): DnaRenderer['storyResult'] {
-    const channel = addons.getChannel();
     const story = storyFn();
     const source = (() => {
         try {
@@ -287,31 +300,12 @@ export function sourceDecorator(
         }
     })();
 
-    const currentSource =
-        context.parameters.source?.code ??
-        context.parameters.storySource?.source ??
-        '';
-    context.parameters.storySource = context.parameters.storySource || {};
-    context.parameters.storySource.source = source;
-    context.parameters.source = context.parameters.source || {};
-    context.parameters.source.code = source;
-
-    if (currentSource !== source) {
-        channel.emit(STORY_PREPARED, {
-            id: context.id,
-            argTypes: context.argTypes,
-            args: context.args,
-            initialArgs: context.initialArgs,
-            parameters: context.parameters,
-        });
-        useEffect(() => {
-            channel.emit(SNIPPET_RENDERED, {
-                id: context.id,
-                args: context.args,
-                source,
-            });
-        });
-    }
+    useEffect(() => {
+        if (shouldSkipSourceCodeGeneration(context)) {
+            return;
+        }
+        emitTransformCode(source, context);
+    });
 
     return story;
 }
