@@ -1,5 +1,11 @@
 # @chialab/storybook-dna
 
+## 10.1.4
+
+### Patch Changes
+
+- 835b038: Fix story decorator to support Storybook 9 code panel.
+
 ## 10.1.3
 
 ### Patch Changes
